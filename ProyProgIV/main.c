@@ -6,7 +6,7 @@
  */
 #include <stdio.h>
 int main(int argc, char **argv) {
-	printf("Jon Ander no mola");
+	printf("Jon Ander mola a medias");
 	return 0;
 }
 
