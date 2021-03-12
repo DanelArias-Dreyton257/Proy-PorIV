@@ -5,8 +5,9 @@
  *      Author: danel and jon ander
  */
 #include <stdio.h>
+#include "menu.h"
 int main(int argc, char **argv) {
-	printf("Jon Ander mola a medias");
+	menuPrincipal();
 	return 0;
 }
 
