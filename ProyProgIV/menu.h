@@ -12,5 +12,7 @@ char getCharInput();
 int getIntInput();
 
 void menuPrincipal();
+void menuGestion();
+void printOpciones(char *ops[], int size);
 
 #endif /* MENU_H_ */
