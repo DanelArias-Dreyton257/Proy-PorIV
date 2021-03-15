@@ -9,6 +9,7 @@
 #define PREGUNTA_H_
 
 typedef struct {
+	char *cat;
 	char *preg;
 	char *op1;
 	char *op2;
@@ -18,5 +19,5 @@ typedef struct {
 
 } Pregunta;
 void printPregunta(Pregunta *p);
-
+Pregunta crearPregunta(char *list[]);
 #endif /* PREGUNTA_H_ */

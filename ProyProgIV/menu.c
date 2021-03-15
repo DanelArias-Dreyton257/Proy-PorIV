@@ -6,7 +6,7 @@
  */
 #include <stdio.h>
 #include "menu.h"
-
+#include "pregunta.h"
 char getCharInput() {
 	char chr;
 	scanf("%c", &chr);
@@ -63,7 +63,7 @@ void menuGestion() {
 	default:
 		return;
 	case 1:
-		printf("Elegiste Crear");
+		menuCrearPregunta();
 		break;
 	case 2:
 		printf("Elegiste Borrar");
@@ -81,6 +81,26 @@ void menuGestion() {
 		menuPrincipal();
 		break;
 	}
+}
+
+void menuCrearPregunta() {
+
+	char *pasos[] = { "Introduce codigo de categoria:", "Introduce la pregunta:",
+			"Introduce respuesta 1:", "Introduce respuesta 2:",
+			"Introduce respuesta 3:", "Introduce respuesta 4:",
+			"Introduce codigo de respuesta correcta (0-3):" };
+	char *lista[7];
+	for (int i = 0;  i < 7; i++) {
+		printf("\n%s\n",pasos[i]);
+		//char s = getCharInput();
+		lista[i]="StringPrueba"; //FIXME
+	}
+	Pregunta p=crearPregunta(lista);
+	//TODO
+	printPregunta(&p);
+
+
+
 }
 
 void printOpciones(char *ops[], int size) {
