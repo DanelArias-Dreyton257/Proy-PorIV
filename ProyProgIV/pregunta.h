@@ -9,14 +9,14 @@
 #define PREGUNTA_H_
 
 typedef struct {
-	char *pregunta[];
-	char *opcion1[];
-	char *opcion2[];
-	char *opcion3[];
-	char *opcion4[];
-	int *respuesta;
+	char *preg;
+	char *op1;
+	char *op2;
+	char *op3;
+	char *op4;
+	int res;
 
 } Pregunta;
-
+void printPregunta(Pregunta *p);
 
 #endif /* PREGUNTA_H_ */

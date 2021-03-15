@@ -6,9 +6,11 @@
  */
 #include <stdio.h>
 #include "menu.h"
+#include "pregunta.h"
 int main(int argc, char **argv) {
 	menuPrincipal();
 	return 0;
+
 }
 
 
