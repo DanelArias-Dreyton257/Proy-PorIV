@@ -8,6 +8,7 @@
 #include "menu.h"
 #include "pregunta.h"
 #include <stdlib.h>
+#include "ficheroTexto.h"
 
 #define NUM_C_STR 100
 
@@ -118,6 +119,38 @@ void menuCrearPregunta() {
 	//TODO
 	printPregunta(&p);
 
+}
+
+void menuBorrarPregunta() {
+
+	//Introduce codigo
+
+	//Ocurre la busqueda
+	Pregunta p = buscarPreguntaEnFichero("prueba");
+
+	//Imprimir la pregunta para confirmar
+
+}
+
+void menuModPregunta() {
+	//Introduce codigo
+
+	//Ocurre la busqueda
+	Pregunta p = buscarPreguntaEnFichero("prueba");
+
+	//Pedir al usuario la info para modificar (seguir el doc)
+
+	//Imprimir la pregunta para confirmar
+
+}
+
+void verPreguntas() {
+	//Imprime TODAS las preguntas
+	//TODOS
+}
+
+void volcarFicheroABD(){
+	//TODO
 }
 
 void printOpciones(char *ops[], int size) {

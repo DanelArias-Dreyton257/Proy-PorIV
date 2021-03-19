@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "pregunta.h"
 #include <stdlib.h>
+#include "ficheroTexto.h"
 
 char getCharInput();
 int getIntInput();
@@ -20,5 +21,9 @@ void menuGestion();
 void printOpciones(char *ops[], int size);
 int getLIntInput(int numDigs);
 char* getStringInput(int numChars);
+void menuModPregunta();
+void menuBorrarPregunta();
+void verPreguntas();
+void volcarFicheroABD();
 
 #endif /* MENU_H_ */
