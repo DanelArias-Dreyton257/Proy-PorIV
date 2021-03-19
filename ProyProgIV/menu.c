@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include "menu.h"
 #include "pregunta.h"
+#include <stdlib.h>
+
+#define NUM_C_STR 100
+
 char getCharInput() {
 	char chr;
 	scanf("%c", &chr);
@@ -16,6 +20,20 @@ int getIntInput() {
 	int i;
 	scanf("%i", &i);
 	return i;
+}
+int getLIntInput(int numDigs) {
+	int n;
+	char *str = malloc(sizeof(char) * (numDigs + 1));
+	fgets(str, numDigs, stdin);
+	sscanf(str, "%i", &n);
+	return n;
+}
+
+char* getStringInput(int numChars) {
+	char *str = malloc(sizeof(char) * (numChars + 1));
+	fgets(str, numChars, stdin);
+	sscanf(str, "%s", str);
+	return str;
 }
 
 void menuPrincipal() {
@@ -85,21 +103,20 @@ void menuGestion() {
 
 void menuCrearPregunta() {
 
-	char *pasos[] = { "Introduce codigo de categoria:", "Introduce la pregunta:",
-			"Introduce respuesta 1:", "Introduce respuesta 2:",
-			"Introduce respuesta 3:", "Introduce respuesta 4:",
+	char *pasos[] = { "Introduce codigo de categoria:",
+			"Introduce la pregunta:", "Introduce respuesta 1:",
+			"Introduce respuesta 2:", "Introduce respuesta 3:",
+			"Introduce respuesta 4:",
 			"Introduce codigo de respuesta correcta (0-3):" };
 	char *lista[7];
-	for (int i = 0;  i < 7; i++) {
-		printf("\n%s\n",pasos[i]);
+	for (int i = 0; i < 7; i++) {
+		printf("\n%s\n", pasos[i]);
 		//char s = getCharInput();
-		lista[i]="StringPrueba"; //FIXME
+		lista[i] = getStringInput(NUM_C_STR); //FIXME
 	}
-	Pregunta p=crearPregunta(lista);
+	Pregunta p = crearPregunta(lista);
 	//TODO
 	printPregunta(&p);
-
-
 
 }
 

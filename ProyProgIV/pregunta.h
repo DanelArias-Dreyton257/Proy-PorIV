@@ -8,16 +8,19 @@
 #ifndef PREGUNTA_H_
 #define PREGUNTA_H_
 
+#include <stdio.h>
+#include "pregunta.h"
+#include "string.h"
+#include <stdlib.h>
+
 typedef struct {
 	char *cat;
 	char *preg;
-	char *op1;
-	char *op2;
-	char *op3;
-	char *op4;
+	char** ops;
 	int res;
 
 } Pregunta;
 void printPregunta(Pregunta *p);
 Pregunta crearPregunta(char *list[]);
+void freeRespuestas(Pregunta *p);
 #endif /* PREGUNTA_H_ */
