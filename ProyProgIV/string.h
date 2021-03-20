@@ -2,7 +2,7 @@
  * string.h
  *
  *  Created on: 18 mar. 2021
- *      Author: danel
+ *      Author: danel y jon ander
  */
 
 #ifndef STRING_H_

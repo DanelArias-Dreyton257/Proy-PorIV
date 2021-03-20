@@ -7,10 +7,16 @@
 #include <stdio.h>
 #include "menu.h"
 #include "pregunta.h"
+
+/**
+ * Main function of the program
+ * No argument is received
+ */
 int main(int argc, char **argv) {
+	//Abre el menu principal
 	menuPrincipal();
+
 	return 0;
 
 }
-
 
