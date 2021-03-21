@@ -20,6 +20,7 @@
  * @return char leido por consola
  */
 char getCharInput() {
+	fflush(stdin);
 	char chr;
 	scanf("%c", &chr);
 	return chr;
@@ -32,6 +33,7 @@ char getCharInput() {
  * @return int leido por consola
  */
 int getIntInput() {
+	fflush(stdin);
 	int i;
 	scanf("%i", &i);
 	return i;
@@ -43,6 +45,7 @@ int getIntInput() {
  * @return entero leido por consola
  */
 int getLIntInput(int numDigs) {
+	fflush(stdin);
 	int n;
 	char *str = malloc(sizeof(char) * (numDigs + 1));
 	fgets(str, numDigs, stdin);
@@ -56,6 +59,7 @@ int getLIntInput(int numDigs) {
  * @return char* leido por consola
  */
 char* getStringInput(int numChars) {
+	fflush(stdin);
 	char *str = malloc(sizeof(char) * (numChars + 1));
 	fgets(str, numChars, stdin);
 	sscanf(str, "%s", str);
