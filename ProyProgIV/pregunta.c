@@ -46,8 +46,8 @@ Pregunta crearPregunta(char *list[]) {
 
 	p.ops = ops;
 
-	p.res = 2; //list[6];
-	//FIXME
+	p.res = atoi(list[6]);
+
 	return p;
 }
 /**
