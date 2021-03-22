@@ -62,7 +62,7 @@ char* getStringInput(int numChars) {
 	fflush(stdin);
 	char *str = malloc(sizeof(char) * (numChars + 1));
 	fgets(str, numChars, stdin);
-	sscanf(str, "%s", str);
+	sscanf(str, "%[^\n]", str); //Lee hasta que se encuentre un salto de linea
 	return str;
 }
 /**
