@@ -162,7 +162,7 @@ void menuCrearPregunta() {
 	char *lista[N_LISTA_PREG];
 
 	for (int i = 0; i < N_LISTA_PREG; i++) {
-
+		fflush(stdout);
 		printf("\n%s\n", pasos[i]);
 		//char s = getCharInput();
 		lista[i] = getStringInput(NUM_C_STR); //FIXME
