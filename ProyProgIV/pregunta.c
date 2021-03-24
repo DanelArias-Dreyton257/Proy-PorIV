@@ -61,3 +61,8 @@ void freeRespuestas(Pregunta *p) {
 	}
 	free(p->ops);
 }
+
+char* generarCodigo(Pregunta p){
+	//PROVISIONAL
+	return "CODPRUEBA";
+}

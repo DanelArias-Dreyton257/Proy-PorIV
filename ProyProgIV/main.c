@@ -14,6 +14,7 @@
  */
 int main(int argc, char **argv) {
 	//Abre el menu principal
+	insertarPregunta(buscarPreguntaEnFichero("CODPRUEBA"));
 	menuPrincipal();
 
 	return 0;

@@ -127,18 +127,23 @@ void menuGestion() {
 		return;
 	case 1: //Si el usuario elige "1" se abre el menu de creacion de preguntas
 		menuCrearPregunta();
+		menuGestion();
 		break;
 	case 2: //Si el usuario elige "2" se abre el menu de borrado de preguntas
 		menuBorrarPregunta();
+		menuGestion();
 		break;
 	case 3: //Si el usuario elige "3" se abre el menu de modificación de preguntas
 		menuModPregunta();
+		menuGestion();
 		break;
 	case 4: //Si el usuario elige "4" se visualizaran las preguntas
 		verPreguntas();
+		menuGestion();
 		break;
 	case 5: //Si el usuario elige "5" se volcaran los datos del fichero a la BD
 		volcarFicheroABD();
+		menuGestion();
 		break;
 	case 6: //Si el usuario elige "6" se retorna al menu principal
 		menuPrincipal();
@@ -168,9 +173,7 @@ void menuCrearPregunta() {
 		lista[i] = getStringInput(NUM_C_STR); //FIXME
 	}
 
-	Pregunta p = crearPregunta(lista);
-	//TODO guardar pregunta
-	printPregunta(&p);
+	insertarPregunta(crearPregunta(lista));
 
 }
 /**
@@ -180,20 +183,18 @@ void menuCrearPregunta() {
 void menuBorrarPregunta() {
 
 	//Introduce codigo
-	char *pasos =  "Introduce codigo de la pregunta:";
-	printf("\n%s\n", pasos);
+	char *mensaje = "Introduce codigo de la pregunta:";
+	printf("\n%s\n", mensaje);
 	char *codigo;
 	codigo = getStringInput(NUM_C_STR);
 	//Ocurre la busqueda
 	//for (int i = 0; i < ListaDePreguntas; ++i) {
 	//	if (ListaDePreguntas[1]=codigo) {
-			//free(ListaDePreguntas[i]);
+	//free(ListaDePreguntas[i]);
 	//		}
 	//}
+	borrarPregunta(codigo);
 	free(codigo);
-	free(pasos);
-	Pregunta p = buscarPreguntaEnFichero("prueba");
-
 	//Prov: Imprimir la pregunta para confirmar
 
 }
@@ -204,18 +205,18 @@ void menuBorrarPregunta() {
  */
 void menuModPregunta() {
 	//Ocurre la busqueda
-	char *pasos =  "Introduce codigo de la pregunta:";
-	printf("%s", pasos);
-	char *codigo;
-	char *codigo1;
-	codigo1 = getStringInput(NUM_C_STR);
-	Pregunta p = buscarPreguntaEnFichero(codigo1);
+	char *mensaje = "Introduce codigo de la pregunta:";
+	printf("%s", mensaje);
 
-	char *ops[] = { "Cambiar codigo", "Cambiar pregunta",
-				"Cambiar respuesta 1", "Cambiar respuesta 2",
-				"Cambiar respuesta 3", "Cambiar respuesta 4",
-				"Cambiar respuesta correcta"};
+	char *codigo = getStringInput(NUM_C_STR);
 
+	Pregunta p = buscarPreguntaEnFichero(codigo);
+
+	free(codigo);
+
+	char *ops[] = { "Cambiar codigo", "Cambiar pregunta", "Cambiar respuesta 1",
+			"Cambiar respuesta 2", "Cambiar respuesta 3", "Cambiar respuesta 4",
+			"Cambiar codigo respuesta correcta (0-3)" };
 
 	printOpciones(ops, 7);
 	char *msg = "\nIntroduce tu seleccion (1-7):\n";
@@ -223,55 +224,38 @@ void menuModPregunta() {
 	int s = getIntInput();
 
 	//Pedir al usuario la info para modificar (seguir el doc)
-		//Segun la eleccion del usuario cambia el procedimiento
-		switch (s) {
-		default: //Si el usuario introduce algo no valido
-			return;
-		case 1:
-			free(p.cat);
-			codigo = getStringInput(NUM_C_STR);
-			p.cat=codigo;
-			break;
-		case 2:
-			free(p.preg);
-			codigo = getStringInput(NUM_C_STR);
-			p.preg=codigo;
-
-
-			break;
-		case 3:
-			free(p.ops[0]);
-			codigo = getStringInput(NUM_C_STR);
-			p.ops[0]=codigo;
-			break;
-		case 4:
-			free(p.ops[1]);
-			codigo = getStringInput(NUM_C_STR);
-			p.ops[1]=codigo;
-			break;
-		case 5: //cambiara la respuesta 3
-			free(p.ops[2]);
-			codigo = getStringInput(NUM_C_STR);
-			p.ops[2]=codigo;
-			break;
-		case 6: //cambiara la respuesta 4
-			free(p.ops[3]);
-			codigo = getStringInput(NUM_C_STR);
-			p.ops[3]=codigo;
-			break;
-		case 7: //cambiara la respuesta correcta
-			free(p.res);
-			codigo = getStringInput(NUM_C_STR);
-			p.res=codigo;
-			break;
-		}
-
-
-
-
+	//Segun la eleccion del usuario cambia el procedimiento
+	switch (s) {
+	default: //Si el usuario introduce algo no valido
+		return;
+	case 1:
+		p.cat = getStringInput(NUM_C_STR);
+		break;
+	case 2:
+		p.preg = getStringInput(NUM_C_STR);
+		break;
+	case 3:
+		p.ops[0] = getStringInput(NUM_C_STR);
+		break;
+	case 4:
+		p.ops[1] = getStringInput(NUM_C_STR);
+		break;
+	case 5: //cambiara la respuesta 3
+		p.ops[2] = getStringInput(NUM_C_STR);
+		break;
+	case 6: //cambiara la respuesta 4
+		p.ops[3] = getStringInput(NUM_C_STR);
+		break;
+	case 7: //cambiara la respuesta correcta
+		p.res = getIntInput();
+		break;
+	}
 
 	//Prov: Imprimir la pregunta para confirmar
-		printPregunta(&p);
+	printPregunta(&p);
+
+	borrarPregunta(generarCodigo(p));
+	insertarPregunta(p);
 
 }
 /**
@@ -279,7 +263,7 @@ void menuModPregunta() {
  */
 void verPreguntas() {
 	//Imprime TODAS las preguntas
-	//TODO
+	printTodasPreguntas();
 }
 /**
  * Vuelca la informacion del fichero de texto a la base de datos

@@ -11,5 +11,8 @@
 #include "pregunta.h"
 
 Pregunta buscarPreguntaEnFichero(char *codigo);
+void insertarPregunta(Pregunta p);
+void borrarPregunta(char* codigo);
+void printTodasPreguntas();
 
 #endif /* FICHEROTEXTO_H_ */
