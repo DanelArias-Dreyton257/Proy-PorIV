@@ -237,6 +237,7 @@ void menuModPregunta() {
 			codigo = getStringInput(NUM_C_STR);
 			p.preg=codigo;
 
+
 			break;
 		case 3:
 			free(p.ops[0]);
