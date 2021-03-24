@@ -180,8 +180,18 @@ void menuCrearPregunta() {
 void menuBorrarPregunta() {
 
 	//Introduce codigo
-
+	char *pasos =  "Introduce codigo de la pregunta:";
+	printf("\n%s\n", pasos);
+	char *codigo;
+	codigo = getStringInput(NUM_C_STR);
 	//Ocurre la busqueda
+	//for (int i = 0; i < ListaDePreguntas; ++i) {
+	//	if (ListaDePreguntas[1]=codigo) {
+			//free(ListaDePreguntas[i]);
+	//		}
+	//}
+	free(codigo);
+	free(pasos);
 	Pregunta p = buscarPreguntaEnFichero("prueba");
 
 	//Prov: Imprimir la pregunta para confirmar
@@ -193,14 +203,74 @@ void menuBorrarPregunta() {
  * Tras buscarla va presentando al usaurio la informacion de la pregunta y como debe modificarla
  */
 void menuModPregunta() {
-	//Introduce codigo
-
 	//Ocurre la busqueda
-	Pregunta p = buscarPreguntaEnFichero("prueba");
+	char *pasos =  "Introduce codigo de la pregunta:";
+	printf("%s", pasos);
+	char *codigo;
+	char *codigo1;
+	codigo1 = getStringInput(NUM_C_STR);
+	Pregunta p = buscarPreguntaEnFichero(codigo1);
+
+	char *ops[] = { "Cambiar codigo", "Cambiar pregunta",
+				"Cambiar respuesta 1", "Cambiar respuesta 2",
+				"Cambiar respuesta 3", "Cambiar respuesta 4",
+				"Cambiar respuesta correcta"};
+
+
+	printOpciones(ops, 7);
+	char *msg = "\nIntroduce tu seleccion (1-7):\n";
+	printf("\n%s", msg);
+	int s = getIntInput();
 
 	//Pedir al usuario la info para modificar (seguir el doc)
+		//Segun la eleccion del usuario cambia el procedimiento
+		switch (s) {
+		default: //Si el usuario introduce algo no valido
+			return;
+		case 1:
+			free(p.cat);
+			codigo = getStringInput(NUM_C_STR);
+			p.cat=codigo;
+			break;
+		case 2:
+			free(p.preg);
+			codigo = getStringInput(NUM_C_STR);
+			p.preg=codigo;
+
+			break;
+		case 3:
+			free(p.ops[0]);
+			codigo = getStringInput(NUM_C_STR);
+			p.ops[0]=codigo;
+			break;
+		case 4:
+			free(p.ops[1]);
+			codigo = getStringInput(NUM_C_STR);
+			p.ops[1]=codigo;
+			break;
+		case 5: //cambiara la respuesta 3
+			free(p.ops[2]);
+			codigo = getStringInput(NUM_C_STR);
+			p.ops[2]=codigo;
+			break;
+		case 6: //cambiara la respuesta 4
+			free(p.ops[3]);
+			codigo = getStringInput(NUM_C_STR);
+			p.ops[3]=codigo;
+			break;
+		case 7: //cambiara la respuesta correcta
+			free(p.res);
+			codigo = getStringInput(NUM_C_STR);
+			p.res=codigo;
+			break;
+		}
+
+
+
+
 
 	//Prov: Imprimir la pregunta para confirmar
+		printPregunta(&p);
 
 }
 /**
