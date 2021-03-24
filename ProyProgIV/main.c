@@ -13,8 +13,14 @@
  * No argument is received
  */
 int main(int argc, char **argv) {
+
+	//Pruebas varias
+	//insertarPregunta(buscarPreguntaEnFichero("CODPRUEBA"));
+	//printf("%s",generarCodigo(buscarPreguntaEnFichero("")));
+
+
+
 	//Abre el menu principal
-	insertarPregunta(buscarPreguntaEnFichero("CODPRUEBA"));
 	menuPrincipal();
 
 	return 0;

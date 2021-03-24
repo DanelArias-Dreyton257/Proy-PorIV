@@ -61,8 +61,30 @@ void freeRespuestas(Pregunta *p) {
 	}
 	free(p->ops);
 }
-
+/**
+ * SIN PROBAR
+ */
 char* generarCodigo(Pregunta p){
-	//PROVISIONAL
-	return "CODPRUEBA";
+	int longCod = 11;
+	char *cod = malloc(sizeof(char)*(longCod+1));
+
+	cod[0] = p.cat[0];
+	cod[1] = p.cat[1];
+
+	cod[2] = p.preg[0];
+	cod[3] = p.preg[1];
+
+	cod[4] = p.preg[longitud(p.preg)-3];
+	cod[5] = p.preg[longitud(p.preg)-2];
+
+	cod[6] = (p.ops[0])[0];
+	cod[7] = (p.ops[1])[0];
+	cod[8] = (p.ops[2])[0];
+	cod[9] = (p.ops[3])[0];
+
+	cod[10] = p.res + '0';
+
+	cod[11] = '\0';
+
+	return cod;
 }
