@@ -187,7 +187,8 @@ void menuBorrarPregunta() {
 	char *codigo = getStringInput(NUM_C_STR);
 
 	//Imprime para asegurar
-	printPregunta(&buscarPregunta(codigo));
+	Pregunta p = buscarPreguntaEnFichero(codigo);
+	printPregunta(&p);
 
 	//Borra la pregunta
 	borrarPregunta(codigo);

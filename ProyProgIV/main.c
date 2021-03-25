@@ -18,7 +18,7 @@
 int main(int argc, char **argv) {
 
 	//Pruebas varias
-	//insertarPregunta(buscarPreguntaEnFichero("CODPRUEBA"));
+	insertarPregunta(buscarPreguntaEnFichero("CODPRUEBA"));
 	//printf("%s",generarCodigo(buscarPreguntaEnFichero("")));
 
 

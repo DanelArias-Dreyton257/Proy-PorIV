@@ -6,13 +6,12 @@
  */
 #include <stdio.h>
 #include "pregunta.h"
-#include "string.h"
+#include <string.h>
 #include <stdlib.h>
 /**
  * Saca por consola la informacion de la pregunta pasada como parametro
  *
- * CATEGORIA:
- * ¿Pregunta pregunta pregunta?:
+ * -"codigo"-¿Pregunta pregunta pregunta?:
  * 	opcion1
  * 	opcion2
  * 	opcion3
@@ -22,7 +21,7 @@
  * @param puntero a la pregunta a imprimir
  */
 void printPregunta(Pregunta *p) {
-	printf("%s:\n%s:\n\t %s,\n\t %s,\n\t %s,\n\t %s,\n %i->%s", p->cat, p->preg,
+	printf("- \"%s\" - %s:\n\t %s,\n\t %s,\n\t %s,\n\t %s,\n\t R:(%i)->%s", generarCodigo(*p), p->preg,
 			*(p->ops), *(p->ops + 1), *(p->ops + 2), *(p->ops + 3), p->res,
 			*(p->ops + p->res));
 }
@@ -41,7 +40,7 @@ Pregunta crearPregunta(char *list[]) {
 	char **ops = malloc(sizeof(char*) * N_OPCS);
 
 	for (int i = 0; i < N_OPCS; i++) {
-		*(ops + i) = clonar(list[2 + i]);
+		*(ops + i) = strdup(list[2 + i]);
 	}
 
 	p.ops = ops;
@@ -73,11 +72,11 @@ char* generarCodigo(Pregunta p){ //FIXME
 	cod[0] = p.cat[0];
 	cod[1] = p.cat[1];
 
-	cod[2] = p.preg[0];
-	cod[3] = p.preg[1];
+	cod[2] = p.preg[1];
+	cod[3] = p.preg[2];
 
-	cod[4] = p.preg[longitud(p.preg)-3];
-	cod[5] = p.preg[longitud(p.preg)-2];
+	cod[4] = p.preg[strlen(p.preg)-3];
+	cod[5] = p.preg[strlen(p.preg)-2];
 
 	cod[6] = (p.ops[0])[0];
 	cod[7] = (p.ops[1])[0];
