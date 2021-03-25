@@ -28,5 +28,6 @@ void printPregunta(Pregunta *p);
 Pregunta crearPregunta(char *list[]);
 void freeRespuestas(Pregunta *p);
 char* generarCodigo(Pregunta p);
+Pregunta generarPreguntaPrueba();
 
 #endif /* PREGUNTA_H_ */

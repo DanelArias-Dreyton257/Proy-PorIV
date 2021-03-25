@@ -21,9 +21,9 @@
  * @param puntero a la pregunta a imprimir
  */
 void printPregunta(Pregunta *p) {
-	printf("- \"%s\" - %s:\n\t %s,\n\t %s,\n\t %s,\n\t %s,\n\t R:(%i)->%s", generarCodigo(*p), p->preg,
-			*(p->ops), *(p->ops + 1), *(p->ops + 2), *(p->ops + 3), p->res,
-			*(p->ops + p->res));
+	printf("- \"%s\" - %s:\n\t %s,\n\t %s,\n\t %s,\n\t %s,\n\t R:(%i)->%s",
+			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
+			*(p->ops + 3), p->res, *(p->ops + p->res));
 }
 /**
  * Crea una pregunta segun la array de char* que recibe con la informacion de la pregunta
@@ -65,9 +65,9 @@ void freeRespuestas(Pregunta *p) {
  * @param p Pregunta de la cual se quiere sacar el codigo
  * @return char* con el codigo
  */
-char* generarCodigo(Pregunta p){ //FIXME
+char* generarCodigo(Pregunta p) { //FIXME
 	int longCod = 11;
-	char *cod = malloc(sizeof(char)*(longCod+1));
+	char *cod = malloc(sizeof(char) * (longCod + 1));
 
 	cod[0] = p.cat[0];
 	cod[1] = p.cat[1];
@@ -75,8 +75,8 @@ char* generarCodigo(Pregunta p){ //FIXME
 	cod[2] = p.preg[1];
 	cod[3] = p.preg[2];
 
-	cod[4] = p.preg[strlen(p.preg)-3];
-	cod[5] = p.preg[strlen(p.preg)-2];
+	cod[4] = p.preg[strlen(p.preg) - 3];
+	cod[5] = p.preg[strlen(p.preg) - 2];
 
 	cod[6] = (p.ops[0])[0];
 	cod[7] = (p.ops[1])[0];
@@ -88,4 +88,14 @@ char* generarCodigo(Pregunta p){ //FIXME
 	cod[11] = '\0';
 
 	return cod;
+}
+/**
+ * Genera una pregunta de prueba con datos de prueba
+ * @return pregunta de prueba
+ */
+Pregunta generarPreguntaPrueba() {
+	char *lista[] = { "PP", "¿Es esto una pregunta de prueba?", "Claro que si",
+			"Quien sabe", "Si y No, la pregunta de Schrodinger",
+			"Pero te queremos igual", "1" };
+	return crearPregunta(lista);
 }

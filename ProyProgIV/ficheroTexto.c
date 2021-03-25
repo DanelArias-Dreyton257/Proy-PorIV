@@ -8,6 +8,7 @@
 
 #define NUM_MAX_P 5
 
+//Array provisional para la preparacion de funciones
 Pregunta preguntas[NUM_MAX_P];
 int numPreguntas = 0;
 
@@ -19,13 +20,13 @@ int numPreguntas = 0;
  */
 Pregunta buscarPreguntaEnFichero(char *codigo) {
 	//TODO hacer la busqueda real
-	char *lista[] = { "PA", "¿Es esto una pregunta de prueba?", "Claro que si",
-			"Quien sabe", "Si y No, la pregunta de Schrodinger",
-			"Pero te queremos igual", "1" };
-	return crearPregunta(lista);
+	return generarPreguntaPrueba();
 }
 
-
+/**
+ * Inserta una pregunta en el fichero de texto
+ * @param pregunta a escribir
+ */
 void insertarPregunta(Pregunta p){
 	if (numPreguntas<NUM_MAX_P){
 
@@ -34,11 +35,16 @@ void insertarPregunta(Pregunta p){
 		numPreguntas++;
 	}
 }
-
+/**
+ * Borra una pregunta del fichero de texto
+ * @param codigo que representa a la pregunta a borrar
+ */
 void borrarPregunta(char* codigo){
 	//PROVISIONAL CAMBIAR MAS ADELANTE
 }
-
+/**
+ * Imprime todas las perguntas almacenadas, una detras de otra
+ */
 void printTodasPreguntas(){
 	for (int i= 0; i<numPreguntas;i++){
 		printPregunta(&preguntas[i]);
