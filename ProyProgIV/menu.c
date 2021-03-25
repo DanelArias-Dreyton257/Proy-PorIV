@@ -187,8 +187,8 @@ void menuBorrarPregunta() {
 	char *codigo = getStringInput(NUM_C_STR);
 
 	//Imprime para asegurar
-	Pregunta p = buscarPreguntaEnFichero(codigo);
-	printPregunta(&p);
+//	Pregunta p = buscarPreguntaEnFichero(codigo);
+//	printPregunta(&p);
 
 	//Borra la pregunta
 	borrarPregunta(codigo);
@@ -202,11 +202,13 @@ void menuBorrarPregunta() {
 void menuModPregunta() {
 	//Ocurre la busqueda
 	char *mensaje = "Introduce codigo de la pregunta:";
-	printf("%s", mensaje);
+	printf("%s\n", mensaje);
 
 	char *codigo = getStringInput(NUM_C_STR);
 
 	Pregunta p = buscarPreguntaEnFichero(codigo);
+	printPregunta(&p);
+	printf("\n");
 
 	free(codigo);
 
@@ -216,7 +218,7 @@ void menuModPregunta() {
 
 	printOpciones(ops, 7);
 	char *msg = "\nIntroduce tu seleccion (1-7):\n";
-	printf("\n%s", msg);
+	printf("\n%s\n", msg);
 	int s = getIntInput();
 
 	//Pedir al usuario la info para modificar (seguir el doc)
@@ -225,30 +227,37 @@ void menuModPregunta() {
 	default: //Si el usuario introduce algo no valido
 		return;
 	case 1: //cambiara la categoria
+		printf("Intoduce la nueva categoria:\n");
 		p.cat = getStringInput(NUM_C_STR);
 		break;
 	case 2: //cambiara la pregunta
+		printf("Intoduce la nueva pregunta:\n");
 		p.preg = getStringInput(NUM_C_STR);
 		break;
-	case 3: //cambiara la respuesta 2
+	case 3: //cambiara la respuesta 1
+		printf("Intoduce la nueva respuesta 1:\n");
 		p.ops[0] = getStringInput(NUM_C_STR);
 		break;
 	case 4: //cambiara la respuesta 2
+		printf("Intoduce la nueva respuesta 2:\n");
 		p.ops[1] = getStringInput(NUM_C_STR);
 		break;
 	case 5: //cambiara la respuesta 3
+		printf("Intoduce la nueva respuesta 3:\n");
 		p.ops[2] = getStringInput(NUM_C_STR);
 		break;
 	case 6: //cambiara la respuesta 4
+		printf("Intoduce la nueva respuesta 4:\n");
 		p.ops[3] = getStringInput(NUM_C_STR);
 		break;
 	case 7: //cambiara la respuesta correcta
+		printf("Intoduce la nueva respuesta correcta (0-3):\n");
 		p.res = getIntInput();
 		break;
 	}
 
-	//Prov: Imprimir la pregunta para confirmar
-	printPregunta(&p);
+//	//Prov: Imprimir la pregunta para confirmar
+//	printPregunta(&p);
 
 	borrarPregunta(generarCodigo(p));
 	insertarPregunta(p);

@@ -6,6 +6,7 @@
  */
 #include "pregunta.h"
 #include <stdio.h>
+#include "ficheroTexto.h"
 
 #define NUM_MAX_P 5
 #define NOMBRE_FIC "ficheroPreguntas.dat"
