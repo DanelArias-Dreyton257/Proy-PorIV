@@ -16,7 +16,7 @@
  * 	opcion2
  * 	opcion3
  * 	opcion4
- * numRes->opcionRes
+ *  R:(numRes)->opcionRes
  *
  * @param puntero a la pregunta a imprimir
  */
