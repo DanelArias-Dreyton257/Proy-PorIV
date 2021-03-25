@@ -111,7 +111,7 @@ void menuGestion() {
 	char *titulo = "\nMenu Gestion de Preguntas";
 	char *ops[] = { "Crear preguntas", "Borrar preguntas",
 			"Modificar Preguntas", "Ver preguntas creadas",
-			"Volcar fichero de texto a BD", "Volver" };
+			"Volcar fichero de texto a BD (No disponible)", "Volver" };
 	char *msg = "\nIntroduce tu seleccion (1-6):\n";
 
 	printf("%s", titulo);
@@ -169,8 +169,7 @@ void menuCrearPregunta() {
 	for (int i = 0; i < N_LISTA_PREG; i++) {
 		fflush(stdout);
 		printf("\n%s\n", pasos[i]);
-		//char s = getCharInput();
-		lista[i] = getStringInput(NUM_C_STR); //FIXME
+		lista[i] = getStringInput(NUM_C_STR);
 	}
 
 	insertarPregunta(crearPregunta(lista));
@@ -185,18 +184,14 @@ void menuBorrarPregunta() {
 	//Introduce codigo
 	char *mensaje = "Introduce codigo de la pregunta:";
 	printf("\n%s\n", mensaje);
-	char *codigo;
-	codigo = getStringInput(NUM_C_STR);
-	//Ocurre la busqueda
-	//for (int i = 0; i < ListaDePreguntas; ++i) {
-	//	if (ListaDePreguntas[1]=codigo) {
-	//free(ListaDePreguntas[i]);
-	//		}
-	//}
+	char *codigo = getStringInput(NUM_C_STR);
+
+	//Imprime para asegurar
+	printPregunta(&buscarPregunta(codigo));
+
+	//Borra la pregunta
 	borrarPregunta(codigo);
 	free(codigo);
-	//Prov: Imprimir la pregunta para confirmar
-
 }
 /**
  * Incia el menu de modificacion de preguntas
@@ -228,16 +223,16 @@ void menuModPregunta() {
 	switch (s) {
 	default: //Si el usuario introduce algo no valido
 		return;
-	case 1:
+	case 1: //cambiara la categoria
 		p.cat = getStringInput(NUM_C_STR);
 		break;
-	case 2:
+	case 2: //cambiara la pregunta
 		p.preg = getStringInput(NUM_C_STR);
 		break;
-	case 3:
+	case 3: //cambiara la respuesta 2
 		p.ops[0] = getStringInput(NUM_C_STR);
 		break;
-	case 4:
+	case 4: //cambiara la respuesta 2
 		p.ops[1] = getStringInput(NUM_C_STR);
 		break;
 	case 5: //cambiara la respuesta 3
@@ -269,6 +264,7 @@ void verPreguntas() {
  * Vuelca la informacion del fichero de texto a la base de datos
  */
 void volcarFicheroABD() {
+	printf("No disponible de momento");
 	//TODO
 }
 /**

@@ -62,9 +62,11 @@ void freeRespuestas(Pregunta *p) {
 	free(p->ops);
 }
 /**
- * SIN PROBAR
+ * Genera el char* con el codigo que representa la pregunta
+ * @param p Pregunta de la cual se quiere sacar el codigo
+ * @return char* con el codigo
  */
-char* generarCodigo(Pregunta p){
+char* generarCodigo(Pregunta p){ //FIXME
 	int longCod = 11;
 	char *cod = malloc(sizeof(char)*(longCod+1));
 
