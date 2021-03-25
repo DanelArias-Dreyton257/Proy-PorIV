@@ -24,15 +24,31 @@ FILE *fichero;
  */
 Pregunta buscarPreguntaEnFichero(char *codigo) {
 	//TODO hacer la busqueda real
-	return generarPreguntaPrueba();
+	int posEncontrado = buscarPosPregunta(codigo);
+	return preguntas[posEncontrado];
+}
+/**
+ * Busca la posicion de en la array de la pregunta segun el codigo pasado como parametro
+ * @param codigo de la pregunta
+ * @return posicion de la pregunta en la array, -1 si no encontrado
+ */
+int buscarPosPregunta(char *codigo) {
+	int posEncontrado = -1;
+	for (int i = 0; i < numPreguntas; i++) {
+		if (strcmp(generarCodigo(preguntas[i]), codigo) == 0) {
+			posEncontrado = i;
+			break;
+		}
+	}
+	return posEncontrado;
 }
 
 /**
  * Inserta una pregunta en el fichero de texto
  * @param pregunta a escribir
  */
-void insertarPregunta(Pregunta p){
-	if (numPreguntas<NUM_MAX_P){
+void insertarPregunta(Pregunta p) {
+	if (numPreguntas < NUM_MAX_P) {
 
 		preguntas[numPreguntas] = p;
 
@@ -43,14 +59,20 @@ void insertarPregunta(Pregunta p){
  * Borra una pregunta del fichero de texto
  * @param codigo que representa a la pregunta a borrar
  */
-void borrarPregunta(char* codigo){
-	//PROVISIONAL CAMBIAR MAS ADELANTE
+void borrarPregunta(char *codigo) {
+	//PROVISIONAL CAMBIAR MAS ADELANTE TODO
+	int posEncontrado = buscarPosPregunta(codigo);
+	//Eliminar y mover hacia la izquierda
+	for (int i = posEncontrado; i < numPreguntas - 1; i++) {
+		preguntas[i] = preguntas[i + 1];
+	}
+	numPreguntas--;
 }
 /**
  * Imprime todas las perguntas almacenadas, una detras de otra
  */
-void printTodasPreguntas(){
-	for (int i= 0; i<numPreguntas;i++){
+void printTodasPreguntas() {
+	for (int i = 0; i < numPreguntas; i++) {
 		printPregunta(&preguntas[i]);
 		printf("\n");
 	}
