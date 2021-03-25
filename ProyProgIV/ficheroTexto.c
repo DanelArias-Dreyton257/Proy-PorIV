@@ -5,12 +5,16 @@
  *      Author: danel and jon ander
  */
 #include "pregunta.h"
+#include <stdio.h>
 
 #define NUM_MAX_P 5
+#define NOMBRE_FIC "ficheroPreguntas.dat"
 
 //Array provisional para la preparacion de funciones
 Pregunta preguntas[NUM_MAX_P];
 int numPreguntas = 0;
+
+FILE *fichero;
 
 /**
  * Busca una pregunta concreta en el fichero de texto y la devuelve
@@ -48,6 +52,7 @@ void borrarPregunta(char* codigo){
 void printTodasPreguntas(){
 	for (int i= 0; i<numPreguntas;i++){
 		printPregunta(&preguntas[i]);
+		printf("\n");
 	}
 }
 

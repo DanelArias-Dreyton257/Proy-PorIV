@@ -9,6 +9,7 @@
 #define FICHEROTEXTO_H_
 
 #include "pregunta.h"
+#include <stdio.h>
 
 Pregunta buscarPreguntaEnFichero(char *codigo);
 void insertarPregunta(Pregunta p);

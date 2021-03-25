@@ -94,7 +94,7 @@ char* generarCodigo(Pregunta p) { //FIXME
  * @return pregunta de prueba
  */
 Pregunta generarPreguntaPrueba() {
-	char *lista[] = { "PP", "¿Es esto una pregunta de prueba?", "Claro que si",
+	char *lista[] = { "PB", "¿Es esto una pregunta de prueba?", "Claro que si",
 			"Quien sabe", "Si y No, la pregunta de Schrodinger",
 			"Pero te queremos igual", "1" };
 	return crearPregunta(lista);
