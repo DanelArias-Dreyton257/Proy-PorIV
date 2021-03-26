@@ -5,8 +5,8 @@
  *      Author: danel and jon ander
  */
 
-#ifndef FICHEROTEXTO_H_
-#define FICHEROTEXTO_H_
+#ifndef FICHEROPREGUNTAS_H_
+#define FICHEROPREGUNTAS_H_
 
 #include "pregunta.h"
 #include <stdio.h>
@@ -16,5 +16,7 @@ void insertarPregunta(Pregunta p);
 void borrarPregunta(char* codigo);
 void printTodasPreguntas();
 int buscarPosPregunta(char *codigo);
+void cargarPreguntas();
+void guardarPreguntas();
 
-#endif /* FICHEROTEXTO_H_ */
+#endif /* FICHEROPREGUNTAS_H_ */

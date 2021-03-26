@@ -4,18 +4,15 @@
  *  Created on: 8 mar. 2021
  *      Author: danel and jon ander
  */
+#include "ficheroPreguntas.h"
+
 #include "pregunta.h"
 #include <stdio.h>
-#include "ficheroTexto.h"
-
-#define NUM_MAX_P 5
-#define NOMBRE_FIC "ficheroPreguntas.dat"
 
 //Array provisional para la preparacion de funciones
-Pregunta preguntas[NUM_MAX_P];
+Pregunta *preguntas;
 int numPreguntas = 0;
-
-FILE *fichero;
+int numeroMax = 0;
 
 /**
  * Busca una pregunta concreta en el fichero de texto y la devuelve
@@ -49,11 +46,16 @@ int buscarPosPregunta(char *codigo) {
  * @param pregunta a escribir
  */
 void insertarPregunta(Pregunta p) {
-	if (numPreguntas < NUM_MAX_P) {
+	if (numPreguntas < numeroMax) {
 
 		preguntas[numPreguntas] = p;
 
 		numPreguntas++;
+	} else {
+		Pregunta *preguntasRealloc = realloc(preguntas,
+				sizeof(Pregunta) * (numeroMax + 10));
+		numeroMax += 10;
+		preguntas = preguntasRealloc;
 	}
 }
 /**
@@ -77,5 +79,30 @@ void printTodasPreguntas() {
 		printPregunta(&preguntas[i]);
 		printf("\n");
 	}
+}
+
+void cargarPreguntas() {
+
+	FILE *fr = fopen("ficheroPreguntas.dat", "rb");
+
+	fread(&numeroMax, sizeof(int), 1, fr);
+	numPreguntas = numeroMax - 1;
+
+	preguntas = malloc(sizeof(Pregunta) * numeroMax);
+
+	fread(preguntas, sizeof(Pregunta), numeroMax, fr);
+
+	fclose(fr);
+}
+
+void guardarPreguntas() {
+	FILE *fw = fopen("ficheroPreguntas.dat", "wb");
+
+	int numeroP = numPreguntas + 1;
+	fwrite(&numeroP, sizeof(int), 1, fw);
+
+	fwrite(preguntas, sizeof(Pregunta), numPreguntas, fw);
+
+	fclose(fw);
 }
 

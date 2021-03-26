@@ -11,7 +11,8 @@
 #include <stdio.h>
 #include "pregunta.h"
 #include <stdlib.h>
-#include "ficheroTexto.h"
+
+#include "ficheroPreguntas.h"
 
 char getCharInput();
 int getIntInput();

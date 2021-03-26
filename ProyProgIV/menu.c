@@ -8,7 +8,8 @@
 #include "menu.h"
 #include "pregunta.h"
 #include <stdlib.h>
-#include "ficheroTexto.h"
+
+#include "ficheroPreguntas.h"
 
 #define NUM_C_STR 100 //Numero de caracteres maximo para char*
 
@@ -201,12 +202,13 @@ void menuBorrarPregunta() {
  */
 void menuModPregunta() {
 	//Ocurre la busqueda
-	char *mensaje = "Introduce codigo de la pregunta:";
-	printf("%s\n", mensaje);
+	printf("Introduce codigo de la pregunta:\n");
 
 	char *codigo = getStringInput(NUM_C_STR);
 
-	Pregunta p = buscarPreguntaEnFichero(codigo);
+	Pregunta pAnt = buscarPreguntaEnFichero(codigo);
+	Pregunta p = pAnt;
+
 	printPregunta(&p);
 	printf("\n");
 
@@ -217,8 +219,7 @@ void menuModPregunta() {
 			"Cambiar codigo respuesta correcta (0-3)" };
 
 	printOpciones(ops, 7);
-	char *msg = "\nIntroduce tu seleccion (1-7):\n";
-	printf("\n%s\n", msg);
+	printf("\nIntroduce tu seleccion (1-7):\n");
 	int s = getIntInput();
 
 	//Pedir al usuario la info para modificar (seguir el doc)
@@ -259,7 +260,7 @@ void menuModPregunta() {
 //	//Prov: Imprimir la pregunta para confirmar
 //	printPregunta(&p);
 
-	borrarPregunta(generarCodigo(p));
+	borrarPregunta(generarCodigo(pAnt));
 	insertarPregunta(p);
 
 }
