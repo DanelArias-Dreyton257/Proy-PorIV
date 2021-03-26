@@ -8,6 +8,9 @@
 
 #include "pregunta.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+#define NOMBRE_FIC "ficheroPreguntas.dat"
 
 //Array provisional para la preparacion de funciones
 Pregunta *preguntas;
@@ -52,10 +55,13 @@ void insertarPregunta(Pregunta p) {
 
 		numPreguntas++;
 	} else {
-		Pregunta *preguntasRealloc = realloc(preguntas,
-				sizeof(Pregunta) * (numeroMax + 10));
 		numeroMax += 10;
+		Pregunta *preguntasRealloc = realloc(preguntas,
+				sizeof(Pregunta) * numeroMax);
+
 		preguntas = preguntasRealloc;
+
+		insertarPregunta(p);
 	}
 }
 /**
@@ -83,9 +89,10 @@ void printTodasPreguntas() {
 
 void cargarPreguntas() {
 
-	FILE *fr = fopen("ficheroPreguntas.dat", "rb");
+	FILE *fr = fopen(NOMBRE_FIC, "rb");
 
 	fread(&numeroMax, sizeof(int), 1, fr);
+
 	numPreguntas = numeroMax - 1;
 
 	preguntas = malloc(sizeof(Pregunta) * numeroMax);
@@ -96,10 +103,10 @@ void cargarPreguntas() {
 }
 
 void guardarPreguntas() {
-	FILE *fw = fopen("ficheroPreguntas.dat", "wb");
 
-	int numeroP = numPreguntas + 1;
-	fwrite(&numeroP, sizeof(int), 1, fw);
+	FILE *fw = fopen(NOMBRE_FIC, "wb");
+
+	fwrite(&numPreguntas, sizeof(int), 1, fw);
 
 	fwrite(preguntas, sizeof(Pregunta), numPreguntas, fw);
 

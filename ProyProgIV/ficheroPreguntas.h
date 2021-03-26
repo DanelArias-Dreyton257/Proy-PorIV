@@ -10,6 +10,7 @@
 
 #include "pregunta.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 Pregunta buscarPreguntaEnFichero(char *codigo);
 void insertarPregunta(Pregunta p);
