@@ -108,6 +108,79 @@ void cargarPreguntas() {
 		fscanf(fr, "%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\n]\n", cod, preg, ops1, ops2, ops3,
 				ops4, res);
 
+//Otra forma que al final no ha servido porque la otra es mas corta
+
+//		//Codigo
+//		char c = fgetc(fr);
+//		int i = 0;
+//		while (c != '\t') {
+//			cod[i] = c;
+//			i++;
+//			c = fgetc(fr);
+//		}
+//		c = fgetc(fr);
+//		cod[i] = '\0';
+//
+//		//Pregunta
+//		i = 0;
+//		while (c != '\t') {
+//			preg[i] = c;
+//			i++;
+//			c = fgetc(fr);
+//		}
+//		c = fgetc(fr);
+//		preg[i] = '\0';
+//
+//		//Resp 1
+//		i = 0;
+//		while (c != '\t') {
+//			ops1[i] = c;
+//			i++;
+//			c = fgetc(fr);
+//		}
+//		c = fgetc(fr);
+//		ops1[i] = '\0';
+//
+//		//Resp 2
+//		i = 0;
+//		while (c != '\t') {
+//			ops2[i] = c;
+//			i++;
+//			c = fgetc(fr);
+//		}
+//		c = fgetc(fr);
+//		ops2[i] = '\0';
+//
+//		//Resp 3
+//		i = 0;
+//		while (c != '\t') {
+//			ops3[i] = c;
+//			i++;
+//			c = fgetc(fr);
+//		}
+//		c = fgetc(fr);
+//		ops3[i] = '\0';
+//
+//		//Resp 4
+//		i = 0;
+//		while (c != '\t') {
+//			ops4[i] = c;
+//			i++;
+//			c = fgetc(fr);
+//		}
+//		c = fgetc(fr);
+//		ops4[i] = '\0';
+//
+//		//RespCorrecta
+//		i = 0;
+//		while (c != '\n') {
+//			res[i] = c;
+//			i++;
+//			c = fgetc(fr);
+//		}
+//		c = fgetc(fr);
+//		res[i] = '\0';
+
 		char *cat = malloc(sizeof(char) * (2 + 1));
 		cat[0] = cod[0];
 		cat[1] = cod[1];
@@ -118,13 +191,11 @@ void cargarPreguntas() {
 		insertarPregunta(crearPregunta(lista));
 
 		free(cod);
-		free(preg);
 		free(ops1);
 		free(ops2);
 		free(ops3);
 		free(ops4);
 		free(res);
-		free(cat);
 
 	}
 

@@ -18,13 +18,11 @@
  * https://trello.com/b/bC6F5mTA/study-with-honors
  */
 int main(int argc, char **argv) {
+
 //	cargarPreguntas();
-//
+
 	//Abre el menu principal
 	menuPrincipal();
-//
-
-//	printTodasPreguntas();
 
 //	guardarPreguntas();
 
