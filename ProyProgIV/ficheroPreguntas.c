@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define NOMBRE_FIC "ficheroPreguntas.dat"
+#define NOMBRE_FIC "ficheroPreguntas.txt"
 
 //Array provisional para la preparacion de funciones
 Pregunta *preguntas;
@@ -89,27 +89,68 @@ void printTodasPreguntas() {
 
 void cargarPreguntas() {
 
-	FILE *fr = fopen(NOMBRE_FIC, "rb");
+	FILE *fr = fopen(NOMBRE_FIC, "r");
 
-	fread(&numeroMax, sizeof(int), 1, fr);
+	fscanf(fr, "%i\n", &numeroMax);
 
-	numPreguntas = numeroMax - 1;
+	preguntas = malloc(sizeof(Pregunta)*numeroMax);
 
-	preguntas = malloc(sizeof(Pregunta) * numeroMax);
+	for (int i = 0; i < numeroMax; i++) {
+		char *cod = malloc(sizeof(char) * 15);
+		char *preg = malloc(sizeof(char) * 100);
+		char *ops1 = malloc(sizeof(char) * 100);
+		char *ops2 = malloc(sizeof(char) * 100);
+		char *ops3 = malloc(sizeof(char) * 100);
+		char *ops4 = malloc(sizeof(char) * 100);
+		char *res = malloc(sizeof(char));
 
-	fread(preguntas, sizeof(Pregunta), numeroMax, fr);
+		//SUPER FIXME
+		fscanf(fr, "%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\n]\n", cod, preg, ops1, ops2, ops3,
+				ops4, res);
+
+		char *cat = malloc(sizeof(char) * (2 + 1));
+		cat[0] = cod[0];
+		cat[1] = cod[1];
+		cat[2] = '\0';
+
+		char *lista[] = { cat, preg, ops1, ops2, ops3, ops4, res };
+
+		insertarPregunta(crearPregunta(lista));
+
+		free(cod);
+		free(preg);
+		free(ops1);
+		free(ops2);
+		free(ops3);
+		free(ops4);
+		free(res);
+		free(cat);
+
+	}
 
 	fclose(fr);
 }
 
 void guardarPreguntas() {
 
-	FILE *fw = fopen(NOMBRE_FIC, "wb");
+	FILE *fw = fopen(NOMBRE_FIC, "w");
 
-	fwrite(&numPreguntas, sizeof(int), 1, fw);
+	fprintf(fw, "%i\n", numPreguntas);
 
-	fwrite(preguntas, sizeof(Pregunta), numPreguntas, fw);
+	for (int i = 0; i < numPreguntas; i++) {
+		char *strPreg = preguntaParaFichero(preguntas[i]);
+		fprintf(fw, "%s\n", strPreg);
+		free(strPreg);
+	}
 
 	fclose(fw);
+}
+
+char* preguntaParaFichero(Pregunta p) {
+	int longStr = 600;
+	char *str = malloc(sizeof(char) * longStr);
+	sprintf(str, "%s\t%s\t%s\t%s\t%s\t%s\t%i", generarCodigo(p), p.preg,
+			p.ops[0], p.ops[1], p.ops[2], p.ops[3], p.res);
+	return str;
 }
 

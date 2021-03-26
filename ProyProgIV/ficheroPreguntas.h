@@ -19,5 +19,6 @@ void printTodasPreguntas();
 int buscarPosPregunta(char *codigo);
 void cargarPreguntas();
 void guardarPreguntas();
+char* preguntaParaFichero(Pregunta p);
 
 #endif /* FICHEROPREGUNTAS_H_ */

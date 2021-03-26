@@ -5,6 +5,7 @@
  *      Author: danel and jon ander
  */
 #include <stdio.h>
+#include <string.h>
 #include "menu.h"
 #include "pregunta.h"
 #include "ficheroPreguntas.h"
@@ -17,17 +18,16 @@
  * https://trello.com/b/bC6F5mTA/study-with-honors
  */
 int main(int argc, char **argv) {
-	//cargarPreguntas();
-	//Pruebas varias
-	for (int i = 0; i<25; i++) {
-		insertarPregunta(generarPreguntaPrueba());
-	}
-	//printf("%s",generarCodigo(buscarPreguntaEnFichero("")));
-
+//	cargarPreguntas();
+//
 	//Abre el menu principal
 	menuPrincipal();
+//
 
-	//guardarPreguntas();
+//	printTodasPreguntas();
+
+//	guardarPreguntas();
+
 	return 0;
 
 }
