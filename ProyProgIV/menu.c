@@ -8,10 +8,7 @@
 #include "menu.h"
 #include "pregunta.h"
 #include <stdlib.h>
-
 #include "ficheroPreguntas.h"
-
-#define NUM_C_STR 100 //Numero de caracteres maximo para char*
 
 /**
  * Permite leer el input del usuario devolviendo el char introducido

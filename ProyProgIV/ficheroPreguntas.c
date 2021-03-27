@@ -12,8 +12,9 @@
 
 #define NOMBRE_FIC "ficheroPreguntas.txt"
 
-//Array provisional para la preparacion de funciones
+//Array de almacenamiento
 Pregunta *preguntas;
+
 int numPreguntas = 0;
 int numeroMax = 0;
 
@@ -24,7 +25,7 @@ int numeroMax = 0;
  * @return pregunta leida de fichero correpondiete a ese codigo
  */
 Pregunta buscarPreguntaEnFichero(char *codigo) {
-	//TODO hacer la busqueda real
+
 	int posEncontrado = buscarPosPregunta(codigo);
 	return preguntas[posEncontrado];
 }
@@ -49,19 +50,21 @@ int buscarPosPregunta(char *codigo) {
  * @param pregunta a escribir
  */
 void insertarPregunta(Pregunta p) {
+	//Mientras no se supere el maximo
 	if (numPreguntas < numeroMax) {
 
 		preguntas[numPreguntas] = p;
 
 		numPreguntas++;
-	} else {
+	} else { //Si se supera el maximo es necesario reservar mas sitio
+
 		numeroMax += 10;
 		Pregunta *preguntasRealloc = realloc(preguntas,
-				sizeof(Pregunta) * numeroMax);
+				sizeof(Pregunta) * numeroMax); //Reserva para para 10 preguntas mas que antes
 
 		preguntas = preguntasRealloc;
 
-		insertarPregunta(p);
+		insertarPregunta(p); //La pregunta ya se puede almacenar
 	}
 }
 /**
@@ -69,7 +72,7 @@ void insertarPregunta(Pregunta p) {
  * @param codigo que representa a la pregunta a borrar
  */
 void borrarPregunta(char *codigo) {
-	//PROVISIONAL CAMBIAR MAS ADELANTE TODO
+
 	int posEncontrado = buscarPosPregunta(codigo);
 	//Eliminar y mover hacia la izquierda
 	for (int i = posEncontrado; i < numPreguntas - 1; i++) {
@@ -86,110 +89,44 @@ void printTodasPreguntas() {
 		printf("\n");
 	}
 }
-
+/**
+ * Carga las preguntas del fichero y las guarda en la array
+ */
 void cargarPreguntas() {
 
 	FILE *fr = fopen(NOMBRE_FIC, "r");
 
-	fscanf(fr, "%i\n", &numeroMax);
+	fscanf(fr, "%i\n", &numeroMax); //Lee el numero de preguntas y lo asume como maximo
 
-	preguntas = malloc(sizeof(Pregunta)*numeroMax);
+	preguntas = malloc(sizeof(Pregunta) * numeroMax); //reserva espacio para el numero de preguntas indicado
 
+	//Para cada pregunta
 	for (int i = 0; i < numeroMax; i++) {
-		char *cod = malloc(sizeof(char) * 15);
-		char *preg = malloc(sizeof(char) * 100);
-		char *ops1 = malloc(sizeof(char) * 100);
-		char *ops2 = malloc(sizeof(char) * 100);
-		char *ops3 = malloc(sizeof(char) * 100);
-		char *ops4 = malloc(sizeof(char) * 100);
+		//Reserva de espacio para todos los strings
+		char *cod = malloc(sizeof(char) * (11 + 1)); //el codigo son 11 caracteres mas el \0
+		char *preg = malloc(sizeof(char) * NUM_C_STR);
+		char *ops1 = malloc(sizeof(char) * NUM_C_STR);
+		char *ops2 = malloc(sizeof(char) * NUM_C_STR);
+		char *ops3 = malloc(sizeof(char) * NUM_C_STR);
+		char *ops4 = malloc(sizeof(char) * NUM_C_STR);
 		char *res = malloc(sizeof(char));
 
-		//SUPER FIXME
-		fscanf(fr, "%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\n]\n", cod, preg, ops1, ops2, ops3,
-				ops4, res);
+		//Lee la linea del fichero de texto segun el formato y almacena lo leido en los punteros indicados
+		fscanf(fr, "%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\n]\n",
+				cod, preg, ops1, ops2, ops3, ops4, res);
 
-//Otra forma que al final no ha servido porque la otra es mas corta
-
-//		//Codigo
-//		char c = fgetc(fr);
-//		int i = 0;
-//		while (c != '\t') {
-//			cod[i] = c;
-//			i++;
-//			c = fgetc(fr);
-//		}
-//		c = fgetc(fr);
-//		cod[i] = '\0';
-//
-//		//Pregunta
-//		i = 0;
-//		while (c != '\t') {
-//			preg[i] = c;
-//			i++;
-//			c = fgetc(fr);
-//		}
-//		c = fgetc(fr);
-//		preg[i] = '\0';
-//
-//		//Resp 1
-//		i = 0;
-//		while (c != '\t') {
-//			ops1[i] = c;
-//			i++;
-//			c = fgetc(fr);
-//		}
-//		c = fgetc(fr);
-//		ops1[i] = '\0';
-//
-//		//Resp 2
-//		i = 0;
-//		while (c != '\t') {
-//			ops2[i] = c;
-//			i++;
-//			c = fgetc(fr);
-//		}
-//		c = fgetc(fr);
-//		ops2[i] = '\0';
-//
-//		//Resp 3
-//		i = 0;
-//		while (c != '\t') {
-//			ops3[i] = c;
-//			i++;
-//			c = fgetc(fr);
-//		}
-//		c = fgetc(fr);
-//		ops3[i] = '\0';
-//
-//		//Resp 4
-//		i = 0;
-//		while (c != '\t') {
-//			ops4[i] = c;
-//			i++;
-//			c = fgetc(fr);
-//		}
-//		c = fgetc(fr);
-//		ops4[i] = '\0';
-//
-//		//RespCorrecta
-//		i = 0;
-//		while (c != '\n') {
-//			res[i] = c;
-//			i++;
-//			c = fgetc(fr);
-//		}
-//		c = fgetc(fr);
-//		res[i] = '\0';
-
-		char *cat = malloc(sizeof(char) * (2 + 1));
+		//Sacar la categoria de el codigo de la pregunta
+		char *cat = malloc(sizeof(char) * (2 + 1)); //La categoria son 2 caracteres y el \0
 		cat[0] = cod[0];
 		cat[1] = cod[1];
 		cat[2] = '\0';
 
+		//Crea la lista de "strings" con la informacion de la preguunta
 		char *lista[] = { cat, preg, ops1, ops2, ops3, ops4, res };
 
-		insertarPregunta(crearPregunta(lista));
+		insertarPregunta(crearPregunta(lista)); //Crea la pregunta y la inserta
 
+		//Libera los punteros que se pueden liberar (no se debe liberar preg)
 		free(cod);
 		free(ops1);
 		free(ops2);
@@ -201,14 +138,18 @@ void cargarPreguntas() {
 
 	fclose(fr);
 }
-
+/**
+ * Almacena las preguntas de la array en un fichero de texto
+ */
 void guardarPreguntas() {
 
 	FILE *fw = fopen(NOMBRE_FIC, "w");
 
-	fprintf(fw, "%i\n", numPreguntas);
+	fprintf(fw, "%i\n", numPreguntas); //Guarda el numero de preguntas
 
+	//Por cada pregunta
 	for (int i = 0; i < numPreguntas; i++) {
+		//Guarda el string con la información de la pregunta
 		char *strPreg = preguntaParaFichero(preguntas[i]);
 		fprintf(fw, "%s\n", strPreg);
 		free(strPreg);
@@ -216,9 +157,14 @@ void guardarPreguntas() {
 
 	fclose(fw);
 }
-
+/**
+ * Formatea la pregunta a una linea de texto preparada para el fichero de texto
+ *
+ * @param Pregunta que se quiere formatear
+ * @return string con el formato requerido para la escritura en el fichero
+ */
 char* preguntaParaFichero(Pregunta p) {
-	int longStr = 600;
+	int longStr = NUM_C_STR * 6;
 	char *str = malloc(sizeof(char) * longStr);
 	sprintf(str, "%s\t%s\t%s\t%s\t%s\t%s\t%i", generarCodigo(p), p.preg,
 			p.ops[0], p.ops[1], p.ops[2], p.ops[3], p.res);

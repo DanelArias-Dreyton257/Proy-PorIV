@@ -12,9 +12,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define NUM_C_STR 100 //Numero de caracteres maximo para char*
+
 Pregunta buscarPreguntaEnFichero(char *codigo);
 void insertarPregunta(Pregunta p);
-void borrarPregunta(char* codigo);
+void borrarPregunta(char *codigo);
 void printTodasPreguntas();
 int buscarPosPregunta(char *codigo);
 void cargarPreguntas();

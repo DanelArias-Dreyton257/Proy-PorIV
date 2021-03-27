@@ -19,12 +19,12 @@
  */
 int main(int argc, char **argv) {
 
-//	cargarPreguntas();
+	cargarPreguntas();
 
 	//Abre el menu principal
 	menuPrincipal();
 
-//	guardarPreguntas();
+	guardarPreguntas();
 
 	return 0;
 
