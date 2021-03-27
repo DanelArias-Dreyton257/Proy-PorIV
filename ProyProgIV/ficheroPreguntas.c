@@ -56,6 +56,8 @@ void insertarPregunta(Pregunta p) {
 		preguntas[numPreguntas] = p;
 
 		numPreguntas++;
+
+		quickSortPreguntasPorCodigo(preguntas, numPreguntas);
 	} else { //Si se supera el maximo es necesario reservar mas sitio
 
 		numeroMax += 10;
@@ -143,6 +145,9 @@ void cargarPreguntas() {
  */
 void guardarPreguntas() {
 
+	//Ordena las preguntas segun el codigo
+	quickSortPreguntasPorCodigo(preguntas, numPreguntas);
+
 	FILE *fw = fopen(NOMBRE_FIC, "w");
 
 	fprintf(fw, "%i\n", numPreguntas); //Guarda el numero de preguntas
@@ -169,5 +174,44 @@ char* preguntaParaFichero(Pregunta p) {
 	sprintf(str, "%s\t%s\t%s\t%s\t%s\t%s\t%i", generarCodigo(p), p.preg,
 			p.ops[0], p.ops[1], p.ops[2], p.ops[3], p.res);
 	return str;
+}
+/**
+ * Intercambia los valores de entre dos preguntas
+ * @param puntero a pregunta 1
+ * @param puntero a pregunta 2
+ */
+void swap_ptrs(Pregunta *arg1, Pregunta *arg2) {
+	Pregunta tmp = *arg1;
+	*arg1 = *arg2;
+	*arg2 = tmp;
+}
+/**
+ * Ordena las preguntas de la array pasada como parametro segun el codigo de estas
+ * El algoritmo utilizado es quicksort (recursivamente)
+ *
+ * @param puntero al inicio de la array
+ * @param longitud de la array
+ */
+void quickSortPreguntasPorCodigo(Pregunta *args, int len) {
+	int i, pvt = 0;
+
+	if (len <= 1)
+		return;
+
+	//Elige aleatoriamente un valor y lo manda a la ultima posicion
+	swap_ptrs(args + ((int) rand() % len), args + len - 1);
+
+	// Resetea el indice de pivote a 0 y luego empieza a comparar
+	for (i = 0; i < len - 1; ++i) {
+		if (strcmp(generarCodigo(args[i]), generarCodigo(args[len - 1])) < 0)
+			swap_ptrs(args + i, args + pvt++);
+	}
+
+	// Pone el pivote en su sitio
+	swap_ptrs(args + pvt, args + len - 1);
+
+	//Llamada a a continuar. No se incluye la posicion del pivote
+	quickSortPreguntasPorCodigo(args, pvt++);
+	quickSortPreguntasPorCodigo(args + pvt, len - pvt);
 }
 

@@ -22,5 +22,7 @@ int buscarPosPregunta(char *codigo);
 void cargarPreguntas();
 void guardarPreguntas();
 char* preguntaParaFichero(Pregunta p);
+void quickSortPreguntasPorCodigo(Pregunta *args, int len);
+void swap_ptrs(Pregunta *arg1, Pregunta *arg2);
 
 #endif /* FICHEROPREGUNTAS_H_ */
