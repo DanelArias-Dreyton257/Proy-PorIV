@@ -22,12 +22,18 @@ int numeroMax = 0;
  * Busca una pregunta concreta en el fichero de texto y la devuelve
  *
  * @param char* que contiene el codigo de la pregunta que se quiere buscar
- * @return pregunta leida de fichero correpondiete a ese codigo
+ * @return pregunta leida de fichero correpondiete a ese codigo, si no se ha encontrado devuelve un a NULL
  */
 Pregunta buscarPreguntaEnFichero(char *codigo) {
 
 	int posEncontrado = buscarPosPregunta(codigo);
-	return preguntas[posEncontrado];
+
+	//FIXME Solo se puede retornar null si se devuelve un puntero TODO
+	//if (posEncontrado < 0) {
+	//	return NULL;
+	//} else {
+		return preguntas[posEncontrado];
+	//}
 }
 /**
  * Busca la posicion de en la array de la pregunta segun el codigo pasado como parametro
@@ -37,7 +43,7 @@ Pregunta buscarPreguntaEnFichero(char *codigo) {
 int buscarPosPregunta(char *codigo) {
 	int posEncontrado = -1;
 	for (int i = 0; i < numPreguntas; i++) {
-		if (strcmp(generarCodigo(preguntas[i]), codigo) == 0) {
+		if (strcmp(generarCodigo(preguntas[i]), codigo) == 0) { //Si el codigo es el mismo
 			posEncontrado = i;
 			break;
 		}
@@ -57,7 +63,8 @@ void insertarPregunta(Pregunta p) {
 
 		numPreguntas++;
 
-		quickSortPreguntasPorCodigo(preguntas, numPreguntas);
+		quickSortPreguntasPorCodigo(preguntas, numPreguntas); //ordena las preguntas
+
 	} else { //Si se supera el maximo es necesario reservar mas sitio
 
 		numeroMax += 10;
@@ -70,17 +77,20 @@ void insertarPregunta(Pregunta p) {
 	}
 }
 /**
- * Borra una pregunta del fichero de texto
+ * Borra una pregunta del fichero de texto. Si no se encuentra la pregunta, no hace nada
  * @param codigo que representa a la pregunta a borrar
  */
 void borrarPregunta(char *codigo) {
 
 	int posEncontrado = buscarPosPregunta(codigo);
-	//Eliminar y mover hacia la izquierda
-	for (int i = posEncontrado; i < numPreguntas - 1; i++) {
-		preguntas[i] = preguntas[i + 1];
+
+	if (posEncontrado >= 0) {
+		//Eliminar y mover hacia la izquierda
+		for (int i = posEncontrado; i < numPreguntas - 1; i++) {
+			preguntas[i] = preguntas[i + 1];
+		}
+		numPreguntas--;
 	}
-	numPreguntas--;
 }
 /**
  * Imprime todas las perguntas almacenadas, una detras de otra
@@ -98,46 +108,48 @@ void cargarPreguntas() {
 
 	FILE *fr = fopen(NOMBRE_FIC, "r");
 
-	fscanf(fr, "%i\n", &numeroMax); //Lee el numero de preguntas y lo asume como maximo
+	int comp = fscanf(fr, "%i\n", &numeroMax); //Lee el numero de preguntas y lo asume como maximo
 
-	preguntas = malloc(sizeof(Pregunta) * numeroMax); //reserva espacio para el numero de preguntas indicado
+	if (comp != EOF) { //Si no hay nada guardado
+		preguntas = malloc(sizeof(Pregunta) * numeroMax); //reserva espacio para el numero de preguntas indicado
 
-	//Para cada pregunta
-	for (int i = 0; i < numeroMax; i++) {
-		//Reserva de espacio para todos los strings
-		char *cod = malloc(sizeof(char) * (11 + 1)); //el codigo son 11 caracteres mas el \0
-		char *preg = malloc(sizeof(char) * NUM_C_STR);
-		char *ops1 = malloc(sizeof(char) * NUM_C_STR);
-		char *ops2 = malloc(sizeof(char) * NUM_C_STR);
-		char *ops3 = malloc(sizeof(char) * NUM_C_STR);
-		char *ops4 = malloc(sizeof(char) * NUM_C_STR);
-		char *res = malloc(sizeof(char));
+		//Para cada pregunta
+		for (int i = 0; i < numeroMax; i++) {
+			//Reserva de espacio para todos los strings
+			char *cod = malloc(sizeof(char) * (11 + 1)); //el codigo son 11 caracteres mas el \0
+			char *preg = malloc(sizeof(char) * NUM_C_STR);
+			char *ops1 = malloc(sizeof(char) * NUM_C_STR);
+			char *ops2 = malloc(sizeof(char) * NUM_C_STR);
+			char *ops3 = malloc(sizeof(char) * NUM_C_STR);
+			char *ops4 = malloc(sizeof(char) * NUM_C_STR);
+			char *res = malloc(sizeof(char));
 
-		//Lee la linea del fichero de texto segun el formato y almacena lo leido en los punteros indicados
-		fscanf(fr, "%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\n]\n",
-				cod, preg, ops1, ops2, ops3, ops4, res);
+			//Lee la linea del fichero de texto segun el formato y almacena lo leido en los punteros indicados
+			fscanf(fr,
+					"%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\n]\n",
+					cod, preg, ops1, ops2, ops3, ops4, res);
 
-		//Sacar la categoria de el codigo de la pregunta
-		char *cat = malloc(sizeof(char) * (2 + 1)); //La categoria son 2 caracteres y el \0
-		cat[0] = cod[0];
-		cat[1] = cod[1];
-		cat[2] = '\0';
+			//Sacar la categoria de el codigo de la pregunta
+			char *cat = malloc(sizeof(char) * (2 + 1)); //La categoria son 2 caracteres y el \0
+			cat[0] = cod[0];
+			cat[1] = cod[1];
+			cat[2] = '\0';
 
-		//Crea la lista de "strings" con la informacion de la preguunta
-		char *lista[] = { cat, preg, ops1, ops2, ops3, ops4, res };
+			//Crea la lista de "strings" con la informacion de la preguunta
+			char *lista[] = { cat, preg, ops1, ops2, ops3, ops4, res };
 
-		insertarPregunta(crearPregunta(lista)); //Crea la pregunta y la inserta
+			insertarPregunta(crearPregunta(lista)); //Crea la pregunta y la inserta
 
-		//Libera los punteros que se pueden liberar (no se debe liberar preg)
-		free(cod);
-		free(ops1);
-		free(ops2);
-		free(ops3);
-		free(ops4);
-		free(res);
+			//Libera los punteros que se pueden liberar (no se debe liberar preg)
+			free(cod);
+			free(ops1);
+			free(ops2);
+			free(ops3);
+			free(ops4);
+			free(res);
 
+		}
 	}
-
 	fclose(fr);
 }
 /**
@@ -198,8 +210,8 @@ void quickSortPreguntasPorCodigo(Pregunta *args, int len) {
 	if (len <= 1)
 		return;
 
-	//Elige aleatoriamente un valor y lo manda a la ultima posicion
-	swap_ptrs(args + ((int) rand() % len), args + len - 1);
+	//Coge el primer valor y lo manda a la ultima posicion
+	swap_ptrs(args, args + len - 1);
 
 	// Resetea el indice de pivote a 0 y luego empieza a comparar
 	for (i = 0; i < len - 1; ++i) {
