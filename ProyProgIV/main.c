@@ -25,8 +25,8 @@ int main(int argc, char **argv) {
 	//insertarPregunta(generarPreguntaPrueba());
 
 	//Abre el menu principal
-	//menuPrincipal();
-	printTodasPreguntas();
+	menuPrincipal();
+	//printTodasPreguntas();
 
 	guardarPreguntas();
 
