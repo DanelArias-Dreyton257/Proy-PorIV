@@ -8,8 +8,8 @@
 #ifndef PREGUNTA_H_
 #define PREGUNTA_H_
 
-#include <stdio.h>
 #include "pregunta.h"
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 

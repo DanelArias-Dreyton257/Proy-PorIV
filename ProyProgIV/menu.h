@@ -8,11 +8,12 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-#include <stdio.h>
 #include "pregunta.h"
+#include "ficheroPreguntas.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-#include "ficheroPreguntas.h"
+
 
 char getCharInput();
 int getIntInput();

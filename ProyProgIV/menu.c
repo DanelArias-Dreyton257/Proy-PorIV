@@ -4,11 +4,12 @@
  *  Created on: 8 mar. 2021
  *      Author: danel and jon ander
  */
-#include <stdio.h>
 #include "menu.h"
+#include "ficheroPreguntas.h"
 #include "pregunta.h"
 #include <stdlib.h>
-#include "ficheroPreguntas.h"
+#include <stdio.h>
+
 
 /**
  * Permite leer el input del usuario devolviendo el char introducido

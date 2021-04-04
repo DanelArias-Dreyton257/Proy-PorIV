@@ -4,8 +4,9 @@
  *  Created on: 15 mar. 2021
  *      Author: jon ander y danel
  */
-#include <stdio.h>
+
 #include "pregunta.h"
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 /**
