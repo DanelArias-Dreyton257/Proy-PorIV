@@ -7,7 +7,7 @@
 #include "menu.h"
 #include "pregunta.h"
 #include "ficheroPreguntas.h"
-#include <stdio.h>
+//#include <stdio.h>
 #include <string.h>
 
 
