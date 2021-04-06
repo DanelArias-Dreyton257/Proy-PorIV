@@ -12,6 +12,7 @@
 #include <stdlib.h>
 
 #define NOMBRE_FIC "ficheroPreguntas.txt"
+#define INC_POS 10
 
 //Array de almacenamiento
 Pregunta *preguntas = NULL;
@@ -58,7 +59,7 @@ int buscarPosPregunta(char *codigo) {
 void insertarPregunta(Pregunta p) {
 	//Si no ha reservado previamente memoria para la array
 	if (preguntas==NULL){
-		numeroMax=5;
+		numeroMax=INC_POS;
 		preguntas = malloc(sizeof(Pregunta) * numeroMax);
 	}
 	//Mientras no se supere el maximo
@@ -72,7 +73,7 @@ void insertarPregunta(Pregunta p) {
 
 	} else { //Si se supera el maximo es necesario reservar mas sitio
 
-		numeroMax += 10;
+		numeroMax += INC_POS;
 		Pregunta *preguntasRealloc = realloc(preguntas,
 				sizeof(Pregunta) * numeroMax); //Reserva para para 10 preguntas mas que antes
 
