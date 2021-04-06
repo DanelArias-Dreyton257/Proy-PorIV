@@ -19,21 +19,20 @@ int numPreguntas = 0;
 int numeroMax = 0;
 
 /**
- * Busca una pregunta concreta en el fichero de texto y la devuelve
+ * Busca una pregunta concreta en el fichero de texto y devuelve un puntero a esta
  *
  * @param char* que contiene el codigo de la pregunta que se quiere buscar
- * @return pregunta leida de fichero correpondiete a ese codigo, si no se ha encontrado devuelve un a NULL
+ * @return puntero a pregunta leida de fichero correpondiete a ese codigo, si no se ha encontrado devuelve un a NULL
  */
-Pregunta buscarPreguntaEnFichero(char *codigo) {
+Pregunta* buscarPreguntaEnFichero(char *codigo) {
 
 	int posEncontrado = buscarPosPregunta(codigo);
 
-	//FIXME Solo se puede retornar null si se devuelve un puntero TODO
-	//if (posEncontrado < 0) {
-	//	return NULL;
-	//} else {
+	if (posEncontrado < 0) {
+		return NULL;
+	} else {
 		return preguntas[posEncontrado];
-	//}
+	}
 }
 /**
  * Busca la posicion de en la array de la pregunta segun el codigo pasado como parametro

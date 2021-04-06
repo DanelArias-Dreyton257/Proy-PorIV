@@ -186,8 +186,8 @@ void menuBorrarPregunta() {
 	char *codigo = getStringInput(NUM_C_STR);
 
 	//Imprime para asegurar
-//	Pregunta p = buscarPreguntaEnFichero(codigo);
-//	printPregunta(&p);
+//	Pregunta* p = buscarPreguntaEnFichero(codigo);
+//	printPregunta(p);
 
 	//Borra la pregunta
 	borrarPregunta(codigo);
@@ -204,8 +204,8 @@ void menuModPregunta() {
 
 	char *codigo = getStringInput(NUM_C_STR);
 
-	Pregunta pAnt = buscarPreguntaEnFichero(codigo);
-	Pregunta p = pAnt;
+	Pregunta* pAnt = buscarPreguntaEnFichero(codigo);
+	Pregunta p = *pAnt; //Crea una "copia"
 
 	printPregunta(&p);
 	printf("\n");
