@@ -9,12 +9,10 @@
 #define FICHEROPREGUNTAS_H_
 
 #include "pregunta.h"
-//#include <stdio.h>
-//#include <stdlib.h>
 
 #define NUM_C_STR 100 //Numero de caracteres maximo para char*
 
-Pregunta buscarPreguntaEnFichero(char *codigo);
+Pregunta* buscarPreguntaEnFichero(char *codigo);
 void insertarPregunta(Pregunta p);
 void borrarPregunta(char *codigo);
 void printTodasPreguntas();

@@ -8,6 +8,7 @@
 #include "ficheroPreguntas.h"
 #include "pregunta.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #define NOMBRE_FIC "ficheroPreguntas.txt"

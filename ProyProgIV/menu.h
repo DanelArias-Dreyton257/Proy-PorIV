@@ -8,13 +8,6 @@
 #ifndef MENU_H_
 #define MENU_H_
 
-#include "pregunta.h"
-#include "ficheroPreguntas.h"
-//#include <stdio.h>
-//#include <stdlib.h>
-
-
-
 char getCharInput();
 int getIntInput();
 int getLIntInput(int numDigs);

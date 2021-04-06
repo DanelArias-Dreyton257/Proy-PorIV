@@ -8,11 +8,6 @@
 #ifndef PREGUNTA_H_
 #define PREGUNTA_H_
 
-#include "pregunta.h"
-//#include <stdio.h>
-#include <string.h>
-//#include <stdlib.h>
-
 #define N_LISTA_PREG 7
 #define N_OPCS 4
 
