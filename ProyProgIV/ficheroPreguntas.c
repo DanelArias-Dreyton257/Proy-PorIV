@@ -13,7 +13,7 @@
 #define NOMBRE_FIC "ficheroPreguntas.txt"
 
 //Array de almacenamiento
-Pregunta *preguntas;
+Pregunta *preguntas = NULL;
 
 int numPreguntas = 0;
 int numeroMax = 0;
@@ -28,10 +28,10 @@ Pregunta* buscarPreguntaEnFichero(char *codigo) {
 
 	int posEncontrado = buscarPosPregunta(codigo);
 
-	if (posEncontrado < 0) {
+	if (posEncontrado < 0) { //En caso de que no se encuentre la pregunta buscada
 		return NULL;
 	} else {
-		return preguntas[posEncontrado];
+		return preguntas + posEncontrado; //En caso de encontrarla devuelve el puntero a esta
 	}
 }
 /**
@@ -55,6 +55,11 @@ int buscarPosPregunta(char *codigo) {
  * @param pregunta a escribir
  */
 void insertarPregunta(Pregunta p) {
+	//Si no ha reservado previamente memoria para la array
+	if (preguntas==NULL){
+		numeroMax=5;
+		preguntas = malloc(sizeof(Pregunta) * numeroMax);
+	}
 	//Mientras no se supere el maximo
 	if (numPreguntas < numeroMax) {
 
@@ -225,4 +230,18 @@ void quickSortPreguntasPorCodigo(Pregunta *args, int len) {
 	quickSortPreguntasPorCodigo(args, pvt++);
 	quickSortPreguntasPorCodigo(args + pvt, len - pvt);
 }
+/**
+ * Libera el la array de preguntas
+ */
+void liberarPreguntas(){
 
+	for (int i= 0; i<numPreguntas; i++){ //Libera cada pregunta almacenada
+		Pregunta p = preguntas[i];
+		free(p.cat);
+		free(p.preg);
+		for(int j=0; j<N_OPCS; j++){//Libera las opciones
+			free(p.ops[j]);
+		}
+	}
+	free(preguntas);
+}

@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
 	//printTodasPreguntas();
 
 	guardarPreguntas();
+	liberarPreguntas();
 
 	return 0;
 
