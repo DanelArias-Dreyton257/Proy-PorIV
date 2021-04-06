@@ -97,6 +97,9 @@ void borrarPregunta(char *codigo) {
 		}
 		numPreguntas--;
 	}
+	else{
+		printf("Pregunta no encontrada");
+	}
 }
 /**
  * Imprime todas las perguntas almacenadas, una detras de otra
