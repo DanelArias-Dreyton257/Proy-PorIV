@@ -46,7 +46,7 @@ Pregunta crearPregunta(char *list[]) {
 
 	p.ops = ops;
 
-	p.res = atoi(list[6]) - 1 ;
+	p.res = atoi(list[6]) - 1;
 
 	return p;
 }
@@ -66,27 +66,42 @@ void freeRespuestas(Pregunta *p) {
  * @param p Pregunta de la cual se quiere sacar el codigo
  * @return char* con el codigo
  */
-char* generarCodigo(Pregunta p) { //FIXME
+char* generarCodigo(Pregunta p) {
 	int longCod = 11;
+	char none = 'N';
 	char *cod = malloc(sizeof(char) * (longCod + 1));
+	if (strlen(p.cat) >= 2) { //Si al menos tiene 2 caracteres
+		cod[0] = p.cat[0];
+		cod[1] = p.cat[1];
+	} else {
+		cod[0] = none;
+		cod[1] = none;
+	}
+	if (strlen(p.preg) >= 4) {
+		cod[2] = p.preg[1];
+		cod[3] = p.preg[2];
 
-	cod[0] = p.cat[0];
-	cod[1] = p.cat[1];
-
-	cod[2] = p.preg[1];
-	cod[3] = p.preg[2];
-
-	cod[4] = p.preg[strlen(p.preg) - 3];
-	cod[5] = p.preg[strlen(p.preg) - 2];
-
-	cod[6] = (p.ops[0])[0];
-	cod[7] = (p.ops[1])[0];
-	cod[8] = (p.ops[2])[0];
-	cod[9] = (p.ops[3])[0];
-
-	cod[10] = p.res + '0';
-
-	cod[11] = '\0';
+		cod[4] = p.preg[strlen(p.preg) - 3];
+		cod[5] = p.preg[strlen(p.preg) - 2];
+	} else {
+		for (int i = 0; i < 4; i++) {
+			cod[2 + i] = none;
+		}
+	}
+	for (int i = 0; i < 4; i++) {
+		if (strlen(p.ops[i]) > 0) {
+			cod[6 + i] = (p.ops[i])[0]; //Coge el primer caracter de cada opcion
+		} else {
+			cod[6 + i] = none;
+		}
+	}
+	if (p.res >= 0 && p.res <= 4) {
+		cod[10] = p.res + '0'; //Pasar de un entero a un caracter, sumandole el valor del caracter 0
+	} else {
+		cod[10] = '0';
+		//Si no cumple, se asigna el caracter 0 automaticamente
+	}
+	cod[11] = '\0'; //Se termina la secuencia de caracteres
 
 	return cod;
 }
@@ -97,6 +112,6 @@ char* generarCodigo(Pregunta p) { //FIXME
 Pregunta generarPreguntaPrueba() {
 	char *lista[] = { "PB", "¿Es esto una pregunta de prueba?", "Claro que si",
 			"Quien sabe", "Si y No, la pregunta de Schrodinger",
-			"Pero te queremos igual", "1" };
+			"Averigualo por ti mism@", "0" };
 	return crearPregunta(lista);
 }
