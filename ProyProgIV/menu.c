@@ -170,7 +170,8 @@ void menuCrearPregunta() {
 		lista[i] = getStringInput(NUM_C_STR);
 	}
 	//Creacion de la pregunta
-	Pregunta p = crearPregunta(lista);
+	Pregunta *p = crearPregunta(lista);
+	printPregunta(p);
 	//Se le preguntara al usuario si quiere crear la pregunta
 	char *mensajeAdv = "¿Esta seguro de crear esta pregunta? (Y/n)";
 	printf("\n%s\n", mensajeAdv);
