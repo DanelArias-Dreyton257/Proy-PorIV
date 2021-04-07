@@ -169,8 +169,21 @@ void menuCrearPregunta() {
 		printf("\n%s\n", pasos[i]);
 		lista[i] = getStringInput(NUM_C_STR);
 	}
+	//Se le preguntara al usuario si quiere crear la pregunta
+	char *mensajeAdv = "¿Quiere crear la pregunta? Y/n";
+	printf("\n%s\n", mensajeAdv);
+	char respuesta = getCharInput();
+	//El usuario dara una respuesta, si o no, estando si por defecto
 
-	insertarPregunta(crearPregunta(lista));
+	//Si se selecciona no, no se creara la pregunta
+	if (respuesta == 'n') {
+		printf("Pregunta no creada");
+	}
+
+	//Si se selecciona Y o otra tecla se creara la pregunta
+	else {
+		insertarPregunta(crearPregunta(lista));
+	}
 
 }
 /**
@@ -188,8 +201,24 @@ void menuBorrarPregunta() {
 //	Pregunta* p = buscarPreguntaEnFichero(codigo);
 //	printPregunta(p);
 
+	//Se le preguntara al usuario si quiere borrar la pregunta
+	char *mensajeAdv = "¿Quiere borrar la pregunta? Y/n";
+	printf("\n%s\n", mensajeAdv);
+
+	//El usuario dara una respuesta, si o no, estando si por defecto
+	char respuesta = getCharInput();
+
+	//Si se selecciona no, no se borrara la pregunta
+	if (respuesta == 'n') {
+		printf("Pregunta no borrada");
+	}
+
+	//Si se selecciona Y o otra tecla se borrara la pregunta
+	else {
+		borrarPregunta(codigo);
+	}
+
 	//Borra la pregunta
-	borrarPregunta(codigo);
 	free(codigo);
 }
 /**
@@ -207,7 +236,7 @@ void menuModPregunta() {
 
 	if (p == NULL) {
 		printf("Pregunta no encontrada");
-		break;
+		//break;
 	} else {
 
 		printPregunta(p);
@@ -219,49 +248,58 @@ void menuModPregunta() {
 				"Cambiar respuesta 1", "Cambiar respuesta 2",
 				"Cambiar respuesta 3", "Cambiar respuesta 4",
 				"Cambiar codigo respuesta correcta (0-3)" };
+		char *mensajeAdv = "¿Quiere modificar esta pregunta? Y/n";
+		printf("\n%s\n", mensajeAdv);
+		//El usuario dara una respuesta, si o no, estando si por defecto
+		char respuesta = getCharInput();
+		if (respuesta == 'n') {
+			printf("La pregunta no se modificara");
+		} else {
 
-		printOpciones(ops, 7);
-		printf("\nIntroduce tu seleccion (1-7):\n");
-		int s = getIntInput();
+			printOpciones(ops, 7);
+			printf("\nIntroduce tu seleccion (1-7):\n");
+			int s = getIntInput();
 
-		//Pedir al usuario la info para modificar (seguir el doc)
-		//Segun la eleccion del usuario cambia el procedimiento
-		switch (s) {
-		default: //Si el usuario introduce algo no valido
-			return;
-		case 1: //cambiara la categoria
-			printf("Intoduce la nueva categoria:\n");
-			p->cat = getStringInput(NUM_C_STR);
-			break;
-		case 2: //cambiara la pregunta
-			printf("Intoduce la nueva pregunta:\n");
-			p->preg = getStringInput(NUM_C_STR);
-			break;
-		case 3: //cambiara la respuesta 1
-			printf("Intoduce la nueva respuesta 1:\n");
-			p->ops[0] = getStringInput(NUM_C_STR);
-			break;
-		case 4: //cambiara la respuesta 2
-			printf("Intoduce la nueva respuesta 2:\n");
-			p->ops[1] = getStringInput(NUM_C_STR);
-			break;
-		case 5: //cambiara la respuesta 3
-			printf("Intoduce la nueva respuesta 3:\n");
-			p->ops[2] = getStringInput(NUM_C_STR);
-			break;
-		case 6: //cambiara la respuesta 4
-			printf("Intoduce la nueva respuesta 4:\n");
-			p->ops[3] = getStringInput(NUM_C_STR);
-			break;
-		case 7: //cambiara la respuesta correcta
-			printf("Intoduce la nueva respuesta correcta (0-3):\n");
-			p->res = getIntInput();
-			break;
+			//Pedir al usuario la info para modificar (seguir el doc)
+			//Segun la eleccion del usuario cambia el procedimiento
+			switch (s) {
+			default: //Si el usuario introduce algo no valido
+				return;
+			case 1: //cambiara la categoria
+				printf("Intoduce la nueva categoria:\n");
+				p->cat = getStringInput(NUM_C_STR);
+				break;
+			case 2: //cambiara la pregunta
+				printf("Intoduce la nueva pregunta:\n");
+				p->preg = getStringInput(NUM_C_STR);
+				break;
+			case 3: //cambiara la respuesta 1
+				printf("Intoduce la nueva respuesta 1:\n");
+				p->ops[0] = getStringInput(NUM_C_STR);
+				break;
+			case 4: //cambiara la respuesta 2
+				printf("Intoduce la nueva respuesta 2:\n");
+				p->ops[1] = getStringInput(NUM_C_STR);
+				break;
+			case 5: //cambiara la respuesta 3
+				printf("Intoduce la nueva respuesta 3:\n");
+				p->ops[2] = getStringInput(NUM_C_STR);
+				break;
+			case 6: //cambiara la respuesta 4
+				printf("Intoduce la nueva respuesta 4:\n");
+				p->ops[3] = getStringInput(NUM_C_STR);
+				break;
+			case 7: //cambiara la respuesta correcta
+				printf("Intoduce la nueva respuesta correcta (0-3):\n");
+				p->res = getIntInput();
+				break;
+			}
+
+			//No hace falta borrar ni insertar ni nada pues se cambia automaticamente
 		}
-
-		//No hace falta borrar ni insertar ni nada pues se cambia automaticamente
 	}
 }
+
 /**
  * Imprime todas las preguntas almacenadas por consola
  */
