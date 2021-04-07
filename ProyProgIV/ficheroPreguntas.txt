@@ -1,3 +1,3 @@
 2
-QCCuesLQLL1	¨Cuales son las puertas logicas cuanticas principales?	Las de Pauli: X, Y, y Z	Quantum AND (QAND) y Quantum XOR (QXOR)	Las de Pauli: X, Y, Z y la de Hadamard: H	La de Hadamard: H	1
-QCQuchEEEE0	¨Que es una esfera de Bloch?	Es una forma de representar el estado de un qubit	Es una teoria matematica que explica la forma esferica de las particulas cuanticas	Es una forma de representar el estado de un bit	Es una forma de representar el estado de varios qubits entrelazados	0
+QCCuesLQLL)	¨Cuales son las puertas logicas cuanticas principales?	Las de Pauli: X, Y, y Z	Quantum AND (QAND) y Quantum XOR (QXOR)	Las de Pauli: X, Y, Z y la de Hadamard: H	La de Hadamard: H	-7
+QCQuchEEEE(	¨Que es una esfera de Bloch?	Es una forma de representar el estado de un qubit	Es una teoria matematica que explica la forma esferica de las particulas cuanticas	Es una forma de representar el estado de un bit	Es una forma de representar el estado de varios qubits entrelazados	-8

@@ -25,6 +25,8 @@ void printPregunta(Pregunta *p) {
 	printf("- \"%s\" - %s:\n\t %s,\n\t %s,\n\t %s,\n\t %s,\n\t R:(%i)->%s",
 			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
 			*(p->ops + 3), p->res, *(p->ops + p->res));
+	fflush(stdout);
+
 }
 /**
  * Crea una pregunta segun la array de char* que recibe con la informacion de la pregunta

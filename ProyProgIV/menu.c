@@ -115,7 +115,7 @@ void menuGestion() {
 	printf("%s", titulo);
 	printOpciones(ops, 6);
 	printf("%s", msg);
-
+	fflush(stdout);
 	//Recoge la eleccion del usuario
 	int s = getIntInput();
 
@@ -165,8 +165,9 @@ void menuCrearPregunta() {
 	char *lista[N_LISTA_PREG];
 
 	for (int i = 0; i < N_LISTA_PREG; i++) {
-		fflush(stdout);
+
 		printf("\n%s\n", pasos[i]);
+		fflush(stdout);
 		lista[i] = getStringInput(NUM_C_STR);
 	}
 	//Creacion de la pregunta
@@ -175,12 +176,14 @@ void menuCrearPregunta() {
 	//Se le preguntara al usuario si quiere crear la pregunta
 	char *mensajeAdv = "¿Esta seguro de crear esta pregunta? (Y/n)";
 	printf("\n%s\n", mensajeAdv);
+	fflush(stdout);
 	char respuesta = getCharInput();
 	//El usuario dara una respuesta, si o no, estando si por defecto
 
 	//Si se selecciona no, no se creara la pregunta
 	if (respuesta == 'n') {
 		printf("Pregunta no creada");
+		fflush(stdout);
 	}
 
 	//Si se selecciona Y o otra tecla se inserta la pregunta
@@ -198,6 +201,7 @@ void menuBorrarPregunta() {
 	//Introduce codigo
 	char *mensaje = "Introduce codigo de la pregunta:";
 	printf("\n%s\n", mensaje);
+	fflush(stdout);
 	char *codigo = getStringInput(NUM_C_STR);
 
 	//Imprime para asegurar
@@ -208,22 +212,23 @@ void menuBorrarPregunta() {
 		//Se le preguntara al usuario si quiere borrar la pregunta
 		char *mensajeAdv = "¿Esta seguro de borrar esta pregunta? (Y/n)";
 		printf("\n%s\n", mensajeAdv);
-
+		fflush(stdout);
 		//El usuario dara una respuesta, si o no, estando si por defecto
 		char respuesta = getCharInput();
 
 		//Si se selecciona no, no se borrara la pregunta
 		if (respuesta == 'n') {
 			printf("Pregunta no borrada");
+			fflush(stdout);
 		}
 		//Si se selecciona Y o otra tecla se borrara la pregunta
 		else {
 			borrarPregunta(codigo);
 		}
 
-	}
-	else{
+	} else {
 		printf("Pregunta no encontrada");
+		fflush(stdout);
 	}
 	//Libera el codigo
 	free(codigo);
@@ -236,13 +241,14 @@ void menuBorrarPregunta() {
 void menuModPregunta() {
 	//Ocurre la busqueda
 	printf("Introduce codigo de la pregunta:\n");
-
+	fflush(stdout);
 	char *codigo = getStringInput(NUM_C_STR);
 
 	Pregunta *p = buscarPreguntaEnFichero(codigo);
 
 	if (p == NULL) {
 		printf("Pregunta no encontrada");
+		fflush(stdout);
 		//break;
 	} else {
 
@@ -256,15 +262,21 @@ void menuModPregunta() {
 				"Cambiar respuesta 3", "Cambiar respuesta 4",
 				"Cambiar codigo respuesta correcta (0-3)" };
 		char *mensajeAdv = "¿Quiere modificar esta pregunta? Y/n";
+		fflush(stdout);
+
 		printf("\n%s\n", mensajeAdv);
+		fflush(stdout);
+
 		//El usuario dara una respuesta, si o no, estando si por defecto
 		char respuesta = getCharInput();
 		if (respuesta == 'n') {
 			printf("La pregunta no se modificara");
+			fflush(stdout);
 		} else {
 
 			printOpciones(ops, 7);
 			printf("\nIntroduce tu seleccion (1-7):\n");
+			fflush(stdout);
 			int s = getIntInput();
 
 			//Pedir al usuario la info para modificar (seguir el doc)
@@ -274,30 +286,37 @@ void menuModPregunta() {
 				return;
 			case 1: //cambiara la categoria
 				printf("Intoduce la nueva categoria:\n");
+				fflush(stdout);
 				p->cat = getStringInput(NUM_C_STR);
 				break;
 			case 2: //cambiara la pregunta
 				printf("Intoduce la nueva pregunta:\n");
+				fflush(stdout);
 				p->preg = getStringInput(NUM_C_STR);
 				break;
 			case 3: //cambiara la respuesta 1
 				printf("Intoduce la nueva respuesta 1:\n");
+				fflush(stdout);
 				p->ops[0] = getStringInput(NUM_C_STR);
 				break;
 			case 4: //cambiara la respuesta 2
 				printf("Intoduce la nueva respuesta 2:\n");
+				fflush(stdout);
 				p->ops[1] = getStringInput(NUM_C_STR);
 				break;
 			case 5: //cambiara la respuesta 3
 				printf("Intoduce la nueva respuesta 3:\n");
+				fflush(stdout);
 				p->ops[2] = getStringInput(NUM_C_STR);
 				break;
 			case 6: //cambiara la respuesta 4
 				printf("Intoduce la nueva respuesta 4:\n");
+				fflush(stdout);
 				p->ops[3] = getStringInput(NUM_C_STR);
 				break;
 			case 7: //cambiara la respuesta correcta
 				printf("Intoduce la nueva respuesta correcta (1-4):\n");
+				fflush(stdout);
 				p->res = getIntInput() - 1;
 				break;
 			}
@@ -329,8 +348,10 @@ void volcarFicheroABD() {
  * @param size tamaño de la array de char*
  */
 void printOpciones(char *ops[], int size) {
+
 	for (int i = 0; i < size; i++) {
 		printf("\n\t%i.%s", i + 1, ops[i]);
 	}
+	fflush(stdout);
 }
 
