@@ -160,7 +160,7 @@ void menuCrearPregunta() {
 			"Introduce la pregunta:", "Introduce respuesta 1:",
 			"Introduce respuesta 2:", "Introduce respuesta 3:",
 			"Introduce respuesta 4:",
-			"Introduce codigo de respuesta correcta (0-3):" };
+			"Introduce codigo de respuesta correcta (1-4):" };
 
 	char *lista[N_LISTA_PREG];
 
