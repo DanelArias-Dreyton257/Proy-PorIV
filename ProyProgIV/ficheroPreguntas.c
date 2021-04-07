@@ -108,6 +108,7 @@ void printTodasPreguntas() {
 	for (int i = 0; i < numPreguntas; i++) {
 		printPregunta(&preguntas[i]);
 		printf("\n");
+
 	}
 }
 /**

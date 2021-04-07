@@ -18,6 +18,7 @@
 int main(int argc, char **argv) {
 
 	cargarPreguntas();
+
 //	char *lista[] ={"PB","¿Como te llamas?","De una forma misteriosa","Danel","Jon Ander", "No tengo nombre","0"};
 //	insertarPregunta(crearPregunta(lista));
 	//insertarPregunta(generarPreguntaPrueba());

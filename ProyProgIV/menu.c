@@ -219,6 +219,7 @@ void menuBorrarPregunta() {
 		//Si se selecciona no, no se borrara la pregunta
 		if (respuesta == 'n') {
 			printf("Pregunta no borrada");
+
 			fflush(stdout);
 		}
 		//Si se selecciona Y o otra tecla se borrara la pregunta

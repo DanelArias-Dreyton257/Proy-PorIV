@@ -115,5 +115,6 @@ Pregunta generarPreguntaPrueba() {
 	char *lista[] = { "PB", "¿Es esto una pregunta de prueba?", "Claro que si",
 			"Quien sabe", "Si y No, la pregunta de Schrodinger",
 			"Averigualo por ti mism@", "0" };
+
 	return crearPregunta(lista);
 }
