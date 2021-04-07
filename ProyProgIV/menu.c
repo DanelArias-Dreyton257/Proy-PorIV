@@ -200,27 +200,31 @@ void menuBorrarPregunta() {
 	char *codigo = getStringInput(NUM_C_STR);
 
 	//Imprime para asegurar
-//	Pregunta* p = buscarPreguntaEnFichero(codigo);
-//	printPregunta(p);
+	Pregunta *p = buscarPreguntaEnFichero(codigo);
+	if (p != NULL) {
+		printPregunta(p);
 
-	//Se le preguntara al usuario si quiere borrar la pregunta
-	char *mensajeAdv = "¿Quiere borrar la pregunta? Y/n";
-	printf("\n%s\n", mensajeAdv);
+		//Se le preguntara al usuario si quiere borrar la pregunta
+		char *mensajeAdv = "¿Esta seguro de borrar esta pregunta? (Y/n)";
+		printf("\n%s\n", mensajeAdv);
 
-	//El usuario dara una respuesta, si o no, estando si por defecto
-	char respuesta = getCharInput();
+		//El usuario dara una respuesta, si o no, estando si por defecto
+		char respuesta = getCharInput();
 
-	//Si se selecciona no, no se borrara la pregunta
-	if (respuesta == 'n') {
-		printf("Pregunta no borrada");
+		//Si se selecciona no, no se borrara la pregunta
+		if (respuesta == 'n') {
+			printf("Pregunta no borrada");
+		}
+		//Si se selecciona Y o otra tecla se borrara la pregunta
+		else {
+			borrarPregunta(codigo);
+		}
+
 	}
-
-	//Si se selecciona Y o otra tecla se borrara la pregunta
-	else {
-		borrarPregunta(codigo);
+	else{
+		printf("Pregunta no encontrada");
 	}
-
-	//Borra la pregunta
+	//Libera el codigo
 	free(codigo);
 }
 /**
@@ -293,7 +297,7 @@ void menuModPregunta() {
 				break;
 			case 7: //cambiara la respuesta correcta
 				printf("Intoduce la nueva respuesta correcta (1-4):\n");
-				p->res = getIntInput()-1;
+				p->res = getIntInput() - 1;
 				break;
 			}
 
