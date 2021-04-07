@@ -71,7 +71,7 @@ char* getStringInput(int numChars) {
 void menuPrincipal() {
 
 	//Define e imprime el menu
-	char *titulo = "\nMenu Principal";
+	char *titulo = "Menu Principal";
 	char *ops[] = { "Gestion de preguntas y respuestas",
 			"Jugar (No disponible)", "Salir" };
 	char *msg = "\nIntroduce tu seleccion (1-3):\n";
@@ -108,7 +108,7 @@ void menuPrincipal() {
 void menuGestion() {
 
 	//Define e imprime el menu
-	char *titulo = "\nMenu Gestion de Preguntas";
+	char *titulo = "Menu Gestion de Preguntas";
 	char *ops[] = { "Crear preguntas", "Borrar preguntas",
 			"Modificar Preguntas", "Ver preguntas creadas",
 			"Volcar fichero de texto a BD (No disponible)", "Volver" };
@@ -180,7 +180,7 @@ void menuCrearPregunta() {
 	for (int i = 0; i < N_LISTA_PREG ; i++) {
 		printf("\n%s\n", pasos[i]);
 		fflush(stdout);
-		lista[i] = getStringInput(NUM_C_STR);
+		lista[i] = getStringInput(NUM_C_STR); //FIXME checkear datos introducidos
 	}
 	(*(lista[N_LISTA_PREG-1]))--; //reduce en 1 el valor de la respuesta correcta
 
