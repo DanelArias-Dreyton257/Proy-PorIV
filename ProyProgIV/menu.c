@@ -169,8 +169,10 @@ void menuCrearPregunta() {
 		printf("\n%s\n", pasos[i]);
 		lista[i] = getStringInput(NUM_C_STR);
 	}
+	//Creacion de la pregunta
+	Pregunta p = crearPregunta(lista);
 	//Se le preguntara al usuario si quiere crear la pregunta
-	char *mensajeAdv = "¿Quiere crear la pregunta? Y/n";
+	char *mensajeAdv = "¿Esta seguro de crear esta pregunta? (Y/n)";
 	printf("\n%s\n", mensajeAdv);
 	char respuesta = getCharInput();
 	//El usuario dara una respuesta, si o no, estando si por defecto
@@ -180,9 +182,9 @@ void menuCrearPregunta() {
 		printf("Pregunta no creada");
 	}
 
-	//Si se selecciona Y o otra tecla se creara la pregunta
+	//Si se selecciona Y o otra tecla se inserta la pregunta
 	else {
-		insertarPregunta(crearPregunta(lista));
+		insertarPregunta(p);
 	}
 
 }
@@ -290,8 +292,8 @@ void menuModPregunta() {
 				p->ops[3] = getStringInput(NUM_C_STR);
 				break;
 			case 7: //cambiara la respuesta correcta
-				printf("Intoduce la nueva respuesta correcta (0-3):\n");
-				p->res = getIntInput();
+				printf("Intoduce la nueva respuesta correcta (1-4):\n");
+				p->res = getIntInput()-1;
 				break;
 			}
 

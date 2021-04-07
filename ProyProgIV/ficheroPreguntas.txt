@@ -1,2 +1,3 @@
-1
+2
 PBEsbaCQSP1	¿Es esto una pregunta de prueba?	Claro que si	Quien sabe	Si y No, la pregunta de Schrodinger	Pero te queremos igual	1
+QCCuesLQLL2	¨Cuales son las puertas logicas cuanticas principales?	Las de Pauli: X, Y, y Z	Quantum AND (QAND) y Quantum XOR (QXOR)	Las de Pauli: X, Y, Z y la de Hadamard: H	La de Hadamard: H	2
