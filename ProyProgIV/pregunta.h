@@ -25,4 +25,10 @@ void freeRespuestas(Pregunta *p);
 char* generarCodigo(Pregunta p);
 Pregunta generarPreguntaPrueba();
 
+int comprobarCategoria(char* cat);
+int comprobarPregunta(char* preg);
+int comprobarOpcion(char* opc);
+int comprobarCodOpcion(int codRes);
+int comprobarPreguntaEntera(Pregunta *p);
+
 #endif /* PREGUNTA_H_ */

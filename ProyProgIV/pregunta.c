@@ -70,16 +70,16 @@ void freeRespuestas(Pregunta *p) {
  */
 char* generarCodigo(Pregunta p) {
 	int longCod = 11;
-	char none = 'N';
+	char noneChar = 'N';
 	char *cod = malloc(sizeof(char) * (longCod + 1));
-	if (strlen(p.cat) >= 2) { //Si al menos tiene 2 caracteres
+	if (comprobarCategoria(p.cat) > 0) { //Si al menos tiene 2 caracteres
 		cod[0] = p.cat[0];
 		cod[1] = p.cat[1];
 	} else {
-		cod[0] = none;
-		cod[1] = none;
+		cod[0] = noneChar;
+		cod[1] = noneChar;
 	}
-	if (strlen(p.preg) >= 4) {
+	if (comprobarPregunta(p.preg) > 0) {
 		cod[2] = p.preg[1];
 		cod[3] = p.preg[2];
 
@@ -87,17 +87,17 @@ char* generarCodigo(Pregunta p) {
 		cod[5] = p.preg[strlen(p.preg) - 2];
 	} else {
 		for (int i = 0; i < 4; i++) {
-			cod[2 + i] = none;
+			cod[2 + i] = noneChar;
 		}
 	}
 	for (int i = 0; i < 4; i++) {
-		if (strlen(p.ops[i]) > 0) {
+		if (comprobarOpcion(p.ops[i]) > 0) {
 			cod[6 + i] = (p.ops[i])[0]; //Coge el primer caracter de cada opcion
 		} else {
-			cod[6 + i] = none;
+			cod[6 + i] = noneChar;
 		}
 	}
-	if (p.res >= 0 && p.res <= 4) {
+	if (comprobarCodOpcion(p.res) > 0) {
 		cod[10] = p.res + '0'; //Pasar de un entero a un caracter, sumandole el valor del caracter 0
 	} else {
 		cod[10] = '0';
@@ -117,4 +117,66 @@ Pregunta generarPreguntaPrueba() {
 			"Averigualo por ti mism@", "0" };
 
 	return crearPregunta(lista);
+}
+/**
+ * Comprueba si la categoria es valida, para ello debe tener al menos 2 caracteres
+ * @param puntero al primer caracter del string con la categoria
+ * @return devuelve 1 si cumple con los requisitos, sino devuelve 0
+ */
+int comprobarCategoria(char *cat) {
+	if (strlen(cat) >= 2) {
+		return 1;
+	} else
+		return 0;
+}
+/**
+ * Comprueba si la pregunta es valida, para ello debe tener al menos 4 caracteres
+ * @param puntero al primer caracter del string con la pregunta
+ * @return devuelve 1 si cumple con los requisitos, sino devuelve 0
+ */
+int comprobarPregunta(char *preg) {
+	if (strlen(preg) >= 4) {
+		return 1;
+	} else
+		return 0;
+}
+/**
+ * Comprueba si la opcion es valida, para ello debe tener al menos 1 caracter
+ * @param puntero al primer caracter del string con la opcion
+ * @return devuelve 1 si cumple con los requisitos, sino devuelve 0
+ */
+int comprobarOpcion(char *opc) {
+	if (strlen(opc) >= 1) {
+		return 1;
+	} else
+		return 0;
+}
+/**
+ * Comprueba si la opcion es valida, para ello debe tener al menos 1 caracter
+ * @param puntero al primer caracter del string con la opcion
+ * @return devuelve 1 si cumple con los requisitos, sino devuelve 0
+ */
+int comprobarCodOpcion(int codRes) {
+	if (codRes >= 0 && codRes <= 4) {
+		return 1;
+	} else
+		return 0;
+}
+/**
+ * Comprueba si la pregunta tiene contenido valido
+ * @param puntero a la pregunta a comprobar
+ * @return devuelve 1 si cumple con los requisitos, sino devuelve 0
+ */
+int comprobarPreguntaEntera(Pregunta *p) {
+	if (comprobarCategoria(p->cat) > 0
+			&& comprobarPregunta(p->preg) > 0
+			&& comprobarOpcion(p->ops[0]) > 0
+			&& comprobarOpcion(p->ops[1]) > 0
+			&& comprobarOpcion(p->ops[2]) > 0
+			&& comprobarOpcion(p->ops[3]) > 0
+			&& comprobarCodOpcion(p->res) > 0) {
+		return 1;
+	} else
+		return 0;
+
 }
