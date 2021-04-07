@@ -105,6 +105,7 @@ void borrarPregunta(char *codigo) {
  * Imprime todas las perguntas almacenadas, una detras de otra
  */
 void printTodasPreguntas() {
+	printf("Hay %i preguntas almacenadas:\n",numPreguntas);
 	for (int i = 0; i < numPreguntas; i++) {
 		printPregunta(&preguntas[i]);
 		printf("\n");

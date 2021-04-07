@@ -48,7 +48,7 @@ Pregunta crearPregunta(char *list[]) {
 
 	p.ops = ops;
 
-	p.res = atoi(list[6]) - 1;
+	p.res = atoi(list[6]);
 
 	return p;
 }

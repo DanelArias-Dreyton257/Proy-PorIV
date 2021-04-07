@@ -164,12 +164,13 @@ void menuCrearPregunta() {
 
 	char *lista[N_LISTA_PREG];
 
-	for (int i = 0; i < N_LISTA_PREG; i++) {
-
+	for (int i = 0; i < N_LISTA_PREG ; i++) {
 		printf("\n%s\n", pasos[i]);
 		fflush(stdout);
 		lista[i] = getStringInput(NUM_C_STR);
 	}
+	(*(lista[N_LISTA_PREG-1]))--; //reduce en 1 el valor de la respuesta correcta
+
 	//Creacion de la pregunta
 	Pregunta p = crearPregunta(lista);
 	printPregunta(&p);
