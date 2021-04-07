@@ -88,9 +88,11 @@ void menuPrincipal() {
 	default: //Si el usuario introduce algo no valido
 		return;
 	case 1: //Si el usuario elige "1" se abre el menu de gestion
+		limpiarConsola();
 		menuGestion();
 		break;
 	case 2: //Si el usuario elige "2" se abre el modo de juego
+		limpiarConsola();
 		printf("Elegiste Jugar");
 		break;
 	case 3: //Si el usuario elige "3" se sale del programa
@@ -124,26 +126,37 @@ void menuGestion() {
 	default: //Si el usuario introduce algo no valido
 		return;
 	case 1: //Si el usuario elige "1" se abre el menu de creacion de preguntas
+		limpiarConsola();
 		menuCrearPregunta();
+		limpiarConsola();
 		menuGestion();
 		break;
 	case 2: //Si el usuario elige "2" se abre el menu de borrado de preguntas
+		limpiarConsola();
 		menuBorrarPregunta();
+		limpiarConsola();
 		menuGestion();
 		break;
 	case 3: //Si el usuario elige "3" se abre el menu de modificación de preguntas
+		limpiarConsola();
 		menuModPregunta();
+		limpiarConsola();
 		menuGestion();
 		break;
 	case 4: //Si el usuario elige "4" se visualizaran las preguntas
+		limpiarConsola();
 		verPreguntas();
+		limpiarConsola();
 		menuGestion();
 		break;
 	case 5: //Si el usuario elige "5" se volcaran los datos del fichero a la BD
+		limpiarConsola();
 		volcarFicheroABD();
+		limpiarConsola();
 		menuGestion();
 		break;
 	case 6: //Si el usuario elige "6" se retorna al menu principal
+		limpiarConsola();
 		menuPrincipal();
 		break;
 	}
@@ -170,6 +183,8 @@ void menuCrearPregunta() {
 		lista[i] = getStringInput(NUM_C_STR);
 	}
 	(*(lista[N_LISTA_PREG-1]))--; //reduce en 1 el valor de la respuesta correcta
+
+	limpiarConsola();
 
 	//Creacion de la pregunta
 	Pregunta p = crearPregunta(lista);
@@ -334,6 +349,7 @@ void menuModPregunta() {
 void verPreguntas() {
 	//Imprime TODAS las preguntas
 	printTodasPreguntas();
+	pausarConsola();
 }
 /**
  * Vuelca la informacion del fichero de texto a la base de datos
@@ -355,5 +371,17 @@ void printOpciones(char *ops[], int size) {
 		printf("\n\t%i.%s", i + 1, ops[i]);
 	}
 	fflush(stdout);
+}
+/**
+ * Limpia de texto la consola
+ */
+void limpiarConsola(){
+	system("cls");
+}
+/**
+ * Pausa la consola hasta el input del usuario
+ */
+void pausarConsola(){
+	system("pause");
 }
 

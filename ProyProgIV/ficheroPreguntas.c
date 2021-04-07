@@ -106,10 +106,11 @@ void borrarPregunta(char *codigo) {
  */
 void printTodasPreguntas() {
 	printf("Hay %i preguntas almacenadas:\n",numPreguntas);
+	//fflush(stdout);
 	for (int i = 0; i < numPreguntas; i++) {
 		printPregunta(&preguntas[i]);
 		printf("\n");
-
+		//fflush(stdout);
 	}
 }
 /**

@@ -24,4 +24,7 @@ void volcarFicheroABD();
 
 void printOpciones(char *ops[], int size);
 
+void limpiarConsola();
+void pausarConsola();
+
 #endif /* MENU_H_ */
