@@ -77,9 +77,10 @@ void menuPrincipal() {
 	char *msg = "\nIntroduce tu seleccion (1-3):\n";
 
 	printf("%s", titulo);
+	fflush(stdout);
 	printOpciones(ops, 3);
 	printf("%s", msg);
-
+	fflush(stdout);
 	//Recoge la eleccion del usuario
 	int s = getIntInput();
 
@@ -229,6 +230,25 @@ void menuBorrarPregunta() {
 
 	//Imprime para asegurar
 	Pregunta *p = buscarPreguntaEnFichero(codigo);
+	if (p == NULL) {
+		Pregunta *pPar = buscarPreguntaParecidaEnFichero(codigo); //Busca la pregunta con el codigo mas parecid
+		if (pPar != NULL) { //Si no se encuentra sale
+
+			//Pregunta al usuario si quiere usar el codigo parecido
+			printf(
+					"No se ha encontrado la pregunta con el codigo que ha introducido.\n ¿Quiere buscar por \"%s\"? (Y/n)\n",
+					generarCodigo(*pPar));
+			fflush(stdout);
+
+			char respuesta = getCharInput();
+			//Si se selecciona no, se continuara con ese codigo
+			if (respuesta != 'n') {
+				p = pPar;
+				free(codigo);
+				codigo = generarCodigo(*pPar);
+			}
+		}
+	}
 	if (p != NULL) {
 		printPregunta(p);
 
@@ -269,6 +289,26 @@ void menuModPregunta() {
 	char *codigo = getStringInput(NUM_C_STR);
 
 	Pregunta *p = buscarPreguntaEnFichero(codigo);
+
+	if (p == NULL) {
+		Pregunta *pPar = buscarPreguntaParecidaEnFichero(codigo); //Busca la pregunta con el codigo mas parecid
+		if (pPar != NULL) { //Si no se encuentra sale
+
+			//Pregunta al usuario si quiere usar el codigo parecido
+			printf(
+					"No se ha encontrado la pregunta con el codigo que ha introducido.\n ¿Quiere buscar por \"%s\"? (Y/n)\n",
+					generarCodigo(*pPar));
+			fflush(stdout);
+
+			char respuesta = getCharInput();
+			//Si se selecciona no, se continuara con ese codigo
+			if (respuesta != 'n') {
+				p = pPar;
+				free(codigo);
+				codigo = generarCodigo(*pPar);
+			}
+		}
+	}
 
 	if (p == NULL) {
 		printf("Pregunta no encontrada");
@@ -431,6 +471,8 @@ void limpiarConsola() {
  * Pausa la consola hasta el input del usuario
  */
 void pausarConsola() {
+	printf("\n");
+	fflush(stdout);
 	system("pause");
 }
 

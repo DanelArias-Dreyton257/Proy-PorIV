@@ -23,5 +23,7 @@ char* preguntaParaFichero(Pregunta p);
 void quickSortPreguntasPorCodigo(Pregunta *args, int len);
 void swap_ptrs(Pregunta *arg1, Pregunta *arg2);
 void liberarPreguntas();
+int buscarPosPreguntaMin(char *codigo);
+Pregunta* buscarPreguntaParecidaEnFichero(char *codigo);
 
 #endif /* FICHEROPREGUNTAS_H_ */

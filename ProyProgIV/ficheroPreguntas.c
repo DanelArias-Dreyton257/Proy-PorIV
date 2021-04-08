@@ -13,6 +13,7 @@
 
 #define NOMBRE_FIC "ficheroPreguntas.txt"
 #define INC_POS 10
+#define INT_MAX 2147483647
 
 //Array de almacenamiento
 Pregunta *preguntas = NULL;
@@ -37,6 +38,22 @@ Pregunta* buscarPreguntaEnFichero(char *codigo) {
 	}
 }
 /**
+ * Busca una pregunta segun su codigo, devolvera la pregunta con el codigo mas parecido al introducido
+ *
+ * @param char* que contiene el codigo parecido al de la pregunta que se quiere buscar
+ * @return puntero a pregunta leida de fichero correpondiete a ese codigo, si no se ha encontrado devuelve un a NULL
+ */
+Pregunta* buscarPreguntaParecidaEnFichero(char *codigo) {
+
+	int posEncontrado = buscarPosPreguntaMin(codigo);
+
+	if (posEncontrado < 0) { //En caso de que no se encuentre la pregunta buscada
+		return NULL;
+	} else {
+		return preguntas + posEncontrado; //En caso de encontrarla devuelve el puntero a esta
+	}
+}
+/**
  * Busca la posicion de en la array de la pregunta segun el codigo pasado como parametro
  * @param codigo de la pregunta
  * @return posicion de la pregunta en la array, -1 si no encontrado
@@ -51,6 +68,24 @@ int buscarPosPregunta(char *codigo) {
 	}
 	return posEncontrado;
 }
+/**
+ * Busca la posicion de en la array de la pregunta con el codigo mas proximo segun el codigo pasado como parametro
+ * @param codigo de la pregunta
+ * @return posicion de la pregunta en la array
+ */
+int buscarPosPreguntaMin(char *codigo) {
+	int posEncontrado = -1;
+	int min = INT_MAX;
+
+	for (int i = 0; i < numPreguntas; i++) {
+		int comp = abs(strcmp(generarCodigo(preguntas[i]), codigo));
+		if (comp <= min) { //Si la comparacion da un numero menor
+			posEncontrado = i;
+			min = comp;
+		}
+	}
+	return posEncontrado;
+}
 
 /**
  * Inserta una pregunta en el fichero de texto
@@ -58,8 +93,8 @@ int buscarPosPregunta(char *codigo) {
  */
 void insertarPregunta(Pregunta p) {
 	//Si no ha reservado previamente memoria para la array
-	if (preguntas==NULL){
-		numeroMax=INC_POS;
+	if (preguntas == NULL) {
+		numeroMax = INC_POS;
 		preguntas = malloc(sizeof(Pregunta) * numeroMax);
 	}
 	//Mientras no se supere el maximo
@@ -96,8 +131,7 @@ void borrarPregunta(char *codigo) {
 			preguntas[i] = preguntas[i + 1];
 		}
 		numPreguntas--;
-	}
-	else{
+	} else {
 		printf("Pregunta no encontrada");
 	}
 }
@@ -105,7 +139,7 @@ void borrarPregunta(char *codigo) {
  * Imprime todas las perguntas almacenadas, una detras de otra
  */
 void printTodasPreguntas() {
-	printf("Hay %i preguntas almacenadas:\n",numPreguntas);
+	printf("Hay %i preguntas almacenadas:\n", numPreguntas);
 	//fflush(stdout);
 	for (int i = 0; i < numPreguntas; i++) {
 		printPregunta(&preguntas[i]);
@@ -241,13 +275,13 @@ void quickSortPreguntasPorCodigo(Pregunta *args, int len) {
 /**
  * Libera el la array de preguntas
  */
-void liberarPreguntas(){
+void liberarPreguntas() {
 
-	for (int i= 0; i<numPreguntas; i++){ //Libera cada pregunta almacenada
+	for (int i = 0; i < numPreguntas; i++) { //Libera cada pregunta almacenada
 		Pregunta p = preguntas[i];
 		free(p.cat);
 		free(p.preg);
-		for(int j=0; j<N_OPCS; j++){//Libera las opciones
+		for (int j = 0; j < N_OPCS; j++) { //Libera las opciones
 			free(p.ops[j]);
 		}
 	}
