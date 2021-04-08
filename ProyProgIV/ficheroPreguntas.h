@@ -10,7 +10,7 @@
 
 #include "pregunta.h"
 
-#define NUM_C_STR 100 //Numero de caracteres maximo para char*
+#define NUM_C_STR 150 //Numero de caracteres maximo para char*
 
 Pregunta* buscarPreguntaEnFichero(char *codigo);
 void insertarPregunta(Pregunta p);

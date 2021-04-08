@@ -324,8 +324,8 @@ void menuModPregunta() {
 		char *ops[] = { "Cambiar codigo", "Cambiar pregunta",
 				"Cambiar respuesta 1", "Cambiar respuesta 2",
 				"Cambiar respuesta 3", "Cambiar respuesta 4",
-				"Cambiar codigo respuesta correcta (0-3)" };
-		char *mensajeAdv = "¿Quiere modificar esta pregunta? Y/n";
+				"Cambiar codigo respuesta correcta (1-4)" };
+		char *mensajeAdv = "¿Quiere modificar esta pregunta? (Y/n)";
 		fflush(stdout);
 
 		printf("\n%s\n", mensajeAdv);

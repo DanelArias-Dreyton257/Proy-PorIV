@@ -73,7 +73,7 @@ int buscarPosPregunta(char *codigo) {
  * @param codigo de la pregunta
  * @return posicion de la pregunta en la array
  */
-int buscarPosPreguntaMin(char *codigo) {
+int buscarPosPreguntaMin(char *codigo) { //FIXME no funciona correctamente
 	int posEncontrado = -1;
 	int min = INT_MAX;
 
