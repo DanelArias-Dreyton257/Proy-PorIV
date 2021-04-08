@@ -177,36 +177,43 @@ void menuCrearPregunta() {
 
 	char *lista[N_LISTA_PREG];
 
-	for (int i = 0; i < N_LISTA_PREG ; i++) {
+	for (int i = 0; i < N_LISTA_PREG; i++) {
 		printf("\n%s\n", pasos[i]);
 		fflush(stdout);
-		lista[i] = getStringInput(NUM_C_STR); //FIXME checkear datos introducidos
+		lista[i] = getStringInput(NUM_C_STR);
 	}
-	(*(lista[N_LISTA_PREG-1]))--; //reduce en 1 el valor de la respuesta correcta
+	(*(lista[N_LISTA_PREG - 1]))--; //reduce en 1 el valor de la respuesta correcta
 
 	limpiarConsola();
 
 	//Creacion de la pregunta
 	Pregunta p = crearPregunta(lista);
-	printPregunta(&p);
-	//Se le preguntara al usuario si quiere crear la pregunta
-	char *mensajeAdv = "¿Esta seguro de crear esta pregunta? (Y/n)";
-	printf("\n%s\n", mensajeAdv);
-	fflush(stdout);
-	char respuesta = getCharInput();
-	//El usuario dara una respuesta, si o no, estando si por defecto
 
-	//Si se selecciona no, no se creara la pregunta
-	if (respuesta == 'n') {
-		printf("Pregunta no creada");
+	if (comprobarPreguntaEntera(&p) > 0) {
+
+		printPregunta(&p);
+		//Se le preguntara al usuario si quiere crear la pregunta
+		char *mensajeAdv = "¿Esta seguro de crear esta pregunta? (Y/n)";
+		printf("\n%s\n", mensajeAdv);
 		fflush(stdout);
-	}
+		char respuesta = getCharInput();
+		//El usuario dara una respuesta, si o no, estando si por defecto
 
-	//Si se selecciona Y o otra tecla se inserta la pregunta
-	else {
-		insertarPregunta(p);
-	}
+		//Si se selecciona no, no se creara la pregunta
+		if (respuesta == 'n') {
+			printf("Pregunta no creada");
+			fflush(stdout);
+		}
 
+		//Si se selecciona Y o otra tecla se inserta la pregunta
+		else {
+			insertarPregunta(p);
+		}
+	} else {
+		printf(
+				"La pregunta no cumple con los requisitos.\n Por favor pruebe otra vez");
+		//fflush(stdout);
+	}
 }
 /**
  * Incia el menu de borrado de preguntas
@@ -304,37 +311,79 @@ void menuModPregunta() {
 			case 1: //cambiara la categoria
 				printf("Intoduce la nueva categoria:\n");
 				fflush(stdout);
-				p->cat = getStringInput(NUM_C_STR);
+				char *str1 = getStringInput(NUM_C_STR);
+				if (comprobarCategoria(str1) > 0) {
+					p->cat = str1;
+				} else {
+					printf(
+							"La categoria introducida no es valida, no se hara el cambio.");
+				}
 				break;
 			case 2: //cambiara la pregunta
 				printf("Intoduce la nueva pregunta:\n");
 				fflush(stdout);
-				p->preg = getStringInput(NUM_C_STR);
+				char *str2 = getStringInput(NUM_C_STR);
+				if (comprobarPregunta(str2) > 0) {
+					p->preg = str2;
+				} else {
+					printf(
+							"La pregunta introducida no es valida, no se hara el cambio.");
+				}
 				break;
 			case 3: //cambiara la respuesta 1
 				printf("Intoduce la nueva respuesta 1:\n");
 				fflush(stdout);
-				p->ops[0] = getStringInput(NUM_C_STR);
+				char *str3 = getStringInput(NUM_C_STR);
+				if (comprobarOpcion(str3) > 0) {
+					p->ops[0] = str3;
+				} else {
+					printf(
+							"La opcion introducida no es valida, no se hara el cambio.");
+				}
 				break;
 			case 4: //cambiara la respuesta 2
 				printf("Intoduce la nueva respuesta 2:\n");
 				fflush(stdout);
-				p->ops[1] = getStringInput(NUM_C_STR);
+				char *str4 = getStringInput(NUM_C_STR);
+				if (comprobarOpcion(str4) > 0) {
+					p->ops[1] = str4;
+				} else {
+					printf(
+							"La opcion introducida no es valida, no se hara el cambio.");
+				}
 				break;
 			case 5: //cambiara la respuesta 3
 				printf("Intoduce la nueva respuesta 3:\n");
 				fflush(stdout);
-				p->ops[2] = getStringInput(NUM_C_STR);
+				char *str5 = getStringInput(NUM_C_STR);
+				if (comprobarOpcion(str5) > 0) {
+					p->ops[2] = str5;
+				} else {
+					printf(
+							"La opcion introducida no es valida, no se hara el cambio.");
+				}
 				break;
 			case 6: //cambiara la respuesta 4
 				printf("Intoduce la nueva respuesta 4:\n");
 				fflush(stdout);
-				p->ops[3] = getStringInput(NUM_C_STR);
+				char *str6 = getStringInput(NUM_C_STR);
+				if (comprobarOpcion(str6) > 0) {
+					p->ops[3] = str6;
+				} else {
+					printf(
+							"La opcion introducida no es valida, no se hara el cambio.");
+				}
 				break;
 			case 7: //cambiara la respuesta correcta
 				printf("Intoduce la nueva respuesta correcta (1-4):\n");
 				fflush(stdout);
-				p->res = getIntInput() - 1;
+				int input = getIntInput() - 1;
+				if (comprobarCodOpcion(input) > 0) {
+					p->res = input;
+				} else {
+					printf(
+							"El codigo de opcion introducido no es valido, no se hara el cambio.");
+				}
 				break;
 			}
 
@@ -375,13 +424,13 @@ void printOpciones(char *ops[], int size) {
 /**
  * Limpia de texto la consola
  */
-void limpiarConsola(){
+void limpiarConsola() {
 	system("cls");
 }
 /**
  * Pausa la consola hasta el input del usuario
  */
-void pausarConsola(){
+void pausarConsola() {
 	system("pause");
 }
 
