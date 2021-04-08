@@ -73,18 +73,43 @@ int buscarPosPregunta(char *codigo) {
  * @param codigo de la pregunta
  * @return posicion de la pregunta en la array
  */
-int buscarPosPreguntaMin(char *codigo) { //FIXME no funciona correctamente
+int buscarPosPreguntaMin(char *codigo) { //FIXME no funciona totalmente bien
 	int posEncontrado = -1;
 	int min = INT_MAX;
 
 	for (int i = 0; i < numPreguntas; i++) {
-		int comp = abs(strcmp(generarCodigo(preguntas[i]), codigo));
-		if (comp <= min) { //Si la comparacion da un numero menor
+		int comp = distanciaStrs(generarCodigo(preguntas[i]), codigo);
+		if (comp < min) { //Si la comparacion da un numero menor
 			posEncontrado = i;
 			min = comp;
 		}
 	}
 	return posEncontrado;
+}
+/**
+ * Devuelve la distancia entre 2 strings comparando sus caracteres
+ * @param str1 primer string
+ * @param str2 segundo string
+ * @return distancia entre los strings
+ */
+int distanciaStrs(char *str1, char *str2) {
+	int i = 0, count = 0;
+
+	while (str1[i] != '\0' || str2[i] != '\0') {
+		count += abs(str1[i] - str2[i]);
+		i++;
+	}
+
+	//se anyaden los caracteres "extra" si es que hay
+	int j = i, k = i;
+
+	while (str1[j] != '\0') {
+		count += str1[j];
+	}
+	while (str2[k] != '\0') {
+		count += str1[k];
+	}
+	return count;
 }
 
 /**
