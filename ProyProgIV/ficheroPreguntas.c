@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "menu.h"
 
 #define NOMBRE_FIC "ficheroPreguntas.txt"
 #define INC_POS 10
@@ -27,7 +28,7 @@ int numeroMax = 0;
  * @param char* que contiene el codigo de la pregunta que se quiere buscar
  * @return puntero a pregunta leida de fichero correpondiete a ese codigo, si no se ha encontrado devuelve un a NULL
  */
-Pregunta* buscarPreguntaEnFichero(char *codigo) {
+Pregunta* buscarPregunta(char *codigo) {
 
 	int posEncontrado = buscarPosPregunta(codigo);
 
@@ -43,7 +44,7 @@ Pregunta* buscarPreguntaEnFichero(char *codigo) {
  * @param char* que contiene el codigo parecido al de la pregunta que se quiere buscar
  * @return puntero a pregunta leida de fichero correpondiete a ese codigo, si no se ha encontrado devuelve un a NULL
  */
-Pregunta* buscarPreguntaParecidaEnFichero(char *codigo) {
+Pregunta* buscarPreguntaParecida(char *codigo) {
 
 	int posEncontrado = buscarPosPreguntaMin(codigo);
 
@@ -78,7 +79,7 @@ int buscarPosPreguntaMin(char *codigo) { //FIXME no funciona totalmente bien
 	int min = INT_MAX;
 
 	for (int i = 0; i < numPreguntas; i++) {
-		int comp = distanciaStrs(generarCodigo(preguntas[i]), codigo);
+		int comp = abs(distanciaStrs(generarCodigo(preguntas[i]), codigo));
 		if (comp < min) { //Si la comparacion da un numero menor
 			posEncontrado = i;
 			min = comp;
@@ -92,11 +93,11 @@ int buscarPosPreguntaMin(char *codigo) { //FIXME no funciona totalmente bien
  * @param str2 segundo string
  * @return distancia entre los strings
  */
-int distanciaStrs(char *str1, char *str2) {
+int distanciaStrs(char *str1, char *str2) { //FIXME no funciona 100% bien como querriamos pero es una apanyo
 	int i = 0, count = 0;
 
 	while (str1[i] != '\0' || str2[i] != '\0') {
-		count += abs(str1[i] - str2[i]);
+		count += str1[i] - str2[i];
 		i++;
 	}
 
@@ -107,7 +108,7 @@ int distanciaStrs(char *str1, char *str2) {
 		count += str1[j];
 	}
 	while (str2[k] != '\0') {
-		count += str1[k];
+		count -= str2[k];
 	}
 	return count;
 }
@@ -311,4 +312,12 @@ void liberarPreguntas() {
 		}
 	}
 	free(preguntas);
+}
+/**
+ * Devuelve un puntero a una pregunta aleatoria del array
+ * @return puntero a la pregunta
+ */
+Pregunta* getPreguntaAleatoria() {
+	int posRnd = rand() % numPreguntas;
+	return preguntas + posRnd;
 }

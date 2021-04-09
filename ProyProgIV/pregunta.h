@@ -20,6 +20,7 @@ typedef struct {
 } Pregunta;
 
 void printPregunta(Pregunta *p);
+void printPreguntaJuego(Pregunta *p);
 Pregunta crearPregunta(char *list[]);
 void freeRespuestas(Pregunta *p);
 char* generarCodigo(Pregunta p);
@@ -30,5 +31,7 @@ int comprobarPregunta(char* preg);
 int comprobarOpcion(char* opc);
 int comprobarCodOpcion(int codRes);
 int comprobarPreguntaEntera(Pregunta *p);
+
+int esRespuestaCorrecta(Pregunta *p, int res);
 
 #endif /* PREGUNTA_H_ */

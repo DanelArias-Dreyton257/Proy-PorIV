@@ -22,9 +22,27 @@
  * @param puntero a la pregunta a imprimir
  */
 void printPregunta(Pregunta *p) {
-	printf("- \"%s\" - %s:\n\t %s,\n\t %s,\n\t %s,\n\t %s,\n\t R:(%i)->%s",
+	printf("- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s,\n\tR:(%c)->%s",
 			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
-			*(p->ops + 3), p->res, *(p->ops + p->res));
+			*(p->ops + 3),'A'+p->res, *(p->ops + p->res));
+	fflush(stdout);
+
+}
+/**
+ * Saca por consola la informacion de la pregunta pasada como parametro sin mostrar la respuesta
+ *
+ * -"codigo"-¿Pregunta pregunta pregunta?:
+ * 	opcion1
+ * 	opcion2
+ * 	opcion3
+ * 	opcion4
+ *
+ * @param puntero a la pregunta a imprimir
+ */
+void printPreguntaJuego(Pregunta *p) {
+	printf("- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s",
+			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
+			*(p->ops + 3));
 	fflush(stdout);
 
 }
@@ -179,4 +197,19 @@ int comprobarPreguntaEntera(Pregunta *p) {
 	} else
 		return 0;
 
+}
+/**
+ * Comprueba que la respuesta introducida es valida
+ * @param p Puntero a la pregunta que se responde
+ * @param res entero con la respuesta indicada entre 1 y 4
+ * @return 0 si no se cumple la condicion, 1 si si que se cumple
+ */
+int esRespuestaCorrecta(Pregunta *p, int res){
+	if (comprobarCodOpcion(res)>0){
+		if (res == p->res){
+			return 1;
+		}
+		else return 0;
+	}
+	else return 0;
 }

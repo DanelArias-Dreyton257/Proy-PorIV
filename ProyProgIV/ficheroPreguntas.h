@@ -12,7 +12,7 @@
 
 #define NUM_C_STR 150 //Numero de caracteres maximo para char*
 
-Pregunta* buscarPreguntaEnFichero(char *codigo);
+Pregunta* buscarPregunta(char *codigo);
 void insertarPregunta(Pregunta p);
 void borrarPregunta(char *codigo);
 void printTodasPreguntas();
@@ -24,7 +24,8 @@ void quickSortPreguntasPorCodigo(Pregunta *args, int len);
 void swap_ptrs(Pregunta *arg1, Pregunta *arg2);
 void liberarPreguntas();
 int buscarPosPreguntaMin(char *codigo);
-Pregunta* buscarPreguntaParecidaEnFichero(char *codigo);
+Pregunta* buscarPreguntaParecida(char *codigo);
 int distanciaStrs(char *str1, char *str2);
+Pregunta* getPreguntaAleatoria();
 
 #endif /* FICHEROPREGUNTAS_H_ */

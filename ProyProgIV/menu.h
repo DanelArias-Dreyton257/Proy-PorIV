@@ -18,6 +18,9 @@ void menuPrincipal();
 void menuGestion();
 void menuModPregunta();
 void menuBorrarPregunta();
+void menuJugar();
+
+void preguntarProvisional();
 
 void verPreguntas();
 void volcarFicheroABD();

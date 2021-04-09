@@ -94,7 +94,7 @@ void menuPrincipal() {
 		break;
 	case 2: //Si el usuario elige "2" se abre el modo de juego
 		limpiarConsola();
-		printf("Elegiste Jugar");
+		menuJugar();
 		break;
 	case 3: //Si el usuario elige "3" se sale del programa
 		return;
@@ -179,7 +179,7 @@ void menuCrearPregunta() {
 	char *lista[N_LISTA_PREG];
 
 	for (int i = 0; i < N_LISTA_PREG; i++) {
-		printf("\n%s\n", pasos[i]);
+		printf("%s\n", pasos[i]);
 		fflush(stdout);
 		lista[i] = getStringInput(NUM_C_STR);
 	}
@@ -223,15 +223,14 @@ void menuCrearPregunta() {
 void menuBorrarPregunta() {
 
 	//Introduce codigo
-	char *mensaje = "Introduce codigo de la pregunta:";
-	printf("\n%s\n", mensaje);
+	printf("Introduce codigo de la pregunta:\n");
 	fflush(stdout);
 	char *codigo = getStringInput(NUM_C_STR);
 
 	//Imprime para asegurar
-	Pregunta *p = buscarPreguntaEnFichero(codigo);
+	Pregunta *p = buscarPregunta(codigo);
 	if (p == NULL) {
-		Pregunta *pPar = buscarPreguntaParecidaEnFichero(codigo); //Busca la pregunta con el codigo mas parecid
+		Pregunta *pPar = buscarPreguntaParecida(codigo); //Busca la pregunta con el codigo mas parecid
 		if (pPar != NULL) { //Si no se encuentra sale
 
 			//Pregunta al usuario si quiere usar el codigo parecido
@@ -288,10 +287,10 @@ void menuModPregunta() {
 	fflush(stdout);
 	char *codigo = getStringInput(NUM_C_STR);
 
-	Pregunta *p = buscarPreguntaEnFichero(codigo);
+	Pregunta *p = buscarPregunta(codigo);
 
 	if (p == NULL) {
-		Pregunta *pPar = buscarPreguntaParecidaEnFichero(codigo); //Busca la pregunta con el codigo mas parecid
+		Pregunta *pPar = buscarPreguntaParecida(codigo); //Busca la pregunta con el codigo mas parecid
 		if (pPar != NULL) { //Si no se encuentra sale
 
 			//Pregunta al usuario si quiere usar el codigo parecido
@@ -318,17 +317,16 @@ void menuModPregunta() {
 
 		printPregunta(p);
 		printf("\n");
+		fflush(stdout);
 
 		free(codigo);
 
-		char *ops[] = { "Cambiar codigo", "Cambiar pregunta",
+		char *ops[] = { "Cambiar categoria", "Cambiar pregunta",
 				"Cambiar respuesta 1", "Cambiar respuesta 2",
 				"Cambiar respuesta 3", "Cambiar respuesta 4",
 				"Cambiar codigo respuesta correcta (1-4)" };
-		char *mensajeAdv = "¿Quiere modificar esta pregunta? (Y/n)";
-		fflush(stdout);
 
-		printf("\n%s\n", mensajeAdv);
+		printf("¿Quiere modificar esta pregunta? (Y/n)\n");
 		fflush(stdout);
 
 		//El usuario dara una respuesta, si o no, estando si por defecto
@@ -445,6 +443,7 @@ void verPreguntas() {
  */
 void volcarFicheroABD() {
 	printf("No disponible de momento");
+	pausarConsola();
 	//TODO
 }
 /**
@@ -474,5 +473,51 @@ void pausarConsola() {
 	printf("\n");
 	fflush(stdout);
 	system("pause");
+}
+/**
+ * Imprime un menu de juego provisional
+ */
+void menuJugar() { //Provisional
+	printf("Menu de Juego");
+	fflush(stdout);
+
+	char *ops[] = { "Responder una pregunta (Provisional)", "Salir" };
+	printOpciones(ops, 2);
+	printf("\n");
+	fflush(stdout);
+
+	int i = getIntInput();
+
+	switch (i) {
+	default:
+		return;
+	case 1:
+		preguntarProvisional();
+		break;
+	case 2:
+		limpiarConsola();
+		menuPrincipal();
+		break;
+	}
+}
+/**
+ * Pregunta una pregunta aleatoria y le hace saber al usuario la respuesta
+ */
+void preguntarProvisional(){
+	Pregunta *p = getPreguntaAleatoria();
+	printPreguntaJuego(p);
+	printf("\nIntroduzca su respuesta (1-4):\n");
+	fflush(stdout);
+	int r = getIntInput();
+	if (esRespuestaCorrecta(p, r-1)>0){
+		printf("¡¡Acertaste la pregunta!! ¡Enhorabuena!\n");
+	}
+	else{
+		printf("Fallaste la pregunta...\nLa respuesta correcta era la %c\n",p->res+'A');
+	}
+	fflush(stdout);
+	pausarConsola();
+	limpiarConsola();
+	menuJugar();
 }
 
