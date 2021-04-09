@@ -73,7 +73,7 @@ void menuPrincipal() {
 	//Define e imprime el menu
 	char *titulo = "Menu Principal";
 	char *ops[] = { "Gestion de preguntas y respuestas",
-			"Jugar (No disponible)", "Salir" };
+			"Jugar (Provisional)", "Salir" };
 	char *msg = "\nIntroduce tu seleccion (1-3):\n";
 
 	printf("%s", titulo);
