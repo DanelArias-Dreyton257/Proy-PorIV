@@ -483,7 +483,7 @@ void menuJugar() { //Provisional
 
 	char *ops[] = { "Responder una pregunta (Provisional)", "Salir" };
 	printOpciones(ops, 2);
-	printf("\n");
+	printf("\nIntroduce tu seleccion(1-2):\n");
 	fflush(stdout);
 
 	int i = getIntInput();
