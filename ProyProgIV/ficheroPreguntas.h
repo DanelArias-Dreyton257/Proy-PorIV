@@ -16,16 +16,14 @@ Pregunta* buscarPregunta(char *codigo);
 void insertarPregunta(Pregunta p);
 void borrarPregunta(char *codigo);
 void printTodasPreguntas();
-int buscarPosPregunta(char *codigo);
+int buscarPosPregunta(char *codigo, Categoria *c);
 void cargarPreguntas();
 void guardarPreguntas();
-char* preguntaParaFichero(Pregunta p);
-void quickSortPreguntasPorCodigo(Pregunta *args, int len);
-void swap_ptrs(Pregunta *arg1, Pregunta *arg2);
+void quickSortCategorias(Categoria *args, int len);
 void liberarPreguntas();
-int buscarPosPreguntaMin(char *codigo);
+int buscarPosPreguntaMin(char *codigo, Categoria *c);
+int buscarPosCategoria(char *cat);
 Pregunta* buscarPreguntaParecida(char *codigo);
-int distanciaStrs(char *str1, char *str2);
 Pregunta* getPreguntaAleatoria();
 
 #endif /* FICHEROPREGUNTAS_H_ */

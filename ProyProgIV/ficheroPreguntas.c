@@ -17,10 +17,13 @@
 #define INT_MAX 2147483647
 
 //Array de almacenamiento
-Pregunta *preguntas = NULL;
+//Pregunta *preguntas = NULL; //FIXME
 
-int numPreguntas = 0;
-int numeroMax = 0;
+Categoria *categorias = NULL;
+
+int numCategorias = 0;
+//int numPreguntas = 0;//FIXME
+//int numeroMax = 0;//FIXME
 
 /**
  * Busca una pregunta concreta en el fichero de texto y devuelve un puntero a esta
@@ -30,13 +33,18 @@ int numeroMax = 0;
  */
 Pregunta* buscarPregunta(char *codigo) {
 
-	int posEncontrado = buscarPosPregunta(codigo);
-
-	if (posEncontrado < 0) { //En caso de que no se encuentre la pregunta buscada
-		return NULL;
-	} else {
-		return preguntas + posEncontrado; //En caso de encontrarla devuelve el puntero a esta
+	char *cat = categoriaDesdeCodigo(codigo);
+	if (cat != NULL) {
+		int posCategoria = buscarPosCategoria(cat);
+		if (posCategoria >= 0) {
+			int posPregunta = buscarPosPregunta(codigo,
+					categorias + posCategoria);
+			if (posPregunta >= 0) { //En caso de que no se encuentre la pregunta buscada
+				return &(categorias[posCategoria].preguntas[posPregunta]); //En caso de encontrarla devuelve el puntero a esta
+			}
+		}
 	}
+	return NULL;
 }
 /**
  * Busca una pregunta segun su codigo, devolvera la pregunta con el codigo mas parecido al introducido
@@ -44,45 +52,43 @@ Pregunta* buscarPregunta(char *codigo) {
  * @param char* que contiene el codigo parecido al de la pregunta que se quiere buscar
  * @return puntero a pregunta leida de fichero correpondiete a ese codigo, si no se ha encontrado devuelve un a NULL
  */
-Pregunta* buscarPreguntaParecida(char *codigo) {
+Pregunta* buscarPreguntaParecida(char *codigo) { //FIXME
 
-	int posEncontrado = buscarPosPreguntaMin(codigo);
-
-	if (posEncontrado < 0) { //En caso de que no se encuentre la pregunta buscada
-		return NULL;
-	} else {
-		return preguntas + posEncontrado; //En caso de encontrarla devuelve el puntero a esta
+	char *cat = categoriaDesdeCodigo(codigo);
+	if (cat != NULL) {
+		int posCategoria = buscarPosCategoria(cat);
+		if (posCategoria >= 0) {
+			int posPregunta = buscarPosPreguntaMin(codigo,
+					categorias + posCategoria);
+			if (posPregunta >= 0) { //En caso de que no se encuentre la pregunta buscada
+				return &(categorias[posCategoria].preguntas[posPregunta]); //En caso de encontrarla devuelve el puntero a esta
+			}
+		}
 	}
+	return NULL;
 }
 /**
  * Busca la posicion de en la array de la pregunta segun el codigo pasado como parametro
  * @param codigo de la pregunta
  * @return posicion de la pregunta en la array, -1 si no encontrado
  */
-int buscarPosPregunta(char *codigo) {
+int buscarPosPregunta(char *codigo, Categoria *c) {
 	int posEncontrado = -1;
-	for (int i = 0; i < numPreguntas; i++) {
-		if (strcmp(generarCodigo(preguntas[i]), codigo) == 0) { //Si el codigo es el mismo
+	for (int i = 0; i < c->numPreguntas; i++) {
+		if (strcmp(generarCodigo(c->preguntas[i]), codigo) == 0) { //Si el codigo es el mismo
 			posEncontrado = i;
 			break;
 		}
 	}
 	return posEncontrado;
 }
-/**
- * Busca la posicion de en la array de la pregunta con el codigo mas proximo segun el codigo pasado como parametro
- * @param codigo de la pregunta
- * @return posicion de la pregunta en la array
- */
-int buscarPosPreguntaMin(char *codigo) { //FIXME no funciona totalmente bien
-	int posEncontrado = -1;
-	int min = INT_MAX;
 
-	for (int i = 0; i < numPreguntas; i++) {
-		int comp = abs(distanciaStrs(generarCodigo(preguntas[i]), codigo));
-		if (comp < min) { //Si la comparacion da un numero menor
+int buscarPosCategoria(char *cat) {
+	int posEncontrado = -1;
+	for (int i = 0; i < numCategorias; i++) {
+		if (strcmp(cat, categorias[i].nombre) == 0) {
 			posEncontrado = i;
-			min = comp;
+			break;
 		}
 	}
 	return posEncontrado;
@@ -114,76 +120,114 @@ int distanciaStrs(char *str1, char *str2) { //FIXME no funciona 100% bien como q
 }
 
 /**
+ * Busca la posicion de en la array de la pregunta con el codigo mas proximo segun el codigo pasado como parametro
+ * @param codigo de la pregunta
+ * @return posicion de la pregunta en la array
+ */
+int buscarPosPreguntaMin(char *codigo, Categoria *c) { //FIXME no funciona totalmente bien
+	int posEncontrado = -1;
+	int min = INT_MAX;
+
+	for (int i = 0; i < c->numPreguntas; i++) {
+		int comp = abs(distanciaStrs(generarCodigo(c->preguntas[i]), codigo));
+		if (comp < min) { //Si la comparacion da un numero menor
+			posEncontrado = i;
+			min = comp;
+		}
+	}
+	return posEncontrado;
+}
+
+/**
  * Inserta una pregunta en el fichero de texto
  * @param pregunta a escribir
  */
-void insertarPregunta(Pregunta p) {
-	//Si no ha reservado previamente memoria para la array
-	if (preguntas == NULL) {
-		numeroMax = INC_POS;
-		preguntas = malloc(sizeof(Pregunta) * numeroMax);
-	}
-	//Mientras no se supere el maximo
-	if (numPreguntas < numeroMax) {
-
-		preguntas[numPreguntas] = p;
-
-		numPreguntas++;
-
-		quickSortPreguntasPorCodigo(preguntas, numPreguntas); //ordena las preguntas
-
-	} else { //Si se supera el maximo es necesario reservar mas sitio
-
-		numeroMax += INC_POS;
-		Pregunta *preguntasRealloc = realloc(preguntas,
-				sizeof(Pregunta) * numeroMax); //Reserva para para 10 preguntas mas que antes
-
-		preguntas = preguntasRealloc;
-
-		insertarPregunta(p); //La pregunta ya se puede almacenar
+void insertarPregunta(Pregunta p) { //FIXME
+	int posCategoria = buscarPosCategoria(p.cat);
+	if (posCategoria > 0) {
+		insertarPreguntaEnCategoria(p, categorias + posCategoria);
+	} else {
+		//Anyadir la nueva categoria
+		if (categorias == NULL) {
+			numCategorias = 1;
+			categorias = malloc(sizeof(Categoria));
+		} else {
+			numCategorias++;
+			Categoria *reallocCat = realloc(categorias,
+					sizeof(Categoria) * numCategorias);
+			categorias = reallocCat;
+		}
+		//Crear la categoria
+		Categoria *c = categorias + numCategorias - 1;
+		c->nombre = p.cat;
+		c->numPreguntas = 1;
+		c->preguntas = malloc(sizeof(Pregunta));
+		c->preguntas[0] = p;
+		quickSortCategorias(categorias, numCategorias);
 	}
 }
 /**
  * Borra una pregunta del fichero de texto. Si no se encuentra la pregunta, no hace nada
  * @param codigo que representa a la pregunta a borrar
  */
-void borrarPregunta(char *codigo) {
+void borrarPregunta(char *codigo) { //FIXME
 
-	int posEncontrado = buscarPosPregunta(codigo);
+	int posCategoria = buscarPosCategoria(categoriaDesdeCodigo(codigo));
 
-	if (posEncontrado >= 0) {
-		//Eliminar y mover hacia la izquierda
-		for (int i = posEncontrado; i < numPreguntas - 1; i++) {
-			preguntas[i] = preguntas[i + 1];
+	if (posCategoria >= 0) {
+		int posEncontrado = buscarPosPregunta(codigo,
+				categorias + posCategoria);
+
+		if (posEncontrado >= 0) {
+			Categoria *c = categorias + posCategoria;
+			//Eliminar y mover hacia la izquierda
+			for (int i = posEncontrado; i < c->numPreguntas - 1; i++) {
+				c->preguntas[i] = c->preguntas[i + 1];
+			}
+			c->numPreguntas--;
+			if (c->numPreguntas > 0) {
+				Pregunta *reallocpregs = realloc(c->preguntas,
+						sizeof(Pregunta) * c->numPreguntas);
+				c->preguntas = reallocpregs;
+
+			}
+
+			return;
 		}
-		numPreguntas--;
-	} else {
-		printf("Pregunta no encontrada");
 	}
+	//Si no se encuentra
+	printf("Pregunta no encontrada");
+
 }
 /**
  * Imprime todas las perguntas almacenadas, una detras de otra
  */
-void printTodasPreguntas() {
-	printf("Hay %i preguntas almacenadas:\n", numPreguntas);
-	//fflush(stdout);
-	for (int i = 0; i < numPreguntas; i++) {
-		printPregunta(&preguntas[i]);
+void printTodasPreguntas() { //FIXME
+	for (int i = 0; i < numCategorias; i++) {
+		Categoria *c = categorias + i;
 		printf("\n");
-		//fflush(stdout);
+		printCategoria(c);
 	}
+//	printf("Hay %i preguntas almacenadas:\n", numPreguntas);
+//	//fflush(stdout);
+//	for (int i = 0; i < numPreguntas; i++) {
+//		printPregunta(&preguntas[i]);
+//		printf("\n");
+//		//fflush(stdout);
+//	}
 }
 /**
  * Carga las preguntas del fichero y las guarda en la array
  */
-void cargarPreguntas() {
+void cargarPreguntas() { //FIXME
 
 	FILE *fr = fopen(NOMBRE_FIC, "r");
+
+	int numeroMax = 0;
 
 	int comp = fscanf(fr, "%i\n", &numeroMax); //Lee el numero de preguntas y lo asume como maximo
 
 	if (comp != EOF) { //Si no hay nada guardado
-		preguntas = malloc(sizeof(Pregunta) * numeroMax); //reserva espacio para el numero de preguntas indicado
 
 		//Para cada pregunta
 		for (int i = 0; i < numeroMax; i++) {
@@ -225,28 +269,6 @@ void cargarPreguntas() {
 	fclose(fr);
 }
 /**
- * Almacena las preguntas de la array en un fichero de texto
- */
-void guardarPreguntas() {
-
-	//Ordena las preguntas segun el codigo
-	quickSortPreguntasPorCodigo(preguntas, numPreguntas);
-
-	FILE *fw = fopen(NOMBRE_FIC, "w");
-
-	fprintf(fw, "%i\n", numPreguntas); //Guarda el numero de preguntas
-
-	//Por cada pregunta
-	for (int i = 0; i < numPreguntas; i++) {
-		//Guarda el string con la información de la pregunta
-		char *strPreg = preguntaParaFichero(preguntas[i]);
-		fprintf(fw, "%s\n", strPreg);
-		free(strPreg);
-	}
-
-	fclose(fw);
-}
-/**
  * Formatea la pregunta a una linea de texto preparada para el fichero de texto
  *
  * @param Pregunta que se quiere formatear
@@ -259,13 +281,47 @@ char* preguntaParaFichero(Pregunta p) {
 			p.ops[0], p.ops[1], p.ops[2], p.ops[3], p.res);
 	return str;
 }
+int getTotalPreguntas(){
+	int sum = 0;
+	for (int i = 0 ; i<numCategorias; i++){
+		sum += categorias[i].numPreguntas;
+	}
+	return sum;
+}
+
+/**
+ * Almacena las preguntas de la array en un fichero de texto
+ */
+void guardarPreguntas() { //FIXME
+
+	//Ordena las preguntas segun el codigo
+	quickSortCategorias(categorias, numCategorias);
+
+	FILE *fw = fopen(NOMBRE_FIC, "w");
+
+	fprintf(fw, "%i\n", getTotalPreguntas()); //Guarda el numero de preguntas
+
+	for (int i = 0; i < numCategorias; i++) {
+		Categoria *c = categorias + i;
+		//Por cada pregunta
+		for (int j = 0; j < c->numPreguntas; j++) {
+			//Guarda el string con la información de la pregunta
+			char *strPreg = preguntaParaFichero(c->preguntas[j]);
+			fprintf(fw, "%s\n", strPreg);
+			free(strPreg);
+		}
+	}
+
+	fclose(fw);
+}
+
 /**
  * Intercambia los valores de entre dos preguntas
  * @param puntero a pregunta 1
  * @param puntero a pregunta 2
  */
-void swap_ptrs(Pregunta *arg1, Pregunta *arg2) {
-	Pregunta tmp = *arg1;
+void swap_ptrs(Categoria *arg1, Categoria *arg2) {
+	Categoria tmp = *arg1;
 	*arg1 = *arg2;
 	*arg2 = tmp;
 }
@@ -276,7 +332,7 @@ void swap_ptrs(Pregunta *arg1, Pregunta *arg2) {
  * @param puntero al inicio de la array
  * @param longitud de la array
  */
-void quickSortPreguntasPorCodigo(Pregunta *args, int len) {
+void quickSortCategorias(Categoria *args, int len) { //FIXME
 	int i, pvt = 0;
 
 	if (len <= 1)
@@ -287,7 +343,7 @@ void quickSortPreguntasPorCodigo(Pregunta *args, int len) {
 
 	// Resetea el indice de pivote a 0 y luego empieza a comparar
 	for (i = 0; i < len - 1; ++i) {
-		if (strcmp(generarCodigo(args[i]), generarCodigo(args[len - 1])) < 0)
+		if (strcmp(args[i].nombre, args[len - 1].nombre) < 0)
 			swap_ptrs(args + i, args + pvt++);
 	}
 
@@ -295,29 +351,35 @@ void quickSortPreguntasPorCodigo(Pregunta *args, int len) {
 	swap_ptrs(args + pvt, args + len - 1);
 
 	//Llamada a a continuar. No se incluye la posicion del pivote
-	quickSortPreguntasPorCodigo(args, pvt++);
-	quickSortPreguntasPorCodigo(args + pvt, len - pvt);
+	quickSortCategorias(args, pvt++);
+	quickSortCategorias(args + pvt, len - pvt);
 }
 /**
  * Libera el la array de preguntas
  */
-void liberarPreguntas() {
+void liberarPreguntas() { //FIXME
 
-	for (int i = 0; i < numPreguntas; i++) { //Libera cada pregunta almacenada
-		Pregunta p = preguntas[i];
-		free(p.cat);
-		free(p.preg);
-		for (int j = 0; j < N_OPCS; j++) { //Libera las opciones
-			free(p.ops[j]);
+	for (int i = 0; i < numCategorias; i++) { //Libera cada categoria almacenada
+		Categoria *c = categorias + i;
+		for (int j = 0; j < c->numPreguntas; j++) {
+			Pregunta *p = c->preguntas + j;
+			free(p->cat);
+			free(p->preg);
+			for (int j = 0; j < N_OPCS; j++) { //Libera las opciones
+				free(p->ops[j]);
+			}
 		}
+		free(c->nombre);
+		free(c->preguntas);
 	}
-	free(preguntas);
+	free(categorias);
 }
 /**
  * Devuelve un puntero a una pregunta aleatoria del array
  * @return puntero a la pregunta
  */
-Pregunta* getPreguntaAleatoria() {
-	int posRnd = rand() % numPreguntas;
-	return preguntas + posRnd;
+Pregunta* getPreguntaAleatoria() { //FIXME
+	int posRndC = rand() % numCategorias;
+	int posRndP = rand() % categorias[posRndC].numPreguntas;
+	return categorias[posRndC].preguntas + posRndP;
 }

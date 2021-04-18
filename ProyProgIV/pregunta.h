@@ -19,12 +19,20 @@ typedef struct {
 
 } Pregunta;
 
+typedef struct {
+	char *nombre;
+	Pregunta *preguntas;
+	int numPreguntas;
+} Categoria;
+
 void printPregunta(Pregunta *p);
 void printPreguntaJuego(Pregunta *p);
 Pregunta crearPregunta(char *list[]);
 void freeRespuestas(Pregunta *p);
 char* generarCodigo(Pregunta p);
 Pregunta generarPreguntaPrueba();
+void insertarPreguntaEnCategoria(Pregunta p, Categoria *c);
+void printCategoria(Categoria *c);
 
 int comprobarCategoria(char* cat);
 int comprobarPregunta(char* preg);
@@ -33,5 +41,7 @@ int comprobarCodOpcion(int codRes);
 int comprobarPreguntaEntera(Pregunta *p);
 
 int esRespuestaCorrecta(Pregunta *p, int res);
+
+char* categoriaDesdeCodigo(char *codigo);
 
 #endif /* PREGUNTA_H_ */

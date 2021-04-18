@@ -22,9 +22,10 @@
  * @param puntero a la pregunta a imprimir
  */
 void printPregunta(Pregunta *p) {
-	printf("- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s,\n\tR:(%c)->%s",
+	printf(
+			"- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s,\n\tR:(%c)->%s",
 			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
-			*(p->ops + 3),'A'+p->res, *(p->ops + p->res));
+			*(p->ops + 3), 'A' + p->res, *(p->ops + p->res));
 	fflush(stdout);
 
 }
@@ -186,12 +187,9 @@ int comprobarCodOpcion(int codRes) {
  * @return devuelve 1 si cumple con los requisitos, sino devuelve 0
  */
 int comprobarPreguntaEntera(Pregunta *p) {
-	if (comprobarCategoria(p->cat) > 0
-			&& comprobarPregunta(p->preg) > 0
-			&& comprobarOpcion(p->ops[0]) > 0
-			&& comprobarOpcion(p->ops[1]) > 0
-			&& comprobarOpcion(p->ops[2]) > 0
-			&& comprobarOpcion(p->ops[3]) > 0
+	if (comprobarCategoria(p->cat) > 0 && comprobarPregunta(p->preg) > 0
+			&& comprobarOpcion(p->ops[0]) > 0 && comprobarOpcion(p->ops[1]) > 0
+			&& comprobarOpcion(p->ops[2]) > 0 && comprobarOpcion(p->ops[3]) > 0
 			&& comprobarCodOpcion(p->res) > 0) {
 		return 1;
 	} else
@@ -204,12 +202,42 @@ int comprobarPreguntaEntera(Pregunta *p) {
  * @param res entero con la respuesta indicada entre 1 y 4
  * @return 0 si no se cumple la condicion, 1 si si que se cumple
  */
-int esRespuestaCorrecta(Pregunta *p, int res){
-	if (comprobarCodOpcion(res)>0){
-		if (res == p->res){
+int esRespuestaCorrecta(Pregunta *p, int res) {
+	if (comprobarCodOpcion(res) > 0) {
+		if (res == p->res) {
 			return 1;
-		}
-		else return 0;
-	}
-	else return 0;
+		} else
+			return 0;
+	} else
+		return 0;
 }
+
+char* categoriaDesdeCodigo(char *codigo) {
+	if (strlen(codigo) >= 2) {
+		char *cat = malloc(sizeof(char) * (2 + 1));
+		cat[0] = codigo[0];
+		cat[1] = codigo[1];
+		cat[2] = '\0';
+		return cat;
+	}
+	return NULL;
+
+}
+
+void insertarPreguntaEnCategoria(Pregunta p, Categoria *c){
+	c->numPreguntas++;
+	Pregunta *reallocPregs = realloc(c->preguntas, sizeof(Pregunta)*c->numPreguntas);
+	c->preguntas = reallocPregs;
+	c->preguntas[c->numPreguntas - 1] = p;
+}
+
+void printCategoria(Categoria *c){
+	printf("%s : Tiene %i preguntas.\n",c->nombre,c->numPreguntas);
+	for (int i=0; i<c->numPreguntas; i++){
+		printf("\n\t");
+		printPregunta(c->preguntas + i);
+		printf("\n");
+		fflush(stdout);
+	}
+}
+
