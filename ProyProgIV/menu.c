@@ -72,8 +72,8 @@ void menuPrincipal() {
 
 	//Define e imprime el menu
 	char *titulo = "Menu Principal";
-	char *ops[] = { "Gestion de preguntas y respuestas",
-			"Jugar (Provisional)", "Salir" };
+	char *ops[] = { "Gestion de preguntas y respuestas", "Jugar (Provisional)",
+			"Salir" };
 	char *msg = "\nIntroduce tu seleccion (1-3):\n";
 
 	printf("%s", titulo);
@@ -464,7 +464,12 @@ void printOpciones(char *ops[], int size) {
  * Limpia de texto la consola
  */
 void limpiarConsola() {
-	system("cls");
+
+	#if __unix__
+		system("clear");
+	#elif _WIN32
+		system("cls");
+#endif
 }
 /**
  * Pausa la consola hasta el input del usuario
@@ -472,7 +477,15 @@ void limpiarConsola() {
 void pausarConsola() {
 	printf("\n");
 	fflush(stdout);
-	system("pause");
+
+	#if __unix__
+		system("read -s -n 1 -p \"Press any key to continue . . .\"");
+		printf("\n");
+		fflush(stdout);
+	#elif _WIN32
+		system("pause");
+#endif
+
 }
 /**
  * Imprime un menu de juego provisional
@@ -503,17 +516,17 @@ void menuJugar() { //Provisional
 /**
  * Pregunta una pregunta aleatoria y le hace saber al usuario la respuesta
  */
-void preguntarProvisional(){
+void preguntarProvisional() {
 	Pregunta *p = getPreguntaAleatoria();
 	printPreguntaJuego(p);
 	printf("\nIntroduzca su respuesta (1-4):\n");
 	fflush(stdout);
 	int r = getIntInput();
-	if (esRespuestaCorrecta(p, r-1)>0){
+	if (esRespuestaCorrecta(p, r - 1) > 0) {
 		printf("¡¡Acertaste la pregunta!! ¡Enhorabuena!\n");
-	}
-	else{
-		printf("Fallaste la pregunta...\nLa respuesta correcta era la %c\n",p->res+'A');
+	} else {
+		printf("Fallaste la pregunta...\nLa respuesta correcta era la %c\n",
+				p->res + 'A');
 	}
 	fflush(stdout);
 	pausarConsola();
