@@ -28,7 +28,6 @@ int main(int argc, char **argv) {
 	//Abre el menu principal
 	limpiarConsola();
 	menuPrincipal();
-	//printTodasPreguntas();
 
 	guardarPreguntas();
 
