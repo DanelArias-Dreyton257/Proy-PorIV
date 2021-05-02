@@ -1,6 +1,11 @@
-27
+32
 ADQuOREEEE0	¨Que indica el EURIBOR?	Es el tipo de interes aplicado a las operaciones entre bancos europeos	Es el tipo de interes aplicado a las operaciones entre bancos a nivel nacional	Es el tipo de interes aplicado a las operaciones entre bancos que utilizan otro sistema monetario diferente al euro	Es el tipo de interes aplicado en todas las operaciones entre entidades financieras	0
 BIQuDNEEEN0	¨Que es el ADN?	Es un  cido nucleico que contiene las instrucciones gen‚ticas usadas en el desarrollo y funcionamiento de todos los organismos vivos	Es la mol‚cula formada por un cadena simple de ribonucle¢tidos	Es lineal y monocatenario	Ninguna de las anteriores	0
+BIQuioEELE2	¨Que limita la celula por fuera y regula el intercambio de substancias con el medio?	El ARN	El ADN	La membrana celular	El citoplasma	2
+BIQuveLEEN3	¨Que permite o niega la entrada y salida de substancias entre una celula y el medio donde vive?	La membrana nuclear	El reticulo endoplasmatico	El ADN	Ninguna de las anteriores	3
+BIQuasLELN1	¨Que organulo membranoso fabrica, transforta y almacena substancias?	La membrana plasmatica	El reticulo endoplasmatico	La membrana nuclear	Ninguna de las anteriores	1
+BIQuarLLEL3	¨Que organulos se encargan de la respiracion celular?	Las vacuolas	Los lisosomas	El aparato de Golgi	Las mitocondrias	3
+BIQuisLLLL1	¨Que organulos se encargan de la fotosintesis?	Las mitocondrias	Los cloroplastos	Los ribosomas	Las vacuolas	1
 EACo BMBBM2	¨Como se llama el elemento de electr¢nica digital que posibilita que en un computador existan m£ltiples elementos capaces de volcar informaci¢n al Bu	Microprocesador	Bus de control	Buffer triestado	Microcontrolador	2
 EACoeaTTTN1	¨Como se llama el tiempo que tarda un computador en ejecutar una determinada tarea?	Tiempo de ejecucion	Tiempo de respuesta	Tiempo de instruccion	Ninguna de las anteriores	1
 EACui¢MRBN1	¨Cuales son los elementos fundamentales sobre los que se sostenta la secuencialidad en un computador garantizando que se ejecute una microinstrucci¢n	Microinstrucciones	Registros	Buffers triestado	Ninguna de las anteriores	1
