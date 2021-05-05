@@ -81,6 +81,7 @@ int buscarPosPregunta(char *codigo, Categoria *c) {
 }
 
 int buscarPosCategoria(char *cat) {
+
 	int posEncontrado = -1;
 	for (int i = 0; i < numCategorias; i++) {
 		if (strcmp(cat, categorias[i].nombre) == 0) {
@@ -141,7 +142,7 @@ int buscarPosPreguntaMin(char *codigo, Categoria *c) { //FIXME no funciona total
  */
 void insertarPregunta(Pregunta p) {
 	int posCategoria = buscarPosCategoria(p.cat);
-	if (posCategoria > 0) {
+	if (posCategoria >= 0) {
 		insertarPreguntaEnCategoria(p, categorias + posCategoria);
 	} else {
 		//Anyadir la nueva categoria
@@ -156,10 +157,11 @@ void insertarPregunta(Pregunta p) {
 		}
 		//Crear la categoria
 		Categoria *c = categorias + numCategorias - 1;
-		c->nombre = p.cat;
+		c->nombre = strdup(p.cat);
 		c->numPreguntas = 1;
 		c->preguntas = malloc(sizeof(Pregunta));
 		c->preguntas[0] = p;
+
 		quickSortCategorias(categorias, numCategorias);
 	}
 }
