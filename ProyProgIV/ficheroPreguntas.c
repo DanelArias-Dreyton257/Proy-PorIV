@@ -387,3 +387,8 @@ Pregunta* getPreguntaAleatoria() {
 	int posRndP = rand() % categorias[posRndC].numPreguntas;
 	return categorias[posRndC].preguntas + posRndP;
 }
+
+Categoria* getCategorias(int *numeroCategorias){
+	*numeroCategorias = numCategorias;
+	return categorias;
+}

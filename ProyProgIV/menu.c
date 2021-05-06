@@ -9,6 +9,7 @@
 #include "pregunta.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "baseDatos.h"
 
 /**
  * Permite leer el input del usuario devolviendo el char introducido
@@ -442,9 +443,10 @@ void verPreguntas() {
  * Vuelca la informacion del fichero de texto a la base de datos
  */
 void volcarFicheroABD() {
-	printf("No disponible de momento");
+	int numCat = 0;
+	Categoria *c = getCategorias(&numCat);
+	almacenarCategorias(c, numCat);
 	pausarConsola();
-	//TODO
 }
 /**
  * Funcion util para lo menus

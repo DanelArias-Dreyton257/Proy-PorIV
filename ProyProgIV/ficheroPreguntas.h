@@ -26,5 +26,6 @@ int buscarPosCategoria(char *cat);
 Pregunta* buscarPreguntaParecida(char *codigo);
 Pregunta* getPreguntaAleatoria();
 void printNombresCategorias();
+Categoria* getCategorias(int *numeroCategorias);
 
 #endif /* FICHEROPREGUNTAS_H_ */
