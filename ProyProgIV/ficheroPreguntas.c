@@ -206,6 +206,10 @@ void printTodasPreguntas() {
 		Categoria *c = categorias + i;
 		printf("\n");
 		printCategoria(c);
+
+		if (i < numCategorias - 1) {
+			pausarConsola();
+		}
 	}
 }
 /**
@@ -213,7 +217,7 @@ void printTodasPreguntas() {
  */
 void printNombresCategorias() {
 	for (int i = 0; i < numCategorias; i++) {
-		printf("%s\n",categorias[i].nombre);
+		printf("%s\n", categorias[i].nombre);
 	}
 }
 /**
@@ -281,9 +285,9 @@ char* preguntaParaFichero(Pregunta p) {
 			p.ops[0], p.ops[1], p.ops[2], p.ops[3], p.res);
 	return str;
 }
-int getTotalPreguntas(){
+int getTotalPreguntas() {
 	int sum = 0;
-	for (int i = 0 ; i<numCategorias; i++){
+	for (int i = 0; i < numCategorias; i++) {
 		sum += categorias[i].numPreguntas;
 	}
 	return sum;

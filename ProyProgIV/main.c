@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+void resetRandomSeed();
+
 /**
  * Main function of the program
  * No argument is received
@@ -19,7 +21,7 @@
  */
 int main(int argc, char **argv) {
 
-	srand (time(NULL)); //"Crea" una semilla segun el tiempo para el calculo de numeros aleatorios
+	resetRandomSeed();
 
 	cargarPreguntas();
 
@@ -35,5 +37,9 @@ int main(int argc, char **argv) {
 
 	return 0;
 
+}
+
+void resetRandomSeed(){
+	srand (time(NULL)); //"Crea" una semilla segun el tiempo para el calculo de numeros aleatorios
 }
 
