@@ -189,7 +189,9 @@ int insertIntoPregunta(Pregunta *preg, int codCategoria) {
 	}
 
 	//6 - codigo respuesta correcta
-	res = sqlite3_bind_text(stmt, 6, &(preg->res), 1, SQLITE_STATIC); //FIXME mirar como meter enteros
+	char strRes[2];
+	sprintf(strRes, "%i", preg->res);
+	res = sqlite3_bind_text(stmt, 6, strRes, strlen(strRes), SQLITE_STATIC); //FIXME mirar como meter enteros
 	if (res != SQLITE_OK) {
 		printf("Error binding parameters (insert pregunta)\n");
 		printf("%s\n", sqlite3_errmsg(db));
@@ -197,7 +199,9 @@ int insertIntoPregunta(Pregunta *preg, int codCategoria) {
 	}
 
 	//7 - codigo categoria
-	res = sqlite3_bind_text(stmt, 7, &codCategoria, 2, SQLITE_STATIC); //FIXME mirar como meter enteros
+	char strCod[3];
+	sprintf(strCod, "%i", codCategoria);
+	res = sqlite3_bind_text(stmt, 7, strCod, strlen(strCod), SQLITE_STATIC); //FIXME mirar como meter enteros
 	if (res != SQLITE_OK) {
 		printf("Error binding parameters (insert pregunta)\n");
 		printf("%s\n", sqlite3_errmsg(db));
