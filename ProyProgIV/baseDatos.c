@@ -13,27 +13,40 @@
 sqlite3 *db;
 
 int almacenarCategorias(Categoria *categorias, int numCategorias) {
+
+	int res = SQLITE_OK;
+
 	for (int i = 0; i < numCategorias; i++) {
-		almacenarCategoria(categorias + i);
+		res = almacenarCategoria(categorias + i);
+		if (res != SQLITE_OK) {
+			break;
+		}
 	}
-	return -1;
+	return res;
 }
+
 int almacenarCategoria(Categoria *cat) {
-	//BLA BLA BLA //TODO
-	for (int i = 0; i < cat->numPreguntas; i++) {
-		almacenarPregunta(cat->preguntas + i);
+
+	int res = abrirBaseDatos();
+
+	//insertIntoCategoria(cat->nombre); //TODO
+
+	if (res == SQLITE_OK) {
+		for (int i = 0; i < cat->numPreguntas; i++) {
+			res = almacenarPregunta(cat->preguntas + i);
+			if (res != SQLITE_OK) {
+				break;
+			}
+		}
 	}
-	return -1;
+	return res;
 }
 
 int almacenarPregunta(Pregunta *preg) {
 
-
 	//PRIMERO UNA SELECT PARA EL CODIGO DE LA CATEGORIA
 
-
 	//CREAR LA SENTENCIA DE INSERT
-
 
 	//sqlite3_stmt *stmt;
 
@@ -41,14 +54,13 @@ int almacenarPregunta(Pregunta *preg) {
 
 	//PREPARAR LA SENTENCIA
 
-
 	//BIND TEXT
-
 
 	//EJECUTAR STATEMENT
 
-
 	//FINALIZAR STATEMENT
+
+	//CERRAR BD
 
 	//TODO
 	return -1;
@@ -58,9 +70,20 @@ int abrirBaseDatos() {
 	int res = sqlite3_open(DB_FILENAME, &db);
 	if (res != SQLITE_OK) {
 		//Error al establecer la conexion
-		printf("Error opening database\n");
+		printf("Error opening database\n");//FIXME
 		return res;
 	}
-	printf("Database opened");
+	printf("Database opened");//FIXME
+	return res;
+}
+
+int cerrarBaseDatos() {
+	int res = sqlite3_close(db);
+	if (res != SQLITE_OK) {
+		//Error al establecer la conexion
+		printf("Error closing database\n");//FIXME
+		return res;
+	}
+	printf("Database closed");//FIXME
 	return res;
 }

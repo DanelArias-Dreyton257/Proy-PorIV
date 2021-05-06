@@ -14,5 +14,6 @@ int almacenarCategorias(Categoria *categorias, int numCategorias);
 int almacenarCategoria(Categoria *cat);
 int almacenarPregunta(Pregunta* preg);
 int abrirBaseDatos();
+int cerrarBaseDatos();
 
 #endif /* BASEDATOS_H_ */
