@@ -91,7 +91,7 @@ int selectCodCategoria(char *nombre, int *codigo) {
 	//CREAR LA SENTENCIA DE INSERT
 	sqlite3_stmt *stmt;
 
-	char *sql = "SELECT FROM CATEGORIA WHERE NOMBRE_C=?";
+	char *sql = "SELECT CODIGO_C FROM CATEGORIA WHERE NOMBRE_C=?";
 
 	//PREPARE STATEMENT
 	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
