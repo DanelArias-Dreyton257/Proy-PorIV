@@ -113,7 +113,7 @@ void menuGestion() {
 	char *titulo = "Menu Gestion de Preguntas";
 	char *ops[] = { "Crear preguntas", "Borrar preguntas",
 			"Modificar Preguntas", "Ver preguntas creadas",
-			"Volcar fichero de texto a BD (No disponible)", "Volver" };
+			"Volcar fichero de texto a BD (ATENCION, en desarrollo)", "Volver" };
 	char *msg = "\nIntroduce tu seleccion (1-6):\n";
 
 	printf("%s", titulo);
