@@ -6,8 +6,9 @@
  */
 #include "sqlite3.h"
 #include <stdio.h>
-#include "pregunta.h"
 #include "baseDatos.h"
+#include "pregunta.h"
+#include <string.h>
 #define DB_FILENAME "baseDatos.sqlite"
 
 sqlite3 *db;
@@ -110,7 +111,7 @@ int selectCodCategoria(char *nombre, int *codigo) {
 	//EJECUTAR STATEMENT
 	res = sqlite3_step(stmt);
 	if (res == SQLITE_ROW) {
-		*codigo= sqlite3_column_int(stmt, 0);
+		*codigo = sqlite3_column_int(stmt, 0);
 	}
 
 	//FINALIZAR SENTENCIA
@@ -150,27 +151,77 @@ int almacenarCategoria(Categoria *cat) {
 	return res;
 }
 
-int insertIntoPregunta(Pregunta *preg, codCategoria) {
+int insertIntoPregunta(Pregunta *preg, int codCategoria) {
 	int res = abrirBaseDatos();
-	//TODO
-	res = cerrarBaseDatos();
-	return res;
 
 	//CREAR LA SENTENCIA DE INSERT
-
-	//sqlite3_stmt *stmt;
-
-	//char *sql = "INSERT INTO PREGUNTA(CODIGO_P,PREGUNTA,RESP_1,RESP_2,RESP_3,RESP_4,COD_R_CORRECTA,COD_CAT) VALUES(NULL,?,?,?,?,?,?)";
+	sqlite3_stmt *stmt;
+	char *sql =
+			"INSERT INTO PREGUNTA(CODIGO_P,PREGUNTA,RESP_1,RESP_2,RESP_3,RESP_4,COD_R_CORRECTA,COD_CAT) VALUES(NULL,?,?,?,?,?,?,?)";
 
 	//PREPARAR LA SENTENCIA
-
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (insert pregunta)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 	//BIND TEXT
 
+	//1 - pregunta
+	res = sqlite3_bind_text(stmt, 1, preg->preg, strlen(preg->preg),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (insert pregunta)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//(2-5) - respuestas
+	for (int i = 0; i < 4; i++) {
+		res = sqlite3_bind_text(stmt, 2 + i, preg->ops[i], strlen(preg->ops[i]),
+		SQLITE_STATIC);
+		if (res != SQLITE_OK) {
+			printf("Error binding parameters (insert pregunta)\n");
+			printf("%s\n", sqlite3_errmsg(db));
+			return res;
+		}
+	}
+
+	//6 - codigo respuesta correcta
+	res = sqlite3_bind_text(stmt, 6, &(preg->res), 1, SQLITE_STATIC); //FIXME mirar como meter enteros
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (insert pregunta)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//7 - codigo categoria
+	res = sqlite3_bind_text(stmt, 7, &codCategoria, 2, SQLITE_STATIC); //FIXME mirar como meter enteros
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (insert pregunta)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
 	//EJECUTAR STATEMENT
+	res = sqlite3_step(stmt);
+	if (res != SQLITE_DONE) {
+		printf("Error inserting new data into table (insert pregunta)\n");
+		return res;
+	}
 
 	//FINALIZAR STATEMENT
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (insert pregunta)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 
 	//CERRAR BD
+	res = cerrarBaseDatos();
+	return res;
 }
 /**
  * Almacena la pregunta en la base de datos
