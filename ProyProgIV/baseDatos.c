@@ -30,22 +30,115 @@ int almacenarCategorias(Categoria *categorias, int numCategorias) {
 	}
 	return res;
 }
-
+/**
+ * Inserta en la base de datos una categoria nueva
+ * @param nombre, nombre de la categoria
+ * @return SQLITE_OK si el proceso ha ido correctamente
+ */
 int insertIntoCategoria(char *nombre) {
 	int res = abrirBaseDatos();
-	//TODO
+
+	//CREAR LA SENTENCIA DE INSERT
+	sqlite3_stmt *stmt;
+
+	char *sql = "INSERT INTO CATEGORIA(CODIGO_C, NOMBRE_C) VALUES(NULL,?)";
+
+	//PREPARAR LA SENTENCIA
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (insert categoria)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//BIND TEXT
+	res = sqlite3_bind_text(stmt, 1, nombre, strlen(nombre), SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (insert categoria)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//EJECUTAR STATEMENT
+	res = sqlite3_step(stmt);
+	if (res != SQLITE_DONE) {
+		printf("Error inserting new data into table (insert categoria)\n");
+		return res;
+	}
+
+	//FINALIZAR STATEMENT
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (insert categoria)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//CERRAR BD
 	res = cerrarBaseDatos();
 	return res;
 }
+/**
+ * Busca en la base de datos el codigo de la categoria y lo guarda en el puntero pasado como segundo parametro
+ * @param nombre, nombre de la categoria
+ * @para *codigo, puntero al entero donde guardar el codigo leido
+ * @return SQLITE_OK si el proceso ha ido correctamente
+ */
+int selectCodCategoria(char *nombre, int *codigo) {
+	int res = abrirBaseDatos();
+
+	//CREAR LA SENTENCIA DE INSERT
+	sqlite3_stmt *stmt;
+
+	char *sql = "SELECT FROM CATEGORIA WHERE NOMBRE_C=?";
+
+	//PREPARE STATEMENT
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (select categoria)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+	//BIND TEXT
+	res = sqlite3_bind_text(stmt, 1, nombre, strlen(nombre), SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (select categoria)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//EJECUTAR STATEMENT
+	res = sqlite3_step(stmt);
+	if (res == SQLITE_ROW) {
+		*codigo= sqlite3_column_int(stmt, 0);
+	}
+
+	//FINALIZAR SENTENCIA
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (select categoria)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	res = cerrarBaseDatos();
+	return res;
+}
+
 /**
  * Almacena una categoria en la base de datos
  * @param cat, puntero a la categoria
  * @return SQLITE_OK si el proceso ha ido correctamente
  */
 int almacenarCategoria(Categoria *cat) {
+	int codigoCat = -1;
+	int res = SQLITE_OK;
 
-	int res = insertIntoCategoria(cat->nombre);
+	selectCodCategoria(cat->nombre, &codigoCat);
 
+	if (codigoCat < 0) {
+		res = insertIntoCategoria(cat->nombre);
+	}
 	if (res == SQLITE_OK) {
 		for (int i = 0; i < cat->numPreguntas; i++) {
 			res = almacenarPregunta(cat->preguntas + i);
@@ -54,13 +147,6 @@ int almacenarCategoria(Categoria *cat) {
 			}
 		}
 	}
-	return res;
-}
-
-int selectCodCategoria(char *nombre, int *codigo) {
-	int res = abrirBaseDatos();
-	//TODO
-	res = cerrarBaseDatos();
 	return res;
 }
 
@@ -101,9 +187,9 @@ int almacenarPregunta(Pregunta *preg) {
 	if (res == SQLITE_OK) {
 		if (codigo > -1) {
 			res = insertIntoPregunta(preg, codigo);
-		}
-		else{
-			printf("\nLa pregunta no se ha almacenado porque no se ha encontrado su categoria");
+		} else {
+			printf(
+					"\nLa pregunta no se ha almacenado porque no se ha encontrado su categoria");
 			fflush(stdout);
 		}
 	}
@@ -116,6 +202,11 @@ int almacenarPregunta(Pregunta *preg) {
  */
 int abrirBaseDatos() {
 	int res = sqlite3_open(DB_FILENAME, &db);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 	return res;
 }
 /**
@@ -124,5 +215,10 @@ int abrirBaseDatos() {
  */
 int cerrarBaseDatos() {
 	int res = sqlite3_close(db);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 	return res;
 }
