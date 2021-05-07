@@ -18,7 +18,7 @@ void borrarPregunta(char *codigo);
 void printTodasPreguntas();
 int buscarPosPregunta(char *codigo, Categoria *c);
 void cargarPreguntas();
-void guardarPreguntas();
+void guardarPreguntas(int copia);
 void quickSortCategorias(Categoria *args, int len);
 void liberarPreguntas();
 int buscarPosPreguntaMin(char *codigo, Categoria *c);

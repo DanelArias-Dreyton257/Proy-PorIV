@@ -11,8 +11,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include "menu.h"
+#include "fecha.h"
 
-#define NOMBRE_FIC "ficheroPreguntas.txt"
+#define NOMBRE_LEC "ficheroPreguntas.txt"
+#define NOMBRE_ESC_BASE "ficheroPreguntasCopia"
 #define INC_POS 10
 #define INT_MAX 2147483647
 
@@ -225,7 +227,7 @@ void printNombresCategorias() {
  */
 void cargarPreguntas() {
 
-	FILE *fr = fopen(NOMBRE_FIC, "r");
+	FILE *fr = fopen(NOMBRE_LEC, "r");
 
 	int numeroMax = 0;
 
@@ -295,13 +297,32 @@ int getTotalPreguntas() {
 
 /**
  * Almacena las preguntas de la array en un fichero de texto
+ * @param copia, pasar 1 si se quiere guardar una copia con la fecha
  */
-void guardarPreguntas() {
+void guardarPreguntas(int copia) {
 
 	//Ordena las preguntas segun el codigo
 	quickSortCategorias(categorias, numCategorias);
 
-	FILE *fw = fopen(NOMBRE_FIC, "w");
+	FILE *fw;
+
+	if (copia == 1) {
+		char *newNomFic = malloc(
+				sizeof(char) * (strlen(NOMBRE_ESC_BASE) + 1 + 30));
+		Fecha *f = getFechaActual();
+
+		sprintf(newNomFic, "%s %02d-%02d-%d %02d:%02d:%02d.txt",
+				NOMBRE_ESC_BASE, f->dia, f->mes, f->anyo, f->horas, f->minutos,
+				f->segundos);
+
+		fw = fopen(newNomFic, "w");
+
+		free(newNomFic);
+		free(f);
+	}
+	else{
+		fw = fopen(NOMBRE_LEC, "w");
+	}
 
 	fprintf(fw, "%i\n", getTotalPreguntas()); //Guarda el numero de preguntas
 
@@ -388,7 +409,7 @@ Pregunta* getPreguntaAleatoria() {
 	return categorias[posRndC].preguntas + posRndP;
 }
 
-Categoria* getCategorias(int *numeroCategorias){
+Categoria* getCategorias(int *numeroCategorias) {
 	*numeroCategorias = numCategorias;
 	return categorias;
 }

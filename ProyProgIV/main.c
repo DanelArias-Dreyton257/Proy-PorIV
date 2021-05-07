@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
 	limpiarConsola();
 	menuPrincipal();
 
-	guardarPreguntas();
+	guardarPreguntas(0);
 
 	liberarPreguntas();
 
