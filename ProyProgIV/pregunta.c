@@ -211,7 +211,11 @@ int esRespuestaCorrecta(Pregunta *p, int res) {
 	} else
 		return 0;
 }
-
+/**
+ * Devuelve la cadena de caracteres con la categoria desde el codigo de la pregunta
+ * @param codigo de una categoria generado por el metodo generarCodigo()
+ * @return nombre de categoria
+ */
 char* categoriaDesdeCodigo(char *codigo) {
 	if (strlen(codigo) >= 2) {
 		char *cat = malloc(sizeof(char) * (2 + 1));
@@ -223,14 +227,21 @@ char* categoriaDesdeCodigo(char *codigo) {
 	return NULL;
 
 }
-
+/**
+ * Inserta una pregunta en la categoria indicada reservando la memoria correspondiente
+ * @param p, pregunta a anyadir
+ * @param *c, puntero a la categoria donde anyadir la pregunta
+ */
 void insertarPreguntaEnCategoria(Pregunta p, Categoria *c){
 	c->numPreguntas++;
 	Pregunta *reallocPregs = realloc(c->preguntas, sizeof(Pregunta)*c->numPreguntas);
 	c->preguntas = reallocPregs;
 	c->preguntas[c->numPreguntas - 1] = p;
 }
-
+/**
+ * Saca por consola la categoria y sus preguntas
+ * @param *c, puntero a la categoria
+ */
 void printCategoria(Categoria *c){
 	printf("%s : Tiene %i preguntas.\n",c->nombre,c->numPreguntas);
 	for (int i=0; i<c->numPreguntas; i++){

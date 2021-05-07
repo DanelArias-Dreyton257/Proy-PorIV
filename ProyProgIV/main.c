@@ -29,6 +29,7 @@ int main(int argc, char **argv) {
 
 	//Abre el menu principal
 	limpiarConsola();
+
 	menuPrincipal();
 
 	guardarPreguntas(0);
@@ -38,7 +39,9 @@ int main(int argc, char **argv) {
 	return 0;
 
 }
-
+/**
+ * Resetea la seed de la generacion de numeros aleatorios segun el tiempo actual
+ */
 void resetRandomSeed(){
 	srand (time(NULL)); //"Crea" una semilla segun el tiempo para el calculo de numeros aleatorios
 }

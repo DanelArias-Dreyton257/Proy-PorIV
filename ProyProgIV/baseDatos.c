@@ -150,7 +150,12 @@ int almacenarCategoria(Categoria *cat) {
 	}
 	return res;
 }
-
+/**
+ * Inserta en la tabla pregunta la pregunta pasada por parametro
+ * @param *preg, Puntero a la pregunta
+ * @param codCategoria codigo de la categoria de la pregunta
+ * @return SQLITE_OK si el proceso ha ido correctamente
+ */
 int insertIntoPregunta(Pregunta *preg, int codCategoria) {
 	int res = abrirBaseDatos();
 

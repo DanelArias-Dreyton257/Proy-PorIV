@@ -81,7 +81,11 @@ int buscarPosPregunta(char *codigo, Categoria *c) {
 	}
 	return posEncontrado;
 }
-
+/**
+ * Busca la posicion en la array de categorias, la categoria buscada
+ * @param nombre de la categoria
+ * @return posicion de la categoria en la array, -1 si no encontrado
+ */
 int buscarPosCategoria(char *cat) {
 
 	int posEncontrado = -1;
@@ -287,6 +291,10 @@ char* preguntaParaFichero(Pregunta p) {
 			p.ops[0], p.ops[1], p.ops[2], p.ops[3], p.res);
 	return str;
 }
+/**
+ * Devuelve el numero total de preguntas
+ * @return numero de preguntas
+ */
 int getTotalPreguntas() {
 	int sum = 0;
 	for (int i = 0; i < numCategorias; i++) {
@@ -408,12 +416,18 @@ Pregunta* getPreguntaAleatoria() {
 	int posRndP = rand() % categorias[posRndC].numPreguntas;
 	return categorias[posRndC].preguntas + posRndP;
 }
-
+/**
+ * Devuelve la array de categorias
+ * @param *numeroCategorias, puntero donde se recogera el numero de categorias en la array
+ * @return puntero a la primera categoria de la array
+ */
 Categoria* getCategorias(int *numeroCategorias) {
 	*numeroCategorias = numCategorias;
 	return categorias;
 }
-
+/**
+ * Elimina el fichero de texto original
+ */
 void eliminarFichero(){
 	remove(NOMBRE_LEC);
 }
