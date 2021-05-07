@@ -314,21 +314,22 @@ void guardarPreguntas(int copia) {
 
 	FILE *fw;
 
-	if (copia == 1) {
+	if (copia != 0) {
 		char *newNomFic = malloc(
 				sizeof(char) * (strlen(NOMBRE_ESC_BASE) + 1 + 30));
 		Fecha *f = getFechaActual();
 
 		sprintf(newNomFic, "%s %02d-%02d-%d %02d:%02d:%02d.txt",
-				NOMBRE_ESC_BASE, f->dia, f->mes, f->anyo, f->horas, f->minutos,
+		NOMBRE_ESC_BASE, f->dia, f->mes, f->anyo, f->horas, f->minutos,
 				f->segundos);
+
+		printf("\n%s\n", newNomFic); //FIXME
 
 		fw = fopen(newNomFic, "w");
 
 		free(newNomFic);
 		free(f);
-	}
-	else{
+	} else {
 		fw = fopen(NOMBRE_LEC, "w");
 	}
 
@@ -428,6 +429,6 @@ Categoria* getCategorias(int *numeroCategorias) {
 /**
  * Elimina el fichero de texto original
  */
-void eliminarFichero(){
+void eliminarFichero() {
 	remove(NOMBRE_LEC);
 }

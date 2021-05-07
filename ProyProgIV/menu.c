@@ -446,8 +446,14 @@ void volcarFicheroABD() {
 	int numCat = 0;
 	Categoria *c = getCategorias(&numCat);
 	almacenarCategorias(c, numCat);
+
 	guardarPreguntas(1);
+
 	eliminarFichero();
+	liberarPreguntas();
+
+	cargarPreguntas();
+
 	pausarConsola();
 }
 /**
@@ -469,10 +475,10 @@ void printOpciones(char *ops[], int size) {
  */
 void limpiarConsola() {
 
-	#if __unix__
+#if __unix__
 		system("clear");
 	#elif _WIN32
-		system("cls");
+	system("cls");
 #endif
 }
 /**
@@ -482,12 +488,12 @@ void pausarConsola() {
 	printf("\n");
 	fflush(stdout);
 
-	#if __unix__
+#if __unix__
 		system("read -s -n 1 -p \"Press any key to continue . . .\"");
 		printf("\n");
 		fflush(stdout);
 	#elif _WIN32
-		system("pause");
+	system("pause");
 #endif
 
 }
