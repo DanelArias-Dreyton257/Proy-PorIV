@@ -447,6 +447,7 @@ void volcarFicheroABD() {
 	Categoria *c = getCategorias(&numCat);
 	almacenarCategorias(c, numCat);
 	guardarPreguntas(1);
+	eliminarFichero();
 	pausarConsola();
 }
 /**

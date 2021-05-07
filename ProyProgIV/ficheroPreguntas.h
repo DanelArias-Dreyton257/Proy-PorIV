@@ -27,5 +27,6 @@ Pregunta* buscarPreguntaParecida(char *codigo);
 Pregunta* getPreguntaAleatoria();
 void printNombresCategorias();
 Categoria* getCategorias(int *numeroCategorias);
+void eliminarFichero();
 
 #endif /* FICHEROPREGUNTAS_H_ */

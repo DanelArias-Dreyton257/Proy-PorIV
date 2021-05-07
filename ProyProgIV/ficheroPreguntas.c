@@ -14,7 +14,7 @@
 #include "fecha.h"
 
 #define NOMBRE_LEC "ficheroPreguntas.txt"
-#define NOMBRE_ESC_BASE "ficheroPreguntasCopia"
+#define NOMBRE_ESC_BASE "ficheroPreguntasVolcado"
 #define INC_POS 10
 #define INT_MAX 2147483647
 
@@ -412,4 +412,8 @@ Pregunta* getPreguntaAleatoria() {
 Categoria* getCategorias(int *numeroCategorias) {
 	*numeroCategorias = numCategorias;
 	return categorias;
+}
+
+void eliminarFichero(){
+	remove(NOMBRE_LEC);
 }
