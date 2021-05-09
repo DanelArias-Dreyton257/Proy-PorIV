@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 
 	cargarPreguntas();
 
-	insertarPregunta(generarPreguntaPrueba());
+	//insertarPregunta(generarPreguntaPrueba());
 
 	//Abre el menu principal
 	limpiarConsola();

@@ -453,8 +453,6 @@ void volcarFicheroABD() {
 
 	liberarPreguntas();
 
-	cargarPreguntas();
-
 	pausarConsola();
 }
 /**
