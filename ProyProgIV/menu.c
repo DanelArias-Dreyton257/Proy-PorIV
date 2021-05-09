@@ -450,6 +450,7 @@ void volcarFicheroABD() {
 	guardarPreguntas(1);
 
 	eliminarFichero();
+
 	liberarPreguntas();
 
 	cargarPreguntas();

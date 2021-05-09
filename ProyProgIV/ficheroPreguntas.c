@@ -319,11 +319,12 @@ void guardarPreguntas(int copia) {
 				sizeof(char) * (strlen(NOMBRE_ESC_BASE) + 1 + 30));
 		Fecha *f = getFechaActual();
 
-		sprintf(newNomFic, "%s %02d-%02d-%d %02d:%02d:%02d.txt",
+		sprintf(newNomFic, "%s %02d-%02d-%d %02d_%02d_%02d.txt",
 		NOMBRE_ESC_BASE, f->dia, f->mes, f->anyo, f->horas, f->minutos,
 				f->segundos);
 
-		printf("\n%s\n", newNomFic); //FIXME
+		printf("\nCopia de volcado guardada en:\n%s\n", newNomFic);
+		fflush(stdout);
 
 		fw = fopen(newNomFic, "w");
 
@@ -407,6 +408,10 @@ void liberarPreguntas() {
 		free(c->preguntas);
 	}
 	free(categorias);
+
+	//Prepararlo por si se vuelve a inicializar
+	numCategorias = 0;
+	categorias = NULL;
 }
 /**
  * Devuelve un puntero a una pregunta aleatoria del array

@@ -25,14 +25,16 @@ int main(int argc, char **argv) {
 
 	cargarPreguntas();
 
-	//insertarPregunta(generarPreguntaPrueba());
+	insertarPregunta(generarPreguntaPrueba());
 
 	//Abre el menu principal
 	limpiarConsola();
 
 	menuPrincipal();
 
-	guardarPreguntas(0);
+	if (getTotalPreguntas() > 0) {
+		guardarPreguntas(0);
+	}
 
 	liberarPreguntas();
 
@@ -42,7 +44,7 @@ int main(int argc, char **argv) {
 /**
  * Resetea la seed de la generacion de numeros aleatorios segun el tiempo actual
  */
-void resetRandomSeed(){
-	srand (time(NULL)); //"Crea" una semilla segun el tiempo para el calculo de numeros aleatorios
+void resetRandomSeed() {
+	srand(time(NULL)); //"Crea" una semilla segun el tiempo para el calculo de numeros aleatorios
 }
 

@@ -28,5 +28,6 @@ Pregunta* getPreguntaAleatoria();
 void printNombresCategorias();
 Categoria* getCategorias(int *numeroCategorias);
 void eliminarFichero();
+int getTotalPreguntas();
 
 #endif /* FICHEROPREGUNTAS_H_ */
