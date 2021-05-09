@@ -7,12 +7,34 @@
 
 #include "Jugador.h"
 
-Jugador::Jugador() {
-	// TODO Auto-generated constructor stub
+Jugador::Jugador(char *nombre) {
+	this->nombre = nombre;
+	this->vida = VIDA_MAX;
+}
 
+char* Jugador::getNombre() const {
+	return nombre;
+}
+
+void Jugador::setNombre(char *nombre) {
+	this->nombre = nombre;
+}
+
+int Jugador::getVida() const {
+	return vida;
+}
+
+void Jugador::setVida(int vida) {
+	this->vida = vida;
+}
+
+const int Jugador::getVIDA_MAX() {
+		return VIDA_MAX;
 }
 
 Jugador::~Jugador() {
-	// TODO Auto-generated destructor stub
+	delete nombre;
 }
+
+
 

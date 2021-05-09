@@ -7,10 +7,9 @@
 
 #include "Usuario.h"
 
-Usuario::Usuario() {
-	// TODO Auto-generated constructor stub
-
-}
+//Usuario::Usuario(){ //FIXME
+//
+//}
 
 Usuario::~Usuario() {
 	// TODO Auto-generated destructor stub

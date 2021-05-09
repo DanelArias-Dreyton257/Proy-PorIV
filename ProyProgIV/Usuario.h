@@ -12,8 +12,11 @@
 
 class Usuario: public Jugador {
 public:
-	Usuario();
+	Usuario(char *nombre):Jugador(nombre){} //TODO
+
 	virtual ~Usuario();
+
+	Usuario(const Usuario &other);
 };
 
 #endif /* USUARIO_H_ */

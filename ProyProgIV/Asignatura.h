@@ -12,8 +12,10 @@
 
 class Asignatura: public Jugador {
 public:
-	Asignatura();
+	Asignatura(char *nombre):Jugador(nombre){}//TODO
 	virtual ~Asignatura();
+
+	Asignatura(const Asignatura &other);
 };
 
 #endif /* ASIGNATURA_H_ */

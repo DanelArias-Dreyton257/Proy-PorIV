@@ -7,10 +7,10 @@
 
 #include "Asignatura.h"
 
-Asignatura::Asignatura() {
-	// TODO Auto-generated constructor stub
-
-}
+//Asignatura::Asignatura() {
+//	// TODO Auto-generated constructor stub
+//
+//}
 
 Asignatura::~Asignatura() {
 	// TODO Auto-generated destructor stub
