@@ -1,0 +1,6 @@
+5
+FIQus"EETF1	¨Quienes fueron los representantes de ambos bandos en la "guerra de corrientes"?	Einstein vs. Edison	Edison vs. Tesla	Tesla vs. Einstein	Faraday vs. Ohm	1
+FIl toSESS2	El experimento del gato de Schrodinger se usa para explicar ciertas propiedades cuanticas. Pero, ¨es algo de esto cierto?	Schrodinger era en realidad periodista	El experimento mental originalmente era con un pez en un acuario	Schrodinger en realidad no era partidario de la cuantica	Schrodinger intento el experimento con su gato mascota	2
+FICoioCDCP3	¨Como se denomina a la energia que tiene un cuerpo por el mero hecho de ocupar un lugar en el espacio?	Cinetica	Dinamica	Cinematica	Potencial	3
+FIEnSIPapm0	¨En que unidad se mide la presion en el SI?	Pascales (Pa)	atmosferas (atm)	pounds per square inch (psi)	milimetros de mercurio (mmHg)	0
+FIDeo"APAD2	¨De quien es la frase: "Dadme un punto de apoyo y movere el mundo"?	Aristoteles	Pitagoras	Arquimedes	Democrito	2
