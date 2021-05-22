@@ -1,0 +1,6 @@
+5
+BIQucaCLAG3	¨Quien fue el precursor de las leyes sobre la herencia genetica?	Charles Darwin	Louis Pasteur	Aristoteles	Gregor Mendel	3
+FIA ad19911	¨A cuanto equivale 1g hablando de fuerza de gravedad?	1 gramo	9.8 m/(s^2)	9.8 N	1 g/N	1
+MTQuesUUUU0	¨Que es una interseccion entre 2 planos no coincidentes?	Una recta	Un plano	Un punto	Un espacio	0
+PRn ..MMMM0	En Python si un metodo tiene la forma " __metodo__ " es un...	Metodo magico	Metodo oculto	Metodo inicial	Metodo sombra	0
+PRCoBDssJJ2	¨Como se denomina la API que permite que Java gestione una BD?	sqlite	sqlite3	JDBC	JDBG	2
