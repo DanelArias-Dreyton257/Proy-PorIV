@@ -11,11 +11,14 @@
 #include "Jugador.h"
 
 class Asignatura: public Jugador {
+private:
+	static const int NUM_CREDITOS = 6;
 public:
-	Asignatura(char *nombre):Jugador(nombre){}//TODO
+	Asignatura(char *nombre);
 	virtual ~Asignatura();
 
 	Asignatura(const Asignatura &other);
+	static const int getNumCreditos() const;
 };
 
 #endif /* ASIGNATURA_H_ */

@@ -10,11 +10,11 @@
 
 class Jugador {
 protected:
-	static const int VIDA_MAX = 255;
+	int vidaMax;
 	int vida;
 	char *nombre;
 public:
-	Jugador(char *nombre);
+	Jugador(char *nombre, int vidaMax);
 	virtual ~Jugador();
 
 	Jugador(const Jugador &other);
@@ -23,7 +23,7 @@ public:
 	void setNombre(char *nombre);
 	int getVida() const;
 	void setVida(int vida);
-	static const int getVIDA_MAX();
+	const int getVidaMax() const;
 };
 
 #endif /* JUGADOR_H_ */

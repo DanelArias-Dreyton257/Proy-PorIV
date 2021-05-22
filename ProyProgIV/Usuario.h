@@ -11,12 +11,18 @@
 #include "Jugador.h"
 
 class Usuario: public Jugador {
+private:
+	static const int VIDA_BASE = 100;
+	char* contrasena;
 public:
-	Usuario(char *nombre):Jugador(nombre){} //TODO
+	Usuario(char *nombre, char *contrasena);
 
 	virtual ~Usuario();
 
 	Usuario(const Usuario &other);
+
+	char* getContrasena() const;
+	static const int getVidaBase() const;
 };
 
 #endif /* USUARIO_H_ */
