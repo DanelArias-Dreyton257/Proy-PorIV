@@ -13,6 +13,8 @@
 class Usuario: public Jugador {
 private:
 	static const int VIDA_BASE = 100;
+	static const int INC_RECU = 10;
+	static const int DANYO = 20;
 	char* contrasena;
 public:
 	Usuario(char *nombre, char *contrasena);
@@ -22,7 +24,10 @@ public:
 	Usuario(const Usuario &other);
 
 	char* getContrasena() const;
-	static const int getVidaBase() const;
+
+	void danyar();
+	void revitalizar();
+	static const int getVidaBase();
 };
 
 #endif /* USUARIO_H_ */

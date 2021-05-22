@@ -9,16 +9,25 @@
 #define ASIGNATURA_H_
 
 #include "Jugador.h"
+#include <unordered_map>
+#include <string>
+using namespace std;
 
 class Asignatura: public Jugador {
 private:
 	static const int NUM_CREDITOS = 6;
+	static const int DANYO = 2;
+	static void initMapa();
+	static bool mapaInicializado;
 public:
-	Asignatura(char *nombre);
+	Asignatura(char *cat);
 	virtual ~Asignatura();
 
 	Asignatura(const Asignatura &other);
-	static const int getNumCreditos() const;
+	static const int getNumCreditos();
+
+	void danyar();
+
 };
 
 #endif /* ASIGNATURA_H_ */

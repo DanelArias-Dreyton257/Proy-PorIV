@@ -8,6 +8,12 @@
 #include "Jugador.h"
 #include <string.h>
 
+Jugador::Jugador(){
+	this->nombre = NULL;
+	this->vida = 0;
+	this->vidaMax = 0;
+}
+
 Jugador::Jugador(char *nombre, int vidaMax) {
 	this->nombre = strdup(nombre);
 	this->vida = vidaMax;
@@ -41,5 +47,8 @@ const int Jugador::getVidaMax() const{
 
 Jugador::~Jugador() {
 	delete[] nombre;
+}
+bool Jugador::isMuerto(){
+	return vida<=0;
 }
 

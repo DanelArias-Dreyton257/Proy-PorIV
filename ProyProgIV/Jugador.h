@@ -14,6 +14,7 @@ protected:
 	int vida;
 	char *nombre;
 public:
+	Jugador();
 	Jugador(char *nombre, int vidaMax);
 	virtual ~Jugador();
 
@@ -24,6 +25,9 @@ public:
 	int getVida() const;
 	void setVida(int vida);
 	const int getVidaMax() const;
+
+	virtual void danyar() = 0;
+	bool isMuerto();
 };
 
 #endif /* JUGADOR_H_ */
