@@ -1,0 +1,2 @@
+1
+FIomleCCCN2	Como se llama la constante que se utiliza para calcular la fuerza ejercida por un muelle?	Constante de elasticidad, medida en kg/mm	Constante de resorte, medida en kg/mm	Constante de resorte, medida en N/mm	Ninguna de las anteriores	2
