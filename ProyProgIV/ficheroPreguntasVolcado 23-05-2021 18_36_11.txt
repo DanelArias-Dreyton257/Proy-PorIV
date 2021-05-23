@@ -1,0 +1,10 @@
+9
+BDuedaBBBB2	Que base de datos permite almacenar imagenes, videos y sonido de manera estructurada?	BD pasiva	BD activa	BD multimedia	BD paralela	2
+BDueosBBBN2	Que base de datos es una BD distribuida en la que se utilizan replicas en algunos de los nodos?	BD particionada	BD totalmente replicada	BD parcialmente replicada	Ninguna de las anteriores	2
+BDueenSSSN1	Que metodos para realizar una fragmentacion de una BD distribuida existen?	Solo proyeccion, distribucion y join natural	Solo join natural, restriccion y proyeccion	Solo seleccion y proyeccion	Ninguna de las anteriores es correcta	1
+BDuedaNHPT2	Que caracteristicas tiene un sistema de gestion de una base de datos distribuida?	No realiza una distribucion transparente a los usuarios	Hace lo mismo que la SSGB y no tiene ninguna caracteristica adicional	Permite el manejo de la base de datos	Tiene dependencia de datos	2
+BDuecoOODN1	Que sistema es una base de datos orientada al procesamiento analitico?	OLTP	OLAP	Data Warehouse	Ninguna de las anteriores	1
+BDueQLPNNN3	Que caracteristicas tiene una base de datos NoSQL?	Pueden soportar operaciones join y los datos almacenados no requieren estructuras fijas	No pueden usar nunca SQL como lenguaje secundario y garantiza siempre la atomicidad, consistencia, aislamiento y durabilidad	No soportan operaciones join y los datos se almacenan en estructuras fijas siempre	No usan SQL como lenguaje principal de consultas y no garantizan la atomicidad, cosistencia, aislamiento y durabilidad	3
+BDueenBBBT3	Que tipo de base de datos NoSQL existen?	BD de documentos y BD de clave/valor	BD de documentos, BD de grafos y BD de columnas	BD de columnas y BD de clave/valor	Todas las anteriores son correctas	3
+BDuetaLLEE3	Que afirmacion de las siguientes es correcta?	Los datawarehouse se usan para la creacion de aplicaciones de tipo tecnico	Las base de datos distribuidas usan herencia	El Neo4j es una BD orientada a documentos	En las BD deductivas se usan frencuentemente las tecnicas de consolidacion y profundizacion	3
+BDue4jBBBB0	Que tipo de base de datos es Neo4j?	BD de grafos	BD orientada a documentos	BD de clave/valor	BD espacial	0
