@@ -40,6 +40,6 @@ void Usuario::revitalizar(){
 }
 
 void Usuario::print(){
-	cout<<nombre<<"(pwd:"<<contrasena<<"): ["<<vida<<"/"<<vidaMax<<"]"<<endl;
+	cout<<nombre<<"(pwd:"<<contrasena<<"):"<<vidaToString()<<endl;
 }
 

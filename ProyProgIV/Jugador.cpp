@@ -7,8 +7,9 @@
 
 #include "Jugador.h"
 #include <string.h>
+#include <cstdio>
 
-Jugador::Jugador(){
+Jugador::Jugador() {
 	this->nombre = NULL;
 	this->vida = 0;
 	this->vidaMax = 0;
@@ -41,14 +42,23 @@ void Jugador::setVida(int vida) {
 	this->vida = vida;
 }
 
-const int Jugador::getVidaMax() const{
+const int Jugador::getVidaMax() const {
 	return vidaMax;
 }
 
 Jugador::~Jugador() {
 	delete[] nombre;
 }
-bool Jugador::isMuerto(){
-	return vida<=0;
+bool Jugador::isMuerto() {
+	return vida <= 0;
+}
+char* Jugador::vidaToString() {
+	char *str = new char[10];
+	if (isMuerto) {
+		sprintf(str,"DERROTADO");
+	} else {
+		sprintf(str, "[%i/%i]", vida, vidaMax);
+	}
+	return str;
 }
 

@@ -79,7 +79,6 @@ void Asignatura::danyar() {
 }
 
 void Asignatura::print() {
-	cout << nombre << "(" << NUM_CREDITOS << " creditos): [" << vida << "/"
-			<< vidaMax << "]" << endl;
+	cout << nombre << "(" << NUM_CREDITOS << " creditos):"<<vidaToString()<<endl;
 }
 

@@ -29,6 +29,8 @@ public:
 	virtual void danyar() = 0;
 	virtual void print() = 0;
 
+	char* vidaToString();
+
 	bool isMuerto();
 };
 
