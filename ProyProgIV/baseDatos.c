@@ -282,3 +282,8 @@ int cerrarBaseDatos() {
 	}
 	return res;
 }
+
+int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas){
+	//TODO
+	return 0;
+}

@@ -83,6 +83,16 @@ void freeRespuestas(Pregunta *p) {
 	free(p->ops);
 }
 /**
+ * Libera la memoria usada para el almacenamiento de la pregunta
+ *
+ * @param puntero de a la pregunta que se quiera liberar
+ */
+void freePregunta(Pregunta *p) {
+	free(p->cat);
+	free(p->preg);
+	freeRespuestas(p);
+}
+/**
  * Genera el char* con el codigo que representa la pregunta
  * @param p Pregunta de la cual se quiere sacar el codigo
  * @return char* con el codigo
@@ -232,9 +242,10 @@ char* categoriaDesdeCodigo(char *codigo) {
  * @param p, pregunta a anyadir
  * @param *c, puntero a la categoria donde anyadir la pregunta
  */
-void insertarPreguntaEnCategoria(Pregunta p, Categoria *c){
+void insertarPreguntaEnCategoria(Pregunta p, Categoria *c) {
 	c->numPreguntas++;
-	Pregunta *reallocPregs = realloc(c->preguntas, sizeof(Pregunta)*c->numPreguntas);
+	Pregunta *reallocPregs = realloc(c->preguntas,
+			sizeof(Pregunta) * c->numPreguntas);
 	c->preguntas = reallocPregs;
 	c->preguntas[c->numPreguntas - 1] = p;
 }
@@ -242,13 +253,19 @@ void insertarPreguntaEnCategoria(Pregunta p, Categoria *c){
  * Saca por consola la categoria y sus preguntas
  * @param *c, puntero a la categoria
  */
-void printCategoria(Categoria *c){
-	printf("%s : Tiene %i preguntas.\n",c->nombre,c->numPreguntas);
-	for (int i=0; i<c->numPreguntas; i++){
+void printCategoria(Categoria *c) {
+	printf("%s : Tiene %i preguntas.\n", c->nombre, c->numPreguntas);
+	for (int i = 0; i < c->numPreguntas; i++) {
 		printf("\n\t");
 		printPregunta(c->preguntas + i);
 		printf("\n");
 		fflush(stdout);
 	}
+}
+
+Pregunta duplicarPregunta(Pregunta *preg){
+	char res = preg->res + '0';
+	char* list[] = {strdup(preg->cat), strdup(preg->preg), strdup(preg->ops[0]),strdup(preg->ops[1]),strdup(preg->ops[2]),strdup(preg->ops[3]), &res};
+	return crearPregunta(list);
 }
 

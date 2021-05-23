@@ -8,6 +8,10 @@
 #ifndef FECHA_H_
 #define FECHA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct{
 	int dia;
 	int mes;
@@ -19,5 +23,9 @@ typedef struct{
 
 Fecha* getFechaActual();
 void imprimirFecha(Fecha f);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* FECHA_H_ */

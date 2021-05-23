@@ -8,6 +8,10 @@
 #ifndef MENU_H_
 #define MENU_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 char getCharInput();
 int getIntInput();
 int getLIntInput(int numDigs);
@@ -29,5 +33,10 @@ void printOpciones(char *ops[], int size);
 
 void limpiarConsola();
 void pausarConsola();
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* MENU_H_ */

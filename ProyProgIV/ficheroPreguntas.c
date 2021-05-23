@@ -398,11 +398,7 @@ void liberarPreguntas() {
 		Categoria *c = categorias + i;
 		for (int j = 0; j < c->numPreguntas; j++) {
 			Pregunta *p = c->preguntas + j;
-			free(p->cat);
-			free(p->preg);
-			for (int j = 0; j < N_OPCS; j++) { //Libera las opciones
-				free(p->ops[j]);
-			}
+			freePregunta(p);
 		}
 		free(c->nombre);
 		free(c->preguntas);

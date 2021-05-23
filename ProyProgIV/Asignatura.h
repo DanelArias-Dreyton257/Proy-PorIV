@@ -9,6 +9,7 @@
 #define ASIGNATURA_H_
 
 #include "Jugador.h"
+#include "pregunta.h"
 #include <unordered_map>
 #include <string>
 using namespace std;
@@ -19,6 +20,8 @@ private:
 	static const int DANYO = 2;
 	static void initMapa();
 	static bool mapaInicializado;
+	Pregunta *preguntas = NULL;
+	int numPreguntas = 0;
 public:
 	Asignatura(char *cat);
 	virtual ~Asignatura();

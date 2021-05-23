@@ -8,6 +8,10 @@
 #ifndef PREGUNTA_H_
 #define PREGUNTA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define N_LISTA_PREG 7
 #define N_OPCS 4
 
@@ -29,6 +33,7 @@ void printPregunta(Pregunta *p);
 void printPreguntaJuego(Pregunta *p);
 Pregunta crearPregunta(char *list[]);
 void freeRespuestas(Pregunta *p);
+void freePregunta(Pregunta *p);
 char* generarCodigo(Pregunta p);
 Pregunta generarPreguntaPrueba();
 void insertarPreguntaEnCategoria(Pregunta p, Categoria *c);
@@ -43,5 +48,11 @@ int comprobarPreguntaEntera(Pregunta *p);
 int esRespuestaCorrecta(Pregunta *p, int res);
 
 char* categoriaDesdeCodigo(char *codigo);
+
+Pregunta duplicarPregunta(Pregunta *preg);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PREGUNTA_H_ */

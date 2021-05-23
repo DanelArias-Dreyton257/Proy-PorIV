@@ -8,6 +8,10 @@
 #ifndef FICHEROPREGUNTAS_H_
 #define FICHEROPREGUNTAS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pregunta.h"
 
 #define NUM_C_STR 200 //Numero de caracteres maximo para char*
@@ -29,5 +33,9 @@ void printNombresCategorias();
 Categoria* getCategorias(int *numeroCategorias);
 void eliminarFichero();
 int getTotalPreguntas();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* FICHEROPREGUNTAS_H_ */
