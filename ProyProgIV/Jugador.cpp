@@ -54,7 +54,7 @@ bool Jugador::isMuerto() {
 }
 char* Jugador::vidaToString() {
 	char *str = new char[10];
-	if (isMuerto) {
+	if (isMuerto()) {
 		sprintf(str,"DERROTADO");
 	} else {
 		sprintf(str, "[%i/%i]", vida, vidaMax);
