@@ -1,0 +1,4 @@
+3
+EAomraRRLJ3	Como se llama el conjunto de instrucciones maquina interpretable por un determinado computador o arquitectura?	Registros de estado	Registro de instrucciones	Lista de instrucciones	Juego de instrucciones	3
+EAuaosRCMC1	Cual es la arquitectura con instrucciones capaces de ejecutar tareas complejas aunque requieran un elevado numero de ciclos?	Registro de instrucciones	CISC	MIPS	CPI	1
+EAomsoMCRP3	Como se llama la estructura que se utiliza en determinadas ocasiones, para resguardar el contenido de los registros de CPU y cual es su criterio de acceso?	Memoria	CISC	RISC	Pila	3
