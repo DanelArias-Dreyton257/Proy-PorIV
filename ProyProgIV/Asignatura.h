@@ -18,8 +18,7 @@ class Asignatura: public Jugador {
 private:
 	static const int NUM_CREDITOS = 6;
 	static const int DANYO = 2;
-	static void initMapa();
-	static bool mapaInicializado;
+	static unordered_map<string, string> mapaCategorias;
 	Pregunta *preguntas = NULL;
 	int numPreguntas = 0;
 public:
@@ -30,6 +29,7 @@ public:
 	static const int getNumCreditos();
 
 	void danyar();
+	void print();
 
 };
 

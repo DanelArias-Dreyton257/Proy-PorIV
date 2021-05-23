@@ -284,6 +284,8 @@ int cerrarBaseDatos() {
 }
 
 int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas){
+	*pArray = NULL;
+	*numPreguntas = 0;
 	//TODO
-	return 0;
+	return SQLITE_OK;
 }

@@ -13,19 +13,28 @@
 #include <iostream>
 using namespace std;
 
-bool Asignatura::mapaInicializado = false;
-static const unordered_map<string, string> *mapaCategorias;
+unordered_map<string, string> Asignatura::mapaCategorias = {
+		{ "BD", "Base de datos"},
+		{ "MT", "Matematicas"},
+		{ "PR", "Programacion"},
+		{ "HS", "Historia"},
+		{ "AD", "ADE"},
+		{ "IN", "Ingles"},
+		{ "QC", "Computacion cuantica"},
+		{ "FI", "Fisica"},
+		{ "BI", "Biologia"},
+		{ "IN", "Ingles"},
+		{ "EA", "Estrcutura y Arquitectura de computadores"}
+};
 
 Asignatura::Asignatura(char *cat) {
-	if (!mapaInicializado) {
-		initMapa();
-		mapaInicializado = true;
-	}
+
 	//coger el valor del mapa
-	if (mapaCategorias->find(cat) != mapaCategorias->end()) { //encuentra el valor en el mapa
-		this->nombre = strdup(mapaCategorias->at(cat).data());
+	unordered_map<string, string>::const_iterator got = mapaCategorias.find(string(cat));
+	if (got != mapaCategorias.end()) { //encuentra el valor en el mapa
+		this->nombre = strdup(got->second.data());
 	} else {
-		this->nombre = NULL;
+		this->nombre = "Not Found";
 	}
 
 	this->vida = NUM_CREDITOS;
@@ -69,19 +78,8 @@ void Asignatura::danyar() {
 	vida -= DANYO;
 }
 
-void Asignatura::initMapa() {
-	unordered_map<string, string> mapaCategorias2;
-	mapaCategorias2["BD"] = "Base de datos";
-	mapaCategorias2["MT"] = "Matematicas";
-	mapaCategorias2["PR"] = "Programacion";
-	mapaCategorias2["HS"] = "Historia";
-	mapaCategorias2["AD"] = "ADE";
-	mapaCategorias2["IN"] = "Ingles";
-	mapaCategorias2["QC"] = "Computacion cuantica";
-	mapaCategorias2["FI"] = "Fisica";
-	mapaCategorias2["BI"] = "Biologia";
-	mapaCategorias2["EA"] = "Estrcutura y Arquitectura de computadores";
-
-	mapaCategorias = &mapaCategorias2;
+void Asignatura::print() {
+	cout << nombre << "(" << NUM_CREDITOS << " creditos): [" << vida << "/"
+			<< vidaMax << "]" << endl;
 }
 

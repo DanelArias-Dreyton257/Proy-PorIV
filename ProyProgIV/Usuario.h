@@ -27,6 +27,9 @@ public:
 
 	void danyar();
 	void revitalizar();
+	void print();
+
+
 	static const int getVidaBase();
 };
 

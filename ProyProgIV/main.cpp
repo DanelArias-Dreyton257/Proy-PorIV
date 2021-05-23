@@ -10,6 +10,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "Asignatura.h"
+#include "Usuario.h"
+
 void resetRandomSeed();
 
 /**

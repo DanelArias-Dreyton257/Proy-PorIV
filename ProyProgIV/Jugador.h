@@ -27,6 +27,8 @@ public:
 	const int getVidaMax() const;
 
 	virtual void danyar() = 0;
+	virtual void print() = 0;
+
 	bool isMuerto();
 };
 
