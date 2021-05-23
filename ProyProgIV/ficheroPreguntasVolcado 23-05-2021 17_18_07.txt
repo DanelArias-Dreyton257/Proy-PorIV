@@ -1,0 +1,4 @@
+3
+BICusaSLSS1	¨Cual de las siguientes afirmaciones sobre los anticuerpos es falsa?	Son glicoproteinas	La unidad basica del anticuerpo es un polimero	Son segregados por las celulas plasmaticas	Se encuentran sobre todo en la sangre	1
+EAen(nLLLL0	Teniendo en cuenta la cuarta generacion de las computadoras aparece(n)	Los microprocesadores	La multiprogramacion	Los circuitos integrados	Los microchips de silicio	0
+EACuhePPCC0	¨Cual es la funci¢n principal de la Memoria Cache?	Puente entre la memoria RAM y la fuente de Poder	Puente entre la CPU y la memoria RAM	Conexion entre la CPU y la tarjeta Madre	Conexion entre la tarjeta Madre y la fuente de Poder	0

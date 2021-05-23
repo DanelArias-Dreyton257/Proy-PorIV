@@ -1,0 +1,4 @@
+3
+MTi es12482	Si 4 pasteleros tardan 4 horas en hacer 4 pasteles, asumiendo que no cambia el ratio, ¨cuantas horas tardan 8 pasteleros en cocinar 8 pasteles?	1	2	4	8	2
+MTCulo12342	¨Cuanto pesa un ladrillo y medio si sabemos que un ladrillo pesa un kilo mas medio ladrillo?	1 kg	2 kg	3 kg	4 kg	2
+MTi orEEET0	Si un triangulo equilatero, un circulo y un cuadrado tienen la misma area, ¨cual de ellos tiene un perimetro mayor?	El triangulo equilatero	El circulo	El cuadrado	Todos tienen el mismo perimetro	0
