@@ -1,0 +1,2 @@
+1
+PRuaiaSSST3	Cual de las siguientes funciones hash, se usan para la cryptografia?	SHA-224 y SHA-256	SHA-256 y SHA-384	SHA-512 y SHA-384	Todas las anteriones son correctas	3

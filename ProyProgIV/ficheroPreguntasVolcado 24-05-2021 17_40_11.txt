@@ -1,0 +1,3 @@
+2
+BIueosABA03	Que tipo sanguineo es el donante universal gracias a la carencia de antigenos?	A	B	AB	0	3
+BIomenFGDA3	Como se denomina a cada una de las formas alternativas que puede tener un gen?	Fenotipos	Genotipos	Dominantes	Alelos	3
