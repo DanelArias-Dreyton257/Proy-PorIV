@@ -398,14 +398,14 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 
 			char *list[N_LISTA_PREG];
 			//Meter los datos en la lista
-			list[0] = strdup(cat);
+			list[0] = cat;
 			list[1] = preg;
 			list[2] = resp1;
 			list[3] = resp2;
 			list[4] = resp3;
 			list[5] = resp4;
 			char c[2];
-			c[0] = codResp + '0';
+			c[0] = codResp + '0' -1;
 			c[1] = '\0';
 			list[6] = c;
 

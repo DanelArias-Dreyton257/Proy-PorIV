@@ -21,12 +21,16 @@
  *
  * @param puntero a la pregunta a imprimir
  */
-void printPregunta(Pregunta *p) {
-	printf(
-			"- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s,\n\tR:(%c)->%s\n",
-			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
-			*(p->ops + 3), 'A' + p->res, *(p->ops + p->res));
-	fflush(stdout);
+void printPregunta(Pregunta *p) {//FIXME
+	printf("- \"%s\" - %s:\n", generarCodigo(*p), p->preg);
+
+	for (int i = 0; i < N_OPCS; i++) {
+		printf("\t%c. %s,\n", 'A' + i, *(p->ops + i));
+	}
+
+	printf("\tR:(%c)->%s\n", 'A' + p->res, *(p->ops + p->res));
+
+	//fflush(stdout);
 
 }
 /**
@@ -40,10 +44,12 @@ void printPregunta(Pregunta *p) {
  *
  * @param puntero a la pregunta a imprimir
  */
-void printPreguntaJuego(Pregunta *p) {
-	printf("- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s",
-			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
-			*(p->ops + 3));
+void printPreguntaJuego(Pregunta *p) { //FIXME
+	printf("- \"%s\" - %s:\n", generarCodigo(*p), p->preg);
+
+	for (int i = 0; i < N_OPCS; i++) {
+		printf("\t%c. %s,\n", 'A' + i, *(p->ops + i));
+	}
 	fflush(stdout);
 
 }
@@ -263,9 +269,11 @@ void printCategoria(Categoria *c) {
 	}
 }
 
-Pregunta duplicarPregunta(Pregunta *preg){
+Pregunta duplicarPregunta(Pregunta *preg) {
 	char res = preg->res + '0';
-	char* list[] = {strdup(preg->cat), strdup(preg->preg), strdup(preg->ops[0]),strdup(preg->ops[1]),strdup(preg->ops[2]),strdup(preg->ops[3]), &res};
+	char *list[] = { strdup(preg->cat), strdup(preg->preg), strdup(
+			preg->ops[0]), strdup(preg->ops[1]), strdup(preg->ops[2]), strdup(
+			preg->ops[3]), &res };
 	return crearPregunta(list);
 }
 

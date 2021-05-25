@@ -56,11 +56,9 @@ int main(int argc, char **argv) {
 	char *cat = (char*)"BD";
 
 	getPreguntasCategoria(cat, &arr, &numPreguntas);
-	cout<<numPreguntas<<endl;
 
 	for(int i = 0; i<numPreguntas; i++){
-		cout<<"N:"<<i+1<<endl;
-		printPregunta(arr + i); //FIXME NO SE PORQUE :(((
+		printPregunta(arr + i);
 	}
 
 //	Asignatura a(cat);
