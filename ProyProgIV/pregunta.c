@@ -23,7 +23,7 @@
  */
 void printPregunta(Pregunta *p) {
 	printf(
-			"- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s,\n\tR:(%c)->%s",
+			"- \"%s\" - %s:\n\tA. %s,\n\tB. %s,\n\tC. %s,\n\tD. %s,\n\tR:(%c)->%s\n",
 			generarCodigo(*p), p->preg, *(p->ops), *(p->ops + 1), *(p->ops + 2),
 			*(p->ops + 3), 'A' + p->res, *(p->ops + p->res));
 	fflush(stdout);

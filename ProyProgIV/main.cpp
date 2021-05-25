@@ -13,6 +13,13 @@
 #include "Asignatura.h"
 #include "Usuario.h"
 
+#include <iostream>
+
+#include "pregunta.h"
+#include "baseDatos.h"
+
+using namespace std;
+
 void resetRandomSeed();
 
 /**
@@ -40,6 +47,25 @@ int main(int argc, char **argv) {
 	}
 
 	liberarPreguntas();
+
+
+//TEST DE BD
+//	Pregunta *arr;
+//	int numPreguntas = 0;
+//
+//	char *cat = (char*)"BD";
+//
+//	getPreguntasCategoria(cat, &arr, &numPreguntas);
+//	cout<<numPreguntas<<endl;
+//
+//	for(int i = 0; i<numPreguntas; i++){
+//		cout<<"N:"<<i+1<<endl;
+//		printPregunta(arr + i);
+//	}
+
+//	Asignatura a(cat);
+//	a.print();
+//	a.printPreguntas();
 
 	return 0;
 

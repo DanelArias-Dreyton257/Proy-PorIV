@@ -30,6 +30,7 @@ public:
 
 	void danyar();
 	void print();
+	void printPreguntas();
 
 };
 

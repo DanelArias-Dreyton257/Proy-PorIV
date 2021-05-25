@@ -34,7 +34,7 @@ Asignatura::Asignatura(char *cat) {
 	if (got != mapaCategorias.end()) { //encuentra el valor en el mapa
 		this->nombre = strdup(got->second.data());
 	} else {
-		this->nombre = "Not Found";
+		this->nombre = (char*)"Not Found";
 	}
 
 	this->vida = NUM_CREDITOS;
@@ -80,5 +80,13 @@ void Asignatura::danyar() {
 
 void Asignatura::print() {
 	cout << nombre << "(" << NUM_CREDITOS << " creditos):"<<vidaToString()<<endl;
+}
+
+void Asignatura::printPreguntas() {
+	cout<<nombre<<"("<<numPreguntas<<"):"<<endl;
+	for (int i =0; i<numPreguntas; i++){
+		cout<<"\t";
+		printPregunta(preguntas + i);
+	}
 }
 
