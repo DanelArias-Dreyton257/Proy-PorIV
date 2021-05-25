@@ -62,8 +62,8 @@ void printPreguntaJuego(Pregunta *p) { //FIXME
 Pregunta crearPregunta(char *list[]) {
 	Pregunta p;
 
-	p.cat = list[0];
-	p.preg = list[1];
+	p.cat = strdup(list[0]);
+	p.preg = strdup(list[1]);
 
 	char **ops = malloc(sizeof(char*) * N_OPCS);
 

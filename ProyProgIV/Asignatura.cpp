@@ -40,18 +40,12 @@ Asignatura::Asignatura(char *cat) {
 	this->vida = NUM_CREDITOS;
 	this->vidaMax = NUM_CREDITOS;
 
-	//PREGUNTAS-consultar BD-
-	int res = abrirBaseDatos();
-	if (res != SQLITE_OK) {
-		return;
-	}
-	res = getPreguntasCategoria(cat, &(this->preguntas), &(this->numPreguntas));
+	int res = getPreguntasCategoria(cat, &(this->preguntas), &(this->numPreguntas));
 	if (res != SQLITE_OK) {
 		cout << "Error cargando las preguntas de la BD en asignatura" << endl;
 		cerrarBaseDatos();
 		return;
 	}
-	cerrarBaseDatos();
 
 }
 
@@ -87,6 +81,7 @@ void Asignatura::printPreguntas() {
 	for (int i =0; i<numPreguntas; i++){
 		cout<<"\t";
 		printPregunta(preguntas + i);
+		cout<<"\n";
 	}
 }
 

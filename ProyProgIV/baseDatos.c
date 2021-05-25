@@ -411,6 +411,12 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 
 			(*pArray)[contPreguntas] = crearPregunta(list);
 
+			free(preg);
+			free(resp1);
+			free(resp2);
+			free(resp3);
+			free(resp4);
+
 		} else if (res == SQLITE_DONE) {
 
 		} else {

@@ -31,39 +31,22 @@ void resetRandomSeed();
  */
 int main(int argc, char **argv) {
 
-//	resetRandomSeed();
-//
-//	cargarPreguntas();
-//
-//	//insertarPregunta(generarPreguntaPrueba());
-//
-//	//Abre el menu principal
-//	limpiarConsola();
-//
-//	menuPrincipal();
-//
-//	if (getTotalPreguntas() > 0) {
-//		guardarPreguntas(0);
-//	}
-//
-//	liberarPreguntas();
+	resetRandomSeed();
 
+	cargarPreguntas();
 
-//TEST DE BD
-	Pregunta *arr;
-	int numPreguntas = 0;
+	//insertarPregunta(generarPreguntaPrueba());
 
-	char *cat = (char*)"BD";
+	//Abre el menu principal
+	limpiarConsola();
 
-	getPreguntasCategoria(cat, &arr, &numPreguntas);
+	menuPrincipal();
 
-	for(int i = 0; i<numPreguntas; i++){
-		printPregunta(arr + i);
+	if (getTotalPreguntas() > 0) {
+		guardarPreguntas(0);
 	}
 
-//	Asignatura a(cat);
-//	a.print();
-//	a.printPreguntas();
+	liberarPreguntas();
 
 	return 0;
 
