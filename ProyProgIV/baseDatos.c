@@ -398,7 +398,7 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 
 			char *list[N_LISTA_PREG];
 			//Meter los datos en la lista
-			list[0] = cat;
+			list[0] = strdup(cat);
 			list[1] = preg;
 			list[2] = resp1;
 			list[3] = resp2;
@@ -410,14 +410,14 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 			list[6] = c;
 
 			(*pArray)[contPreguntas] = crearPregunta(list);
-			contPreguntas++;
 
 		} else if (res == SQLITE_DONE) {
-			break;
+
 		} else {
 			printf("Error selecting preguntas (select preguntas)\n");
 			printf("%s\n", sqlite3_errmsg(db));
 		}
+		contPreguntas++;
 	}
 	//FINALIZAR SENTENCIA
 	res = sqlite3_finalize(stmt);
