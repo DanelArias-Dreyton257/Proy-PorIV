@@ -60,16 +60,16 @@ char* Jugador::vidaToString() {
 		sprintf(str,"DERROTADO");
 	} else {
 		sprintf(str, "(%i/%i)HP:[", vida, vidaMax);
-		float porc = vida/vidaMax;
+		float porc = ((float)vida)/((float)vidaMax);
 		int numCharVida = ceil(porc * numCharBarra);
 		int initLen = strlen(str);
 		for(int i=0; i<numCharBarra; i++){
 			char c;
 			if (i<numCharVida){
-				c = '■';
+				c = '/';
 			}
 			else{
-				c = '░';
+				c = '_';
 			}
 			str[initLen + i] = c;
 		}
