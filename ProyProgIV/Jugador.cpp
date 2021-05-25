@@ -8,6 +8,7 @@
 #include "Jugador.h"
 #include <string.h>
 #include <cstdio>
+#include <cmath>
 
 Jugador::Jugador() {
 	this->nombre = NULL;
@@ -53,11 +54,27 @@ bool Jugador::isMuerto() {
 	return vida <= 0;
 }
 char* Jugador::vidaToString() {
-	char *str = new char[10];
+	int numCharBarra = 50;
+	char *str = new char[13 + numCharBarra + 1+ 1];
 	if (isMuerto()) {
 		sprintf(str,"DERROTADO");
 	} else {
-		sprintf(str, "[%i/%i]", vida, vidaMax);
+		sprintf(str, "(%i/%i)HP:[", vida, vidaMax);
+		float porc = vida/vidaMax;
+		int numCharVida = ceil(porc * numCharBarra);
+		int initLen = strlen(str);
+		for(int i=0; i<numCharBarra; i++){
+			char c;
+			if (i<numCharVida){
+				c = '■';
+			}
+			else{
+				c = '░';
+			}
+			str[initLen + i] = c;
+		}
+		str[initLen + numCharBarra] = ']';
+		str[initLen + numCharBarra + 1] = '\0';
 	}
 	return str;
 }
