@@ -1,0 +1,2 @@
+1
+PRueorUEET0	Que es un compilador?	Un compilador es un tipo de traductor que transforma un programa de un lenguaje de programacion a otro distinto	Es un entorno de desarrollo integrado	Es un atributo de una parte de los datos que indica al ordenador algo sobre la clase de datos sobre los que se va a procesar	Todas son correcta	0

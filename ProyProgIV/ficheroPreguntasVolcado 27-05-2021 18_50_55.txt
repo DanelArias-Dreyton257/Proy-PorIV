@@ -1,0 +1,4 @@
+3
+MTi re46751	Si un hijo tiene 30 a¤os, y su padre tiene la edad del hijo, mas la mitad de la suya, cuantos a¤os tiene el padre?	45	60	75	50	1
+MTi  DAAAA2	Si A+C=D, A*B=C, C-B=B, y A*4=D que valores tienen A, B, C y D?	A=2, B=2, C=4, D=6	A=1, B=3, C=3, D=4	A=2, B=3, C=6, D=8	A=1, B=6, C=6, D=7	2
+MTi noAAAA2	Si A le da dos caramelos a B, este tendria el doble que A. Y si A le diera otro mas B tendria el triple. Cuantos caramelos tiene cada uno?	A=4 B=4	A=2 B=4	A=6 B=6	A=4 B=6	2
