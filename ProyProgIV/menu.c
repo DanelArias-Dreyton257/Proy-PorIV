@@ -461,8 +461,10 @@ void verPreguntasBD() {
 		printf("%s (%i):\n",cats[i],numPreguntas);
 		for (int j = 0; j<numPreguntas; j++){
 			printPregunta(pArray + j);
+			freePregunta(pArray +j);
 		}
 		pausarConsola();
+
 	}
 }
 
