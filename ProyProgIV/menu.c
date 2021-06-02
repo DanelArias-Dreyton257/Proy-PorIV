@@ -452,16 +452,17 @@ void verPreguntas() {
 void verPreguntasBD() {
 	//Imprime TODAS las preguntas
 
-	char* cats[10] = {"BD","MT","PR","HS","AD","IN","QC","FI","BI","EA"};
+	char *cats[10] = { "BD", "MT", "PR", "HS", "AD", "IN", "QC", "FI", "BI",
+			"EA" };
 
-	for(int i= 0; i<10; i++){
+	for (int i = 0; i < 10; i++) {
 		Pregunta *pArray = NULL;
 		int numPreguntas = 0;
 		getPreguntasCategoria(cats[i], &pArray, &numPreguntas);
-		printf("%s (%i):\n",cats[i],numPreguntas);
-		for (int j = 0; j<numPreguntas; j++){
+		printf("%s (%i):\n", cats[i], numPreguntas);
+		for (int j = 0; j < numPreguntas; j++) {
 			printPregunta(pArray + j);
-			freePregunta(pArray +j);
+			freePregunta(pArray + j);
 		}
 		pausarConsola();
 
@@ -532,9 +533,10 @@ void menuJugar() { //Provisional
 	printf("Menu de Juego");
 	fflush(stdout);
 
-	char *ops[] = { "Responder una pregunta (Provisional)", "Salir" };
-	printOpciones(ops, 2);
-	printf("\nIntroduce tu seleccion(1-2):\n");
+	char *ops[] = { "Usuario nuevo", "Iniciar sesion", "Ver Rankings para MH",
+			"Volver" };
+	printOpciones(ops, 4);
+	printf("\nIntroduce tu seleccion(1-4):\n");
 	fflush(stdout);
 
 	int i = getIntInput();
@@ -543,32 +545,49 @@ void menuJugar() { //Provisional
 	default:
 		return;
 	case 1:
-		preguntarProvisional();
+		limpiarConsola();
+		printf("Funcion no disponible\n");
+		pausarConsola();
+		limpiarConsola();
+		menuJugar();
 		break;
 	case 2:
 		limpiarConsola();
-		menuPrincipal();
+		printf("Funcion no disponible\n");
+		pausarConsola();
+		limpiarConsola();
+		menuJugar();
 		break;
+	case 3:
+		limpiarConsola();
+		printf("Funcion no disponible\n");
+		pausarConsola();
+		limpiarConsola();
+		menuJugar();
+		break;
+	case 4:
+		limpiarConsola();
+		menuPrincipal();
 	}
 }
-/**
- * Pregunta una pregunta aleatoria y le hace saber al usuario la respuesta
- */
-void preguntarProvisional() {
-	Pregunta *p = getPreguntaAleatoria();
-	printPreguntaJuego(p);
-	printf("\nIntroduzca su respuesta (1-4):\n");
-	fflush(stdout);
-	int r = getIntInput();
-	if (esRespuestaCorrecta(p, r - 1) > 0) {
-		printf("¡¡Acertaste la pregunta!! ¡Enhorabuena!\n");
-	} else {
-		printf("Fallaste la pregunta...\nLa respuesta correcta era la %c\n",
-				p->res + 'A');
-	}
-	fflush(stdout);
-	pausarConsola();
-	limpiarConsola();
-	menuJugar();
-}
+///**
+// * Pregunta una pregunta aleatoria y le hace saber al usuario la respuesta
+// */
+//void preguntarProvisional() {
+//	Pregunta *p = getPreguntaAleatoria();
+//	printPreguntaJuego(p);
+//	printf("\nIntroduzca su respuesta (1-4):\n");
+//	fflush(stdout);
+//	int r = getIntInput();
+//	if (esRespuestaCorrecta(p, r - 1) > 0) {
+//		printf("¡¡Acertaste la pregunta!! ¡Enhorabuena!\n");
+//	} else {
+//		printf("Fallaste la pregunta...\nLa respuesta correcta era la %c\n",
+//				p->res + 'A');
+//	}
+//	fflush(stdout);
+//	pausarConsola();
+//	limpiarConsola();
+//	menuJugar();
+//}
 

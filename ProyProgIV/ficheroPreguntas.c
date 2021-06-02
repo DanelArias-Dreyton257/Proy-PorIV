@@ -410,15 +410,6 @@ void liberarPreguntas() {
 	categorias = NULL;
 }
 /**
- * Devuelve un puntero a una pregunta aleatoria del array
- * @return puntero a la pregunta
- */
-Pregunta* getPreguntaAleatoria() {
-	int posRndC = rand() % numCategorias;
-	int posRndP = rand() % categorias[posRndC].numPreguntas;
-	return categorias[posRndC].preguntas + posRndP;
-}
-/**
  * Devuelve la array de categorias
  * @param *numeroCategorias, puntero donde se recogera el numero de categorias en la array
  * @return puntero a la primera categoria de la array
