@@ -23,6 +23,9 @@ void menuGestion();
 void menuModPregunta();
 void menuBorrarPregunta();
 void menuJugar();
+void menuNuevoUsuario();
+void menuIniciarSesion();
+void verRanking();
 
 void preguntarProvisional();
 

@@ -16,9 +16,11 @@ private:
 	static const int INC_RECU = 10;
 	static const int DANYO = 20;
 	int record = 0;
-	char* contrasena;
+	int puntuacion = 0;
+	char *contrasena;
 public:
-	Usuario(char *nombre, char *contrasena);
+	Usuario(char *nombre, char *contrasena, int record);
+	Usuario(char *nombre, char *contrasena, int record, int puntuacion);
 
 	virtual ~Usuario();
 
@@ -26,19 +28,20 @@ public:
 
 	char* getContrasena() const;
 
-
 	void danyar();
 	void revitalizar();
 	void print();
-
 
 	static const int getVidaBase();
 
 	int getRecord() const;
 	void setRecord(int newRecord);
+	int getPuntuacion() const;
+	void setPuntuacion(int puntuacion);
 
-	bool isNewRecord(int newRecord);
+	bool isNewRecord();
 	bool checkContrasena(char *contrasena);
+
 };
 
 #endif /* USUARIO_H_ */

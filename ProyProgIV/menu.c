@@ -9,6 +9,7 @@
 #include "pregunta.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "baseDatos.h"
 
 /**
@@ -452,10 +453,11 @@ void verPreguntas() {
 void verPreguntasBD() {
 	//Imprime TODAS las preguntas
 
-	char *cats[10] = { "BD", "MT", "PR", "HS", "AD", "IN", "QC", "FI", "BI",
-			"EA" };
+	char **cats = NULL;
+	int numCat = 0;
+	getNomCategorias(&cats, &numCat);
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < numCat; i++) {
 		Pregunta *pArray = NULL;
 		int numPreguntas = 0;
 		getPreguntasCategoria(cats[i], &pArray, &numPreguntas);
@@ -546,22 +548,19 @@ void menuJugar() { //Provisional
 		return;
 	case 1:
 		limpiarConsola();
-		printf("Funcion no disponible\n");
-		pausarConsola();
+		menuNuevoUsuario();
 		limpiarConsola();
 		menuJugar();
 		break;
 	case 2:
 		limpiarConsola();
-		printf("Funcion no disponible\n");
-		pausarConsola();
+		menuIniciarSesion();
 		limpiarConsola();
 		menuJugar();
 		break;
 	case 3:
 		limpiarConsola();
-		printf("Funcion no disponible\n");
-		pausarConsola();
+		verRanking();
 		limpiarConsola();
 		menuJugar();
 		break;
@@ -571,6 +570,67 @@ void menuJugar() { //Provisional
 		break;
 	}
 }
+void menuNuevoUsuario() {
+
+	int existe = 1;
+	char *nombre = NULL;
+	while (existe > 0) {
+
+		printf("Introduzca su nombre de usuario:\n");
+		fflush(stdout);
+		nombre = getStringInput(NUM_C_STR);
+		existe = checkUsuarioExiste(nombre);
+
+		if (existe > 0) {
+			printf("Usuario existente elija otro\n");
+		}
+	}
+
+	int iguales = 1;
+	char *contrasena = NULL;
+	while (iguales != 0) {
+		printf("Introduzca su contrasena:\n");
+		fflush(stdout);
+		contrasena = getStringInput(NUM_C_STR);
+
+		printf("Vuelva a introducir su contrasena:\n");
+		fflush(stdout);
+		char *seguro = getStringInput(NUM_C_STR);
+
+		iguales = strcmp(contrasena, seguro);
+
+		if (iguales != 0) {
+			printf("La contrasena es incorrecta, vuelva a introducirla.\n");
+		}
+	}
+
+	printf("Nombre: %s\nContrasena: %s\n", nombre, contrasena);
+	printf("Esta seguro de crear este usuario? (Y/n)\n");
+	fflush(stdout);
+
+	char respuesta = getCharInput();
+	//Si se selecciona no, se continuara con ese codigo
+	if (respuesta != 'n') {
+		almacenarUsuarioNuevo(nombre, contrasena);
+		printf("Usuario almacenado\n");
+		fflush(stdout);
+		pausarConsola();
+	}
+
+}
+
+void menuIniciarSesion() {
+	printf("Jaja te jodes\n");
+	fflush(stdout);
+	pausarConsola();
+}
+
+void verRanking() {
+	printf("Ver rankings\n");
+	fflush(stdout);
+	pausarConsola();
+}
+
 ///**
 // * Pregunta una pregunta aleatoria y le hace saber al usuario la respuesta
 // */

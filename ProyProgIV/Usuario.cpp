@@ -10,9 +10,16 @@
 #include <iostream>
 using namespace std;
 
-Usuario::Usuario(char *nombre, char *contrasena) :
+Usuario::Usuario(char *nombre, char *contrasena, int record) :
 		Jugador(nombre, VIDA_BASE) {
 	this->contrasena = strdup(contrasena);
+	this->record = record;
+}
+Usuario::Usuario(char *nombre, char *contrasena, int record, int puntuacion) :
+		Jugador(nombre, VIDA_BASE) {
+	this->contrasena = strdup(contrasena);
+	this->record = record;
+	this->puntuacion = puntuacion;
 }
 
 char* Usuario::getContrasena() const {
@@ -22,6 +29,8 @@ char* Usuario::getContrasena() const {
 Usuario::Usuario(const Usuario &other) :
 		Jugador(other) {
 	this->contrasena = strdup(other.contrasena);
+	this->record = other.record;
+	this->puntuacion = puntuacion;
 }
 
 Usuario::~Usuario() {
@@ -40,22 +49,21 @@ void Usuario::setRecord(int newRecord) {
 	this->record = record;
 }
 
-bool Usuario::isNewRecord(int newRecord) {
-	return newRecord > record;
+bool Usuario::isNewRecord() {
+	return puntuacion > record;
 }
+
+int Usuario::getPuntuacion() const {
+	return puntuacion;
+}
+
+void Usuario::setPuntuacion(int puntuacion = 0) {
+	this->puntuacion = puntuacion;
+}
+
 bool Usuario::checkContrasena(char *contrasena) {
 
-	if (strlen(contrasena) != strlen(this->contrasena)) {
-		return false;
-	}
-
-	for (unsigned int i = 0; i < strlen(this->contrasena); i++) {
-		if (contrasena[i] != this->contrasena[i]) {
-			return false;
-		}
-	}
-
-	return true;
+	return strcmp(this->contrasena,contrasena) == 0;
 
 }
 
@@ -68,6 +76,7 @@ void Usuario::revitalizar() {
 }
 
 void Usuario::print() {
-	cout << nombre << "(pwd:" << contrasena << "):" << vidaToString() << endl;
+	cout << nombre << "(pwd:" << contrasena << ")[Rec." << record << "][Punt."
+			<< puntuacion << "]" << endl << vidaToString() << endl;
 }
 

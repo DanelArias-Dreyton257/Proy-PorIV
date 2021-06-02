@@ -389,11 +389,11 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 		if (res == SQLITE_ROW) {
 
 			//Leer datos
-			char *preg = strdup((char*)sqlite3_column_text(stmt, 0));
-			char *resp1 = strdup((char*)sqlite3_column_text(stmt, 1));
-			char *resp2 = strdup((char*)sqlite3_column_text(stmt, 2));
-			char *resp3 = strdup((char*)sqlite3_column_text(stmt, 3));
-			char *resp4 = strdup((char*)sqlite3_column_text(stmt, 4));
+			char *preg = strdup((char*) sqlite3_column_text(stmt, 0));
+			char *resp1 = strdup((char*) sqlite3_column_text(stmt, 1));
+			char *resp2 = strdup((char*) sqlite3_column_text(stmt, 2));
+			char *resp3 = strdup((char*) sqlite3_column_text(stmt, 3));
+			char *resp4 = strdup((char*) sqlite3_column_text(stmt, 4));
 			int codResp = sqlite3_column_int(stmt, 5);
 
 			char *list[N_LISTA_PREG];
@@ -405,7 +405,7 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 			list[4] = resp3;
 			list[5] = resp4;
 			char c[2];
-			c[0] = codResp + '0' -1;
+			c[0] = codResp + '0' - 1;
 			c[1] = '\0';
 			list[6] = c;
 
@@ -436,4 +436,30 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 	res = cerrarBaseDatos();
 
 	return res;
+}
+
+int checkUsuarioExiste(char *nombreUsuario) {
+	//TODO
+	return 0; //1 si true, 0 si false
+}
+
+int almacenarUsuarioNuevo(char *nombre, char *contrasena) {
+	//TODO
+	return SQLITE_OK;
+}
+int getNomCategorias(char ***array, int *numCat) { //TODO //FIXME
+
+	char **cats = malloc(sizeof(char*) * 10);
+
+	char *cts[10] =
+			{ "BD", "MT", "PR", "HS", "AD", "IN", "QC", "FI", "BI", "EA" };
+
+	for (int i = 0; i < 10; i++) {
+		cats[i] = strdup(cts[i]);
+	}
+
+	*array = cats;
+	*numCat = 10;
+
+	return SQLITE_OK;
 }
