@@ -27,6 +27,7 @@ void menuJugar();
 void preguntarProvisional();
 
 void verPreguntas();
+void verPreguntasBD();
 void volcarFicheroABD();
 
 void printOpciones(char *ops[], int size);

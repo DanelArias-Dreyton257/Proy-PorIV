@@ -113,11 +113,12 @@ void menuGestion() {
 	char *titulo = "Menu Gestion de Preguntas";
 	char *ops[] = { "Crear preguntas", "Borrar preguntas",
 			"Modificar Preguntas", "Ver preguntas creadas",
-			"Volcar fichero de texto a BD (ATENCION, en desarrollo)", "Volver" };
-	char *msg = "\nIntroduce tu seleccion (1-6):\n";
+			"Volcar fichero de texto a BD",
+			"Mostrar preguntas almacenadas de BD", "Volver" };
+	char *msg = "\nIntroduce tu seleccion (1-7):\n";
 
 	printf("%s", titulo);
-	printOpciones(ops, 6);
+	printOpciones(ops, 7);
 	printf("%s", msg);
 	fflush(stdout);
 	//Recoge la eleccion del usuario
@@ -158,6 +159,12 @@ void menuGestion() {
 		menuGestion();
 		break;
 	case 6: //Si el usuario elige "6" se retorna al menu principal
+		limpiarConsola();
+		verPreguntasBD();
+		limpiarConsola();
+		menuGestion();
+		break;
+	case 7: //Si el usuario elige "6" se retorna al menu principal
 		limpiarConsola();
 		menuPrincipal();
 		break;
@@ -439,6 +446,26 @@ void verPreguntas() {
 	printTodasPreguntas();
 	pausarConsola();
 }
+/**
+ * Imprime todas las preguntas almacenadas en la BD por consola
+ */
+void verPreguntasBD() {
+	//Imprime TODAS las preguntas
+
+	char* cats[10] = {"BD","MT","PR","HS","AD","IN","QC","FI","BI","EA"};
+
+	for(int i= 0; i<10; i++){
+		Pregunta *pArray = NULL;
+		int numPreguntas = 0;
+		getPreguntasCategoria(cats[i], &pArray, &numPreguntas);
+		printf("%s (%i):\n",cats[i],numPreguntas);
+		for (int j = 0; j<numPreguntas; j++){
+			printPregunta(pArray + j);
+		}
+		pausarConsola();
+	}
+}
+
 /**
  * Vuelca la informacion del fichero de texto a la base de datos
  */
