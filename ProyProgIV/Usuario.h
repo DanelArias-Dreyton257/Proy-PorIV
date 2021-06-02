@@ -15,6 +15,7 @@ private:
 	static const int VIDA_BASE = 100;
 	static const int INC_RECU = 10;
 	static const int DANYO = 20;
+	int record = 0;
 	char* contrasena;
 public:
 	Usuario(char *nombre, char *contrasena);
@@ -25,12 +26,19 @@ public:
 
 	char* getContrasena() const;
 
+
 	void danyar();
 	void revitalizar();
 	void print();
 
 
 	static const int getVidaBase();
+
+	int getRecord() const;
+	void setRecord(int newRecord);
+
+	bool isNewRecord(int newRecord);
+	bool checkContrasena(char *contrasena);
 };
 
 #endif /* USUARIO_H_ */
