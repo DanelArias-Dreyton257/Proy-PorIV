@@ -463,3 +463,25 @@ int getNomCategorias(char ***array, int *numCat) { //TODO //FIXME
 
 	return SQLITE_OK;
 }
+
+int getRanking(char ***nombres, int **puntuaciones, int *numUs) { //TODO FIXME
+	char **noms = malloc(sizeof(char*) * 3);
+
+	noms[0] = "P3dr1T0XxX";
+	noms[1] = "ElDArrivaEsTunto";
+	noms[2] = "jugadorgenerico69";
+
+	*nombres = noms;
+
+	int *punts = malloc(sizeof(int) * 3);
+
+	punts[0] = 69;
+	punts[1] = 13;
+	punts[2] = 0;
+
+	*puntuaciones = punts;
+
+	*numUs = 3;
+
+	return SQLITE_OK;
+}

@@ -23,6 +23,7 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas);
 int checkUsuarioExiste(char *nombreUsuario);
 int almacenarUsuarioNuevo(char *nombre, char* contrasena);
 int getNomCategorias(char ***array, int *numCat);
+int getRanking(char ***nombres, int **puntuaciones, int *numUs);
 
 #ifdef __cplusplus
 }

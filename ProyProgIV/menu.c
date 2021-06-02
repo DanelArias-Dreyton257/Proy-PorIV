@@ -625,10 +625,80 @@ void menuIniciarSesion() {
 	pausarConsola();
 }
 
+void printLineaHTabla(int anchoPos, int anchoNombre, int anchoPuntuacion) {
+	for (int i = 0; i < anchoPos; i++) {
+		putchar('-');
+	}
+
+	putchar('+');
+
+	for (int i = 0; i < anchoNombre; i++) {
+		putchar('-');
+	}
+
+	putchar('+');
+
+	for (int i = 0; i < anchoPuntuacion; i++) {
+		putchar('-');
+	}
+
+	putchar('\n');
+}
+void printTextoTabla(char *col1, char *col2, char *col3, int anchoPos,
+		int anchoNombre, int anchoPuntuacion) {
+
+	printf("%s", col1);
+	for (int i = strlen(col1); i < anchoPos; i++) {
+		putchar(' ');
+
+	}
+
+	putchar('|');
+
+	printf("%s", col2);
+	for (int i = strlen(col2); i < anchoNombre; i++) {
+		putchar(' ');
+	}
+
+	putchar('|');
+
+	printf("%s\n", col3);
+}
+
 void verRanking() {
-	printf("Ver rankings\n");
+
+	char **nombres = NULL;
+	int *puntuaciones = NULL;
+	int numUs = 0;
+	getRanking(&nombres, &puntuaciones, &numUs);
+
+	int anchoPos = strlen("Posicion");
+	int anchoNombre = 30;
+	int anchoPuntuacion = strlen("Puntuacion");
+
+	printf("RANKING:\n\n");
+
+	printTextoTabla("Posicion", "Usuario", "Puntuacion", anchoPos, anchoNombre,
+			anchoPuntuacion);
+
+	printLineaHTabla(anchoPos, anchoNombre, anchoPuntuacion);
+
+	for (int i = 0; i < numUs; i++) {
+
+		char posicion[anchoPos];
+		char puntuacion[anchoPuntuacion];
+
+		sprintf(posicion, "%i", i + 1);
+		sprintf(puntuacion, "%i", puntuaciones[i]);
+
+		printTextoTabla(posicion, nombres[i], puntuacion, anchoPos,
+				anchoNombre, anchoPuntuacion);
+
+	}
 	fflush(stdout);
+
 	pausarConsola();
+
 }
 
 ///**
