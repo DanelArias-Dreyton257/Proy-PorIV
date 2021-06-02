@@ -568,6 +568,7 @@ void menuJugar() { //Provisional
 	case 4:
 		limpiarConsola();
 		menuPrincipal();
+		break;
 	}
 }
 ///**
