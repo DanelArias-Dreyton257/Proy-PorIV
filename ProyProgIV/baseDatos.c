@@ -438,50 +438,455 @@ int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 	return res;
 }
 
+/**
+ * Busca en la base de datos cuantos usuarios de la tabla usuarios, tienen el nombre que se desea buscar
+ * @param nombreUsuario, char* nombre del usuario a buscar en la tabla
+ * @return 0 si no existe, 0< si existe (normalmente 1)
+ */
 int checkUsuarioExiste(char *nombreUsuario) {
-	//TODO
-	return 0; //1 si true, 0 si false
-}
+	int res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
+	//CREAR LA SENTENCIA
+	sqlite3_stmt *stmt;
+	char *sql = "SELECT COUNT(*) FROM USUARIO WHERE NOMBRE_U=?";
 
-int almacenarUsuarioNuevo(char *nombre, char *contrasena) {
-	//TODO
-	return SQLITE_OK;
-}
-int getNomCategorias(char ***array, int *numCat) { //TODO //FIXME
-
-	char **cats = malloc(sizeof(char*) * 10);
-
-	char *cts[10] =
-			{ "BD", "MT", "PR", "HS", "AD", "IN", "QC", "FI", "BI", "EA" };
-
-	for (int i = 0; i < 10; i++) {
-		cats[i] = strdup(cts[i]);
+	//PREPARAR LA SENTENCIA
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (check usuario)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
 	}
 
-	*array = cats;
-	*numCat = 10;
+	//BIND TEXT
+	res = sqlite3_bind_text(stmt, 1, nombreUsuario, strlen(nombreUsuario),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (check usuario)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 
-	return SQLITE_OK;
+	//EJECUTAR
+	int count;
+	res = sqlite3_step(stmt);
+	if (res == SQLITE_ROW) {
+		count = sqlite3_column_int(stmt, 0);
+	}
+
+	res = cerrarBaseDatos();
+
+	return count; //1 si true, 0 si false
 }
 
-int getRanking(char ***nombres, int **puntuaciones, int *numUs) { //TODO FIXME
-	char **noms = malloc(sizeof(char*) * 3);
+/**
+ * Almacena un usuario nuevo en la BD
+ * Para que el usuario sea nuevo, usar primero checkUsuarioExiste()
+ * @param nombre, char* con el nombre del usuario
+ * @param contarsena, char* con la contrasena del usuario
+ * @return SQLITE_OK si el proceso se termina correctamente
+ */
+int almacenarUsuarioNuevo(char *nombre, char *contrasena) {
+	int res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
 
-	noms[0] = "P3dr1T0XxX";
-	noms[1] = "ElDArrivaEsTunto";
-	noms[2] = "jugadorgenerico69";
+	//CREAR LA SENTENCIA DE INSERT
+	sqlite3_stmt *stmt;
+	char *sql =
+			"INSERT INTO USUARIO(CODIGO_U,NOMBRE_U,CONTRASENA,PUNTUACION) VALUES(NULL,?,?,0)";
 
-	*nombres = noms;
+	//PREPARAR LA SENTENCIA
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (insert usuario)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 
-	int *punts = malloc(sizeof(int) * 3);
+	//BIND TEXT
+	res = sqlite3_bind_text(stmt, 1, nombre, strlen(nombre),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (insert usuario)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 
-	punts[0] = 69;
-	punts[1] = 13;
-	punts[2] = 0;
+	res = sqlite3_bind_text(stmt, 2, contrasena, strlen(contrasena),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (insert usuario)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 
-	*puntuaciones = punts;
+	//EJECUTAR STATEMENT
+	res = sqlite3_step(stmt);
 
-	*numUs = 3;
+	//FINALIZAR STATEMENT
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (insert usuario)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
 
-	return SQLITE_OK;
+	res = cerrarBaseDatos();
+	return res;
+}
+
+int selectNumCat(int *numCat) {
+	int res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
+
+	//CREAR LA SENTENCIA
+	sqlite3_stmt *stmt;
+
+	char *sql = "SELECT COUNT(*) FROM CATEGORIA";
+
+	//PREPARE STATEMENT
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (select num categorias)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//EJECUTAR
+	res = sqlite3_step(stmt);
+	if (res == SQLITE_ROW) {
+		*numCat = sqlite3_column_int(stmt, 0);
+	}
+
+	//FINALIZAR SENTENCIA
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (select num categorias)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	res = cerrarBaseDatos();
+	return res;
+}
+
+int getNomCategorias(char ***array, int *numCat) {
+
+//	char **cats = malloc(sizeof(char*) * 10);
+//
+//	char *cts[10] =
+//			{ "BD", "MT", "PR", "HS", "AD", "IN", "QC", "FI", "BI", "EA" };
+//
+//	for (int i = 0; i < 10; i++) {
+//		cats[i] = strdup(cts[i]);
+//	}
+//
+//	*array = cats;
+//	*numCat = 10;
+
+	*array = NULL;
+	*numCat = 0;
+
+	int res = selectNumCat(numCat);
+	if (res != SQLITE_OK) {
+		return res;
+	}
+
+	*array = malloc(sizeof(char*) * (*numCat));
+
+	res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
+
+	//CREAR LA SENTENCIA
+	sqlite3_stmt *stmt;
+
+	char *sql = "SELECT NOMBRE_C FROM CATEGORIA ORDER BY NOMBRE_C";
+
+	//PREPARE STATEMENT
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (select nombre categorias)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//EJECUTAR STATEMENT
+	int contCat = 0;
+	while (contCat < *numCat) {
+
+		res = sqlite3_step(stmt);
+		if (res == SQLITE_ROW) {
+
+			//Leer datos
+			char *nomCat = strdup((char*) sqlite3_column_text(stmt, 0));
+
+			(*array)[contCat] = nomCat;
+
+		} else if (res == SQLITE_DONE) {
+
+		} else {
+			printf("Error select (select nom categorias)\n");
+			printf("%s\n", sqlite3_errmsg(db));
+		}
+		contCat++;
+	}
+
+	//FINALIZAR SENTENCIA
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (select nom categorias)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	res = cerrarBaseDatos();
+
+	return res;
+
+}
+
+int selectNumUsuarios(int *numUs) {
+	int res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
+
+	//CREAR LA SENTENCIA
+	sqlite3_stmt *stmt;
+
+	char *sql = "SELECT COUNT(*) FROM USUARIO";
+
+	//PREPARE STATEMENT
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (select num usuarios)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//EJECUTAR
+	res = sqlite3_step(stmt);
+	if (res == SQLITE_ROW) {
+		*numUs = sqlite3_column_int(stmt, 0);
+	}
+
+	//FINALIZAR SENTENCIA
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (select num usuarios)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	res = cerrarBaseDatos();
+	return res;
+}
+
+/**
+ * Devuelve los nombres y las puntuaciones de los usuarios
+ * @param nombres, char*** puntero a una lista de todos los nombres de los usuarios
+ * @param puntuaciones, int** puntero a una lista de puntuaciones de los usuarios
+ * @param numUs, int* puntero que indica el numero de usuarios
+ * @return SQLITE_OK si el proceso se termina correctamente
+ */
+int getRanking(char ***nombres, int **puntuaciones, int *numUs) {
+//	char **noms = malloc(sizeof(char*) * 3);
+//
+//	noms[0] = "P3dr1T0XxX";
+//	noms[1] = "ElDArrivaEsTunto";
+//	noms[2] = "jugadorgenerico69";
+//
+//	*nombres = noms;
+//
+//	int *punts = malloc(sizeof(int) * 3);
+//
+//	punts[0] = 69;
+//	punts[1] = 13;
+//	punts[2] = 0;
+//
+//	*puntuaciones = punts;
+//
+//	*numUs = 3;
+
+	*nombres = NULL;
+	*puntuaciones = NULL;
+	*numUs = 0;
+
+	int res = selectNumUsuarios(numUs);
+	if (res != SQLITE_OK) {
+		return res;
+	}
+
+	*nombres = malloc(sizeof(char*) * (*numUs));
+	*puntuaciones = malloc(sizeof(int) * (*numUs));
+
+
+	res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
+
+	//CREAR LA SENTENCIA
+	sqlite3_stmt *stmt;
+
+	char *sql = "SELECT NOMBRE_U,PUNTUACION FROM USUARIO ORDER BY PUNTUACION DESC";
+
+	//PREPARE STATEMENT
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (select ranking)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//EJECUTAR STATEMENT
+	int contUsu = 0;
+	while (contUsu < *numUs) {
+
+		res = sqlite3_step(stmt);
+		if (res == SQLITE_ROW) {
+
+			//Leer datos
+			char *nombre = strdup((char*) sqlite3_column_text(stmt, 0));
+			int puntuacion = sqlite3_column_int(stmt, 1);
+
+			(*nombres)[contUsu] = nombre;
+			(*puntuaciones)[contUsu] = puntuacion;
+
+		} else if (res == SQLITE_DONE) {
+
+		} else {
+			printf("Error select (select ranking)\n");
+			printf("%s\n", sqlite3_errmsg(db));
+		}
+		contUsu++;
+	}
+
+	//FINALIZAR SENTENCIA
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (select nom ranking)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	res = cerrarBaseDatos();
+
+	return res;
+}
+/**
+ * Comprueba si la contrasena metida es correspondiente a la almacenada
+ * @param nombre, char* con el nombre del usuario
+ * @param contraMetida, char* contrasena a comprobar
+ * @return 0 si no existe, 0< si existe (normalmente 1)
+ */
+int checkContrasena(char *nombre, char *contraMetida) {
+
+	int res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
+	//CREAR LA SENTENCIA
+	sqlite3_stmt *stmt;
+	char *sql = "SELECT COUNT(*) FROM USUARIO WHERE NOMBRE_U=? AND CONTRASENA=?";
+
+	//PREPARAR LA SENTENCIA
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (check contrasena)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//BIND TEXT
+	res = sqlite3_bind_text(stmt, 1, nombre, strlen(nombre),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (check contrasena)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+	res = sqlite3_bind_text(stmt, 2, contraMetida, strlen(contraMetida),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (check contrasena)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+	//EJECUTAR
+	int count;
+	res = sqlite3_step(stmt);
+	if (res == SQLITE_ROW) {
+		count = sqlite3_column_int(stmt, 0);
+	}
+
+	res = cerrarBaseDatos();
+
+	return count; //1 si true, 0 si false
+}
+
+/**
+ * Actualiza la puntuacion record del usuario almacenada en la base de datos
+ * @param nombre, char* con el nombre del usuario
+ * @param puntuacion, nueva puntuacion del usuario
+ * @return SQLITE_OK si el proceso se termina correctamente
+ */
+int actualizarRecord(char *nombre, int puntuacion) {
+	int res = abrirBaseDatos();
+	if (res != SQLITE_OK) {
+		return res;
+	}
+
+	//CREAR LA SENTENCIA DE INSERT
+	sqlite3_stmt *stmt;
+	char *sql = "UPDATE USUARIO SET PUNTUACION=? WHERE NOMBRE_U=?";
+
+	//PREPARAR LA SENTENCIA
+	res = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
+	if (res != SQLITE_OK) {
+		printf("Error preparing statement (actualizar record)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//BIND TEXT
+	char strPunt[10];
+	sprintf(strPunt, "%i", puntuacion);
+	res = sqlite3_bind_text(stmt, 1, strPunt, strlen(strPunt),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (actualizar record)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	res = sqlite3_bind_text(stmt, 2, nombre, strlen(nombre),
+	SQLITE_STATIC);
+	if (res != SQLITE_OK) {
+		printf("Error binding parameters (actualizar record)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	//EJECUTAR STATEMENT
+	res = sqlite3_step(stmt);
+
+	//FINALIZAR STATEMENT
+	res = sqlite3_finalize(stmt);
+	if (res != SQLITE_OK) {
+		printf("Error finalizing statement (actualizar record)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return res;
+	}
+
+	res = cerrarBaseDatos();
+	return res;
 }

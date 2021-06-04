@@ -24,6 +24,8 @@ int checkUsuarioExiste(char *nombreUsuario);
 int almacenarUsuarioNuevo(char *nombre, char* contrasena);
 int getNomCategorias(char ***array, int *numCat);
 int getRanking(char ***nombres, int **puntuaciones, int *numUs);
+int checkContrasena(char *nombre, char *contraMetida);
+int actualizarRecord(char *nombre, int puntuacion);
 
 #ifdef __cplusplus
 }
