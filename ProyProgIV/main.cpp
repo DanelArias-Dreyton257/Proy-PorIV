@@ -48,8 +48,6 @@ int main(int argc, char **argv) {
 
 	liberarPreguntas();
 
-	return 0;
-
 }
 /**
  * Resetea la seed de la generacion de numeros aleatorios segun el tiempo actual

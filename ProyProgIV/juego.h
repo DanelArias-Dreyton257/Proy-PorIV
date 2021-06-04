@@ -11,6 +11,6 @@
 #include "Jugador.h"
 
 void printEstadoJugadores(Jugador &j1, Jugador &j2);
-
+void jugar(char *nombre);
 
 #endif /* JUEGO_H_ */

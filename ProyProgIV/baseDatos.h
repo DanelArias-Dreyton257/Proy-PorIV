@@ -26,6 +26,7 @@ int getNomCategorias(char ***array, int *numCat);
 int getRanking(char ***nombres, int **puntuaciones, int *numUs);
 int checkContrasena(char *nombre, char *contraMetida);
 int actualizarRecord(char *nombre, int puntuacion);
+int getRecordActual(char *nombre);
 
 #ifdef __cplusplus
 }

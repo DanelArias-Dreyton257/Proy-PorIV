@@ -11,6 +11,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "baseDatos.h"
+#include "juego.h"
+#include <iostream>
+using namespace std;
 
 /**
  * Permite leer el input del usuario devolviendo el char introducido
@@ -47,7 +50,7 @@ int getIntInput() {
 int getLIntInput(int numDigs) {
 	fflush(stdin);
 	int n;
-	char *str = malloc(sizeof(char) * (numDigs + 1));
+	char *str = new char[numDigs + 1];
 	fgets(str, numDigs, stdin);
 	sscanf(str, "%i", &n);
 	return n;
@@ -60,7 +63,7 @@ int getLIntInput(int numDigs) {
  */
 char* getStringInput(int numChars) {
 	fflush(stdin);
-	char *str = malloc(sizeof(char) * (numChars + 1));
+	char *str = new char[numChars + 1];
 	fgets(str, numChars, stdin);
 	sscanf(str, "%[^\n]", str); //Lee hasta que se encuentre un salto de linea
 	return str;
@@ -73,10 +76,10 @@ char* getStringInput(int numChars) {
 void menuPrincipal() {
 
 	//Define e imprime el menu
-	char *titulo = "Menu Principal";
-	char *ops[] = { "Gestion de preguntas y respuestas", "Jugar (Provisional)",
-			"Salir" };
-	char *msg = "\nIntroduce tu seleccion (1-3):\n";
+	char *titulo = (char*) "Menu Principal";
+	char *ops[] = { (char*) "Gestion de preguntas y respuestas",
+			(char*) "Jugar", (char*) "Salir" };
+	char *msg = (char*) "\nIntroduce tu seleccion (1-3):\n";
 
 	printf("%s", titulo);
 	fflush(stdout);
@@ -111,12 +114,12 @@ void menuPrincipal() {
 void menuGestion() {
 
 	//Define e imprime el menu
-	char *titulo = "Menu Gestion de Preguntas";
-	char *ops[] = { "Crear preguntas", "Borrar preguntas",
-			"Modificar Preguntas", "Ver preguntas creadas",
-			"Volcar fichero de texto a BD",
-			"Mostrar preguntas almacenadas de BD", "Volver" };
-	char *msg = "\nIntroduce tu seleccion (1-7):\n";
+	char *titulo = (char*) "Menu Gestion de Preguntas";
+	char *ops[] = { (char*) "Crear preguntas", (char*) "Borrar preguntas",
+			(char*) "Modificar Preguntas", (char*) "Ver preguntas creadas",
+			(char*) "Volcar fichero de texto a BD",
+			(char*) "Mostrar preguntas almacenadas de BD", (char*) "Volver" };
+	char *msg = (char*) "\nIntroduce tu seleccion (1-7):\n";
 
 	printf("%s", titulo);
 	printOpciones(ops, 7);
@@ -179,11 +182,11 @@ void menuGestion() {
  */
 void menuCrearPregunta() {
 
-	char *pasos[] = { "Introduce codigo de categoria:",
-			"Introduce la pregunta:", "Introduce respuesta 1:",
-			"Introduce respuesta 2:", "Introduce respuesta 3:",
-			"Introduce respuesta 4:",
-			"Introduce codigo de respuesta correcta (1-4):" };
+	char *pasos[] = { (char*) "Introduce codigo de categoria:",
+			(char*) "Introduce la pregunta:", (char*) "Introduce respuesta 1:",
+			(char*) "Introduce respuesta 2:", (char*) "Introduce respuesta 3:",
+			(char*) "Introduce respuesta 4:",
+			(char*) "Introduce codigo de respuesta correcta (1-4):" };
 
 	char *lista[N_LISTA_PREG];
 
@@ -203,7 +206,7 @@ void menuCrearPregunta() {
 
 		printPregunta(&p);
 		//Se le preguntara al usuario si quiere crear la pregunta
-		char *mensajeAdv = "¿Esta seguro de crear esta pregunta? (Y/n)";
+		char *mensajeAdv = (char*) "¿Esta seguro de crear esta pregunta? (Y/n)";
 		printf("\n%s\n", mensajeAdv);
 		fflush(stdout);
 		char respuesta = getCharInput();
@@ -252,7 +255,7 @@ void menuBorrarPregunta() {
 			//Si se selecciona no, se continuara con ese codigo
 			if (respuesta != 'n') {
 				p = pPar;
-				free(codigo);
+				delete[] codigo;
 				codigo = generarCodigo(*pPar);
 			}
 		}
@@ -261,7 +264,7 @@ void menuBorrarPregunta() {
 		printPregunta(p);
 
 		//Se le preguntara al usuario si quiere borrar la pregunta
-		char *mensajeAdv = "¿Esta seguro de borrar esta pregunta? (Y/n)";
+		char *mensajeAdv = (char*) "¿Esta seguro de borrar esta pregunta? (Y/n)";
 		printf("\n%s\n", mensajeAdv);
 		fflush(stdout);
 		//El usuario dara una respuesta, si o no, estando si por defecto
@@ -283,7 +286,7 @@ void menuBorrarPregunta() {
 		fflush(stdout);
 	}
 	//Libera el codigo
-	free(codigo);
+	delete[] codigo;
 }
 /**
  * Incia el menu de modificacion de preguntas
@@ -312,7 +315,7 @@ void menuModPregunta() {
 			//Si se selecciona no, se continuara con ese codigo
 			if (respuesta != 'n') {
 				p = pPar;
-				free(codigo);
+				delete[] codigo;
 				codigo = generarCodigo(*pPar);
 			}
 		}
@@ -328,12 +331,12 @@ void menuModPregunta() {
 		printf("\n");
 		fflush(stdout);
 
-		free(codigo);
+		delete[] codigo;
 
-		char *ops[] = { "Cambiar categoria", "Cambiar pregunta",
-				"Cambiar respuesta 1", "Cambiar respuesta 2",
-				"Cambiar respuesta 3", "Cambiar respuesta 4",
-				"Cambiar codigo respuesta correcta (1-4)" };
+		char *ops[] = { (char*) "Cambiar categoria", (char*) "Cambiar pregunta",
+				(char*) "Cambiar respuesta 1", (char*) "Cambiar respuesta 2",
+				(char*) "Cambiar respuesta 3", (char*) "Cambiar respuesta 4",
+				(char*) "Cambiar codigo respuesta correcta (1-4)" };
 
 		printf("¿Quiere modificar esta pregunta? (Y/n)\n");
 		fflush(stdout);
@@ -353,9 +356,10 @@ void menuModPregunta() {
 			//Pedir al usuario la info para modificar (seguir el doc)
 			//Segun la eleccion del usuario cambia el procedimiento
 			switch (s) {
-			default: //Si el usuario introduce algo no valido
+			default: { //Si el usuario introduce algo no valido
 				return;
-			case 1: //cambiara la categoria
+			}
+			case 1: { //cambiara la categoria
 				printf("Intoduce la nueva categoria:\n");
 				fflush(stdout);
 				char *str1 = getStringInput(NUM_C_STR);
@@ -366,7 +370,8 @@ void menuModPregunta() {
 							"La categoria introducida no es valida, no se hara el cambio.");
 				}
 				break;
-			case 2: //cambiara la pregunta
+			}
+			case 2: { //cambiara la pregunta
 				printf("Intoduce la nueva pregunta:\n");
 				fflush(stdout);
 				char *str2 = getStringInput(NUM_C_STR);
@@ -377,7 +382,8 @@ void menuModPregunta() {
 							"La pregunta introducida no es valida, no se hara el cambio.");
 				}
 				break;
-			case 3: //cambiara la respuesta 1
+			}
+			case 3: { //cambiara la respuesta 1
 				printf("Intoduce la nueva respuesta 1:\n");
 				fflush(stdout);
 				char *str3 = getStringInput(NUM_C_STR);
@@ -388,7 +394,8 @@ void menuModPregunta() {
 							"La opcion introducida no es valida, no se hara el cambio.");
 				}
 				break;
-			case 4: //cambiara la respuesta 2
+			}
+			case 4: { //cambiara la respuesta 2
 				printf("Intoduce la nueva respuesta 2:\n");
 				fflush(stdout);
 				char *str4 = getStringInput(NUM_C_STR);
@@ -399,7 +406,8 @@ void menuModPregunta() {
 							"La opcion introducida no es valida, no se hara el cambio.");
 				}
 				break;
-			case 5: //cambiara la respuesta 3
+			}
+			case 5: { //cambiara la respuesta 3
 				printf("Intoduce la nueva respuesta 3:\n");
 				fflush(stdout);
 				char *str5 = getStringInput(NUM_C_STR);
@@ -410,7 +418,8 @@ void menuModPregunta() {
 							"La opcion introducida no es valida, no se hara el cambio.");
 				}
 				break;
-			case 6: //cambiara la respuesta 4
+			}
+			case 6: { //cambiara la respuesta 4
 				printf("Intoduce la nueva respuesta 4:\n");
 				fflush(stdout);
 				char *str6 = getStringInput(NUM_C_STR);
@@ -421,7 +430,8 @@ void menuModPregunta() {
 							"La opcion introducida no es valida, no se hara el cambio.");
 				}
 				break;
-			case 7: //cambiara la respuesta correcta
+			}
+			case 7: { //cambiara la respuesta correcta
 				printf("Intoduce la nueva respuesta correcta (1-4):\n");
 				fflush(stdout);
 				int input = getIntInput() - 1;
@@ -432,6 +442,7 @@ void menuModPregunta() {
 							"El codigo de opcion introducido no es valido, no se hara el cambio.");
 				}
 				break;
+			}
 			}
 
 			//No hace falta borrar ni insertar ni nada pues se cambia automaticamente
@@ -535,8 +546,8 @@ void menuJugar() { //Provisional
 	printf("Menu de Juego");
 	fflush(stdout);
 
-	char *ops[] = { "Usuario nuevo", "Iniciar sesion", "Ver Rankings para MH",
-			"Volver" };
+	char *ops[] = { (char*)"Usuario nuevo", (char*)"Iniciar sesion", (char*)"Ver Rankings para MH",
+			(char*)"Volver" };
 	printOpciones(ops, 4);
 	printf("\nIntroduce tu seleccion(1-4):\n");
 	fflush(stdout);
@@ -620,7 +631,30 @@ void menuNuevoUsuario() {
 }
 
 void menuIniciarSesion() {
-	printf("Jaja te jodes\n");
+
+	printf("Introduzca su nombre de usuario:\n");
+	fflush(stdout);
+	char *nombre = getStringInput(NUM_C_STR);
+
+	if (checkUsuarioExiste(nombre) == 0) {
+		printf("El usuario no existe\n");
+		pausarConsola();
+		return;
+	}
+
+	printf("Introduzca su la contrasena:\n");
+	fflush(stdout);
+	char *contrasena = getStringInput(NUM_C_STR);
+
+	if (checkContrasena(nombre, contrasena) == 0) {
+		printf("La contrasena es incorrecta\n");
+		pausarConsola();
+		return;
+	}
+
+	jugar(nombre);
+
+	printf("Has iniciado sesion, ahora mismo no hay juego pero lo habra :P\n");
 	fflush(stdout);
 	pausarConsola();
 }
@@ -678,7 +712,7 @@ void verRanking() {
 
 	printf("RANKING:\n\n");
 
-	printTextoTabla("Posicion", "Usuario", "Puntuacion", anchoPos, anchoNombre,
+	printTextoTabla((char*)"Posicion", (char*)"Usuario", (char*)"Puntuacion", anchoPos, anchoNombre,
 			anchoPuntuacion);
 
 	printLineaHTabla(anchoPos, anchoNombre, anchoPuntuacion);
@@ -691,8 +725,8 @@ void verRanking() {
 		sprintf(posicion, "%i", i + 1);
 		sprintf(puntuacion, "%i", puntuaciones[i]);
 
-		printTextoTabla(posicion, nombres[i], puntuacion, anchoPos,
-				anchoNombre, anchoPuntuacion);
+		printTextoTabla(posicion, nombres[i], puntuacion, anchoPos, anchoNombre,
+				anchoPuntuacion);
 
 	}
 	fflush(stdout);

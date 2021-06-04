@@ -10,47 +10,24 @@
 #include <iostream>
 using namespace std;
 
-Usuario::Usuario(char *nombre, char *contrasena, int record) :
+Usuario::Usuario(char *nombre) :
 		Jugador(nombre, VIDA_BASE) {
-	this->contrasena = strdup(contrasena);
-	this->record = record;
 }
-Usuario::Usuario(char *nombre, char *contrasena, int record, int puntuacion) :
+Usuario::Usuario(char *nombre, int puntuacion) :
 		Jugador(nombre, VIDA_BASE) {
-	this->contrasena = strdup(contrasena);
-	this->record = record;
 	this->puntuacion = puntuacion;
-}
-
-char* Usuario::getContrasena() const {
-	return contrasena;
 }
 
 Usuario::Usuario(const Usuario &other) :
 		Jugador(other) {
-	this->contrasena = strdup(other.contrasena);
-	this->record = other.record;
 	this->puntuacion = puntuacion;
 }
 
 Usuario::~Usuario() {
-	delete[] contrasena;
 }
 
 void Usuario::danyar() {
 	vida -= DANYO;
-}
-
-int Usuario::getRecord() const {
-	return record;
-}
-
-void Usuario::setRecord(int newRecord) {
-	this->record = record;
-}
-
-bool Usuario::isNewRecord() {
-	return puntuacion > record;
 }
 
 int Usuario::getPuntuacion() const {
@@ -59,12 +36,6 @@ int Usuario::getPuntuacion() const {
 
 void Usuario::setPuntuacion(int puntuacion = 0) {
 	this->puntuacion = puntuacion;
-}
-
-bool Usuario::checkContrasena(char *contrasena) {
-
-	return strcmp(this->contrasena,contrasena) == 0;
-
 }
 
 const int Usuario::getVidaBase() {
@@ -76,7 +47,7 @@ void Usuario::revitalizar() {
 }
 
 void Usuario::print() {
-	cout << nombre << "(pwd:" << contrasena << ")[Rec." << record << "][Punt."
-			<< puntuacion << "]" << endl << vidaToString() << endl;
+	cout << nombre << "[Punt:" << puntuacion << "]" << vidaToString()
+			<< endl;
 }
 
