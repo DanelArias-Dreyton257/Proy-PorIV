@@ -284,6 +284,13 @@ int cerrarBaseDatos() {
 	return res;
 }
 
+
+/**
+ * Busca en la base de datos el numero de preguntas para una categoria
+ * @param codCat, codigo de la categoria
+ * @para *numPreguntas, puntero al entero del numero de preguntas
+ * @return SQLITE_OK si el proceso ha ido correctamente
+ */
 int selectNumPreguntasCat(int codCat, int *numPreguntas) {
 	int res = abrirBaseDatos();
 	if (res != SQLITE_OK) {
@@ -332,6 +339,13 @@ int selectNumPreguntasCat(int codCat, int *numPreguntas) {
 	return res;
 }
 
+/**
+ * Devuelve las preguntas con toda su informacion de una categoria
+ * @param cat, char* que apunta a la categoria
+ * @param pArray, Pregunta** puntero a una lista de preguntas
+ * @param numPreguntas, int* puntero que indica el numero de preguntas
+ * @return SQLITE_OK si el proceso se termina correctamente
+ */
 int getPreguntasCategoria(char *cat, Pregunta **pArray, int *numPreguntas) {
 	*pArray = NULL;
 	*numPreguntas = 0;
@@ -539,6 +553,12 @@ int almacenarUsuarioNuevo(char *nombre, char *contrasena) {
 	return res;
 }
 
+
+/**
+ * Busca en la base de datos la cantidad de categorias
+ * @param *numCat, indica el numero de categorias
+ * @return SQLITE_OK si el proceso ha ido correctamente
+ */
 int selectNumCat(int *numCat) {
 	int res = abrirBaseDatos();
 	if (res != SQLITE_OK) {
@@ -576,6 +596,13 @@ int selectNumCat(int *numCat) {
 	return res;
 }
 
+
+/**
+ * Devuelve las nombre de las categorias
+ * @param array, char*** puntero a una lista de todos los nombres de las categorias
+ * @param numCat, int* puntero que indica el numero de categorias
+ * @return SQLITE_OK si el proceso se termina correctamente
+ */
 int getNomCategorias(char ***array, int *numCat) {
 
 //	char **cats = malloc(sizeof(char*) * 10);
@@ -653,6 +680,12 @@ int getNomCategorias(char ***array, int *numCat) {
 
 }
 
+
+/**
+ * Busca en la base de datos la cantidad de usuarios que hay
+ * @param *numUS, indica el numero de usuarios
+ * @return SQLITE_OK si el proceso ha ido correctamente
+ */
 int selectNumUsuarios(int *numUs) {
 	int res = abrirBaseDatos();
 	if (res != SQLITE_OK) {
