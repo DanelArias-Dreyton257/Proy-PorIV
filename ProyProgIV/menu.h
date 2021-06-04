@@ -27,8 +27,6 @@ void menuNuevoUsuario();
 void menuIniciarSesion();
 void verRanking();
 
-void preguntarProvisional();
-
 void verPreguntas();
 void verPreguntasBD();
 void volcarFicheroABD();

@@ -701,24 +701,3 @@ void verRanking() {
 
 }
 
-///**
-// * Pregunta una pregunta aleatoria y le hace saber al usuario la respuesta
-// */
-//void preguntarProvisional() {
-//	Pregunta *p = getPreguntaAleatoria();
-//	printPreguntaJuego(p);
-//	printf("\nIntroduzca su respuesta (1-4):\n");
-//	fflush(stdout);
-//	int r = getIntInput();
-//	if (esRespuestaCorrecta(p, r - 1) > 0) {
-//		printf("¡¡Acertaste la pregunta!! ¡Enhorabuena!\n");
-//	} else {
-//		printf("Fallaste la pregunta...\nLa respuesta correcta era la %c\n",
-//				p->res + 'A');
-//	}
-//	fflush(stdout);
-//	pausarConsola();
-//	limpiarConsola();
-//	menuJugar();
-//}
-

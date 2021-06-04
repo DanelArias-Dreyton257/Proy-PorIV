@@ -28,7 +28,6 @@ void liberarPreguntas();
 int buscarPosPreguntaMin(char *codigo, Categoria *c);
 int buscarPosCategoria(char *cat);
 Pregunta* buscarPreguntaParecida(char *codigo);
-Pregunta* getPreguntaAleatoria();
 void printNombresCategorias();
 Categoria* getCategorias(int *numeroCategorias);
 void eliminarFichero();
