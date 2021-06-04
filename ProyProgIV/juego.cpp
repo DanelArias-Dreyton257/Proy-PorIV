@@ -24,24 +24,18 @@ void printEstadoJugadores(Jugador &j1, Jugador &j2) {
 void initAsignaturas() {
 
 	char **array = NULL;
-	int numCat = 0;
-	getNomCategorias(&array, &numCat);
+	getNomCategorias(&array, &numAsig);
 
-	//asigs = new Asignatura*[numCat];
+	asigs = new Asignatura*[numAsig];
 
-	for (int i = 0; i < numCat; i++) {
-		Asignatura *a = new Asignatura(array[i]);
-		a->print();
+	for (int i = 0; i < numAsig; i++) {
+		asigs[i] = new Asignatura(array[i]);
 	}
 }
 
 void jugar(char *nombre) {
 	u = new Usuario(nombre);
 	initAsignaturas();
-	u->print();
-
-//	for (int i = 0; i < numAsig; i++) {
-//		asigs[i]->print();
-//	}
+	//TODO
 }
 

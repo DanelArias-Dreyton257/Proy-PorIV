@@ -653,10 +653,6 @@ void menuIniciarSesion() {
 	}
 
 	jugar(nombre);
-
-	printf("Has iniciado sesion, ahora mismo no hay juego pero lo habra :P\n");
-	fflush(stdout);
-	pausarConsola();
 }
 
 void printLineaHTabla(int anchoPos, int anchoNombre, int anchoPuntuacion) {
