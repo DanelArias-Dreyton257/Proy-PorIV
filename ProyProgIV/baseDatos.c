@@ -483,7 +483,7 @@ int checkUsuarioExiste(char *nombreUsuario) {
 	}
 
 	//EJECUTAR
-	int count;
+	int count = 0;
 	res = sqlite3_step(stmt);
 	if (res == SQLITE_ROW) {
 		count = sqlite3_column_int(stmt, 0);
@@ -859,7 +859,7 @@ int checkContrasena(char *nombre, char *contraMetida) {
 		return res;
 	}
 	//EJECUTAR
-	int count;
+	int count=0;
 	res = sqlite3_step(stmt);
 	if (res == SQLITE_ROW) {
 		count = sqlite3_column_int(stmt, 0);
@@ -904,7 +904,7 @@ int getRecordActual(char *nombre) {
 		return res;
 	}
 
-	int record;
+	int record = 0;
 	res = sqlite3_step(stmt);
 	if (res == SQLITE_ROW) {
 		record = sqlite3_column_int(stmt, 0);
