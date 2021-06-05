@@ -32,6 +32,7 @@ public:
 
 	int getPuntuacion() const;
 	void setPuntuacion(int puntuacion);
+	void incPuntuacion();
 
 };
 

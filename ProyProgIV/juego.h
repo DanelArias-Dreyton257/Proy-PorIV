@@ -1,7 +1,7 @@
 /*
  * juego.h
  *
- *  Created on: 23 may. 2021
+ *  Created on: 5 jun. 2021
  *      Author: danel
  */
 
@@ -12,5 +12,7 @@
 
 void printEstadoJugadores(Jugador &j1, Jugador &j2);
 void jugar(char *nombre);
+void deleteAsignaturas();
+void selectRandAsignatura();
 
 #endif /* JUEGO_H_ */

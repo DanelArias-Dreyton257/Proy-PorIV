@@ -55,11 +55,11 @@ bool Jugador::isMuerto() {
 }
 char* Jugador::vidaToString() {
 	int numCharBarra = 50;
-	char *str = new char[13 + numCharBarra + 1+ 1];
+	char *str = new char[4 + numCharBarra + 1 + 9 + 1];
 	if (isMuerto()) {
 		sprintf(str,"DERROTADO");
 	} else {
-		sprintf(str, "(%i/%i)HP:[", vida, vidaMax);
+		sprintf(str, "HP:[");
 		float porc = ((float)vida)/((float)vidaMax);
 		int numCharVida = ceil(porc * numCharBarra);
 		int initLen = strlen(str);
@@ -75,6 +75,7 @@ char* Jugador::vidaToString() {
 		}
 		str[initLen + numCharBarra] = ']';
 		str[initLen + numCharBarra + 1] = '\0';
+		sprintf(str,"%s(%i,%i)",str,vida,vidaMax);
 	}
 	return str;
 }

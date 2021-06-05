@@ -46,8 +46,12 @@ void Usuario::revitalizar() {
 	vida += INC_RECU;
 }
 
+void Usuario::incPuntuacion(){
+	this->puntuacion++;
+}
+
 void Usuario::print() {
-	cout << nombre << "[Punt:" << puntuacion << "]" << vidaToString()
+	cout << nombre << " [Punt:" << puntuacion << "] "<<endl<<"\t" << vidaToString()
 			<< endl;
 }
 

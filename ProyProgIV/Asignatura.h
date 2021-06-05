@@ -32,6 +32,10 @@ public:
 	void print();
 	void printPreguntas();
 
+	void restaurar();
+
+	Pregunta* getPreguntaRandom();
+
 };
 
 #endif /* ASIGNATURA_H_ */
