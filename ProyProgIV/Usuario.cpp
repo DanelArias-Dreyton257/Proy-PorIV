@@ -44,6 +44,9 @@ const int Usuario::getVidaBase() {
 
 void Usuario::revitalizar() {
 	vida += INC_RECU;
+	if(vida>vidaMax){
+		vida = vidaMax;
+	}
 }
 
 void Usuario::incPuntuacion(){
