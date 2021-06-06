@@ -62,7 +62,6 @@ int Jugador::getVida() const {
 	return vida;
 }
 
-
 /**
  * Establece la vida del jugador
  */
@@ -95,31 +94,30 @@ bool Jugador::isMuerto() {
 
 /**
  * Devuelve la informacion visual como barras de vida, nombre del usuario, cantidad de vida, y si esta derrotado o no
- * @return barras de vida, nombre del usuario, cantidad de vida, y si esta derrotado o no
+ * @return char* que representa las barras de vida, nombre del usuario, cantidad de vida, y si esta derrotado o no
  */
 char* Jugador::vidaToString() {
 	int numCharBarra = 50;
 	char *str = new char[4 + numCharBarra + 1 + 9 + 1];
 	if (isMuerto()) {
-		sprintf(str,"DERROTADO");
+		sprintf(str, "DERROTADO");
 	} else {
 		sprintf(str, "HP:[");
-		float porc = ((float)vida)/((float)vidaMax);
+		float porc = ((float) vida) / ((float) vidaMax);
 		int numCharVida = ceil(porc * numCharBarra);
 		int initLen = strlen(str);
-		for(int i=0; i<numCharBarra; i++){
+		for (int i = 0; i < numCharBarra; i++) {
 			char c;
-			if (i<numCharVida){
+			if (i < numCharVida) {
 				c = '/';
-			}
-			else{
+			} else {
 				c = '_';
 			}
 			str[initLen + i] = c;
 		}
 		str[initLen + numCharBarra] = ']';
 		str[initLen + numCharBarra + 1] = '\0';
-		sprintf(str,"%s(%i,%i)",str,vida,vidaMax);
+		sprintf(str, "%s(%i,%i)", str, vida, vidaMax);
 	}
 	return str;
 }

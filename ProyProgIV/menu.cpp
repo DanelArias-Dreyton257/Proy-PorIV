@@ -546,8 +546,8 @@ void menuJugar() { //Provisional
 	printf("Menu de Juego");
 	fflush(stdout);
 
-	char *ops[] = { (char*)"Usuario nuevo", (char*)"Iniciar sesion", (char*)"Ver Rankings para MH",
-			(char*)"Volver" };
+	char *ops[] = { (char*) "Usuario nuevo", (char*) "Iniciar sesion",
+			(char*) "Ver Rankings para MH", (char*) "Volver" };
 	printOpciones(ops, 4);
 	printf("\nIntroduce tu seleccion(1-4):\n");
 	fflush(stdout);
@@ -581,6 +581,9 @@ void menuJugar() { //Provisional
 		break;
 	}
 }
+/**
+ * Imprime el menu y conttrola la interaccion para la creacion de un nuevo usuario
+ */
 void menuNuevoUsuario() {
 
 	int existe = 1;
@@ -630,6 +633,10 @@ void menuNuevoUsuario() {
 
 }
 
+/**
+ * Menu que controla la interaccion del inicio de sesion.
+ * Si las credenciales no son correctas sale de la funcion y si son correctas comienza el juego
+ */
 void menuIniciarSesion() {
 
 	printf("Introduzca su nombre de usuario:\n");
@@ -654,7 +661,12 @@ void menuIniciarSesion() {
 
 	jugar(nombre);
 }
-
+/**
+ * Imprime por consola la linea separatoria de la tabla entre la cabecera y los datos
+ * @param anchoPos, ancho en caracteres de las primera columna
+ * @param anchoNombre, ancho en caracteres de la segunda columna
+ * @param anchoPuntuacion, ancho en caracteres de la tercera columna
+ */
 void printLineaHTabla(int anchoPos, int anchoNombre, int anchoPuntuacion) {
 	for (int i = 0; i < anchoPos; i++) {
 		putchar('-');
@@ -674,6 +686,16 @@ void printLineaHTabla(int anchoPos, int anchoNombre, int anchoPuntuacion) {
 
 	putchar('\n');
 }
+
+/**
+ * Imprime el texto de la tabla segun los datos de la linea pasados como parametro
+ * @param col1, char* con el texto de la primera columna
+ * @param col2, char* con el texto de la segunda columna
+ * @param col3, char* con el texto de la tercera columna
+ * @param anchoPos, ancho en caracteres de las primera columna
+ * @param anchoNombre, ancho en caracteres de la segunda columna
+ * @param anchoPuntuacion, ancho en caracteres de la tercera columna
+ */
 void printTextoTabla(char *col1, char *col2, char *col3, int anchoPos,
 		int anchoNombre, int anchoPuntuacion) {
 
@@ -694,7 +716,9 @@ void printTextoTabla(char *col1, char *col2, char *col3, int anchoPos,
 
 	printf("%s\n", col3);
 }
-
+/**
+ * Saca la tabla del ranking por consola
+ */
 void verRanking() {
 
 	char **nombres = NULL;
@@ -706,10 +730,10 @@ void verRanking() {
 	int anchoNombre = 30;
 	int anchoPuntuacion = strlen("Puntuacion");
 
-	printf("RANKING:\n\n");
+	printf("Ranking para la Matricula de Honor:\n\n");
 
-	printTextoTabla((char*)"Posicion", (char*)"Usuario", (char*)"Puntuacion", anchoPos, anchoNombre,
-			anchoPuntuacion);
+	printTextoTabla((char*) "Posicion", (char*) "Usuario", (char*) "Puntuacion",
+			anchoPos, anchoNombre, anchoPuntuacion);
 
 	printLineaHTabla(anchoPos, anchoNombre, anchoPuntuacion);
 

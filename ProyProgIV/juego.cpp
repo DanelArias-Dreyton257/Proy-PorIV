@@ -20,13 +20,24 @@ Usuario *u = NULL;
 int numAsig = 0;
 int posAsigActual = 0;
 
+/**
+ * Saca por consola la cabecera del juego mostrando el estado actual de la 2 jugadores
+ */
 void printEstadoJugadores(Jugador &j1, Jugador &j2) {
-	cout << "------------------------------------------------------------------------------" << endl;
+	cout
+			<< "------------------------------------------------------------------------------"
+			<< endl;
+
 	j1.print();
 	j2.print();
-	cout << "------------------------------------------------------------------------------" << endl<<endl;
-}
 
+	cout
+			<< "------------------------------------------------------------------------------"
+			<< endl << endl;
+}
+/**
+ * Inicaliza el array de asignaturas creandolas una a una segun los codigos
+ */
 void initAsignaturas() {
 
 	char **array = NULL;
@@ -38,24 +49,29 @@ void initAsignaturas() {
 		asigs[i] = new Asignatura(array[i]);
 	}
 }
-
+/**
+ * Elige aleatoriamente una posible posicion de la array de asignaturas y la guarda esta posicion en posAsigActual
+ */
 void selectRandAsignatura() {
 	posAsigActual = rand() % numAsig;
 }
-
+/**
+ * Libera la memoria de la array de asignaturas
+ */
 void deleteAsignaturas() {
 	for (int i = 0; i < numAsig; i++) {
 		delete asigs[i];
 	}
 	delete[] asigs;
 }
-
+/**
+ * Comienza el juego y lo mantiene ejevutando hasta que el usuario pierda
+ * @param nombre del usuario
+ */
 void jugar(char *nombre) {
 	u = new Usuario(nombre);
 	initAsignaturas();
 	selectRandAsignatura();
-
-	//1
 
 	bool jugando = true;
 	while (jugando) {
@@ -63,14 +79,13 @@ void jugar(char *nombre) {
 		//2
 		limpiarConsola();
 		printEstadoJugadores(*u, *asigs[posAsigActual]); //REVISAR
-		//3
+		//Elegir pregunta
 		Pregunta *p = asigs[posAsigActual]->getPreguntaRandom();
-		//4
 		printPreguntaJuego(p);
-		//5
+		//Respuesta del usuario
 		cout << "Introduce tu respuesta (a-d minusculas):" << endl;
 		char res = getCharInput();
-		//6
+		//6->comprobar respuesta
 		if (esRespuestaCorrecta(p, res - 'a') > 0) {
 			//6a
 			asigs[posAsigActual]->danyar();
@@ -81,12 +96,14 @@ void jugar(char *nombre) {
 			//6b
 			u->danyar();
 			cout << "HAS FALLADO LA PREGUNTA!" << endl
-					<< "La respuesta correcta era la " << (char)(p->res + 'A') << endl
-					<< "Sufres por tu suspenso, pierdes salud mental" << endl;
+					<< "La respuesta correcta era la " << (char) (p->res + 'A')
+					<< endl << "Sufres por tu suspenso, pierdes salud mental"
+					<< endl;
 			pausarConsola();
 		}
-		//7
+		//Comprobar si el usuario esta muerto
 		if (u->isMuerto()) {
+			//Termina el juego
 			limpiarConsola();
 			cout << "HAS SIDO DERROTADO" << endl
 					<< "Tu fortaleza mental no es suficiente... dejas los estudios"
@@ -96,9 +113,9 @@ void jugar(char *nombre) {
 			pausarConsola();
 			break;
 		}
-		//8
+		//Comprobar si la asignatura ha muerto
 		if (asigs[posAsigActual]->isMuerto()) {
-			//8a
+			//Completa la asignatura y se pasa a la siguiente
 			limpiarConsola();
 			u->incPuntuacion();
 			u->revitalizar();
