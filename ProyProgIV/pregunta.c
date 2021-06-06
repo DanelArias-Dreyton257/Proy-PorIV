@@ -269,6 +269,10 @@ void printCategoria(Categoria *c) {
 	}
 }
 
+/**
+ * Crea un duplicado de la pregunta
+ * @param *preg, puntero a la pregunta a duplicar
+ */
 Pregunta duplicarPregunta(Pregunta *preg) {
 	char res = preg->res + '0';
 	char *list[] = { strdup(preg->cat), strdup(preg->preg), strdup(

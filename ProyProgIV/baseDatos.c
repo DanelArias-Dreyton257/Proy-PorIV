@@ -878,6 +878,11 @@ int checkContrasena(char *nombre, char *contraMetida) {
 	return count; //1 si true, 0 si false
 }
 
+/**
+ * Devuelve la puntuacion del record del usuario almacenada en la base de datos
+ * @param nombre, char* con el nombre del usuario
+ * @return record si el proceso se termina correctamente
+ */
 int getRecordActual(char *nombre) {
 	int res = abrirBaseDatos();
 	if (res != SQLITE_OK) {
